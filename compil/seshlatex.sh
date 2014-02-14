@@ -266,19 +266,27 @@ endif
 # A little cleanin'
 if ( $fg_debug == ".false." || $fg_clean == ".true." ) then
   echo "========================= A little cleanin' ========================="
-  rm -v ${FileIn}_full.htx    \
-        $DirOut/pdfcolor.aux  \
-        $DirOut/${FileIn}.aux \
-        $DirOut/${FileIn}.dic \
-        $DirOut/${FileIn}.log \
-        $DirOut/${FileIn}.tex \
-        $DirOut/${FileIn}.blg \
-        $DirOut/${FileIn}.toc \
+  rm -v $DirOut/${FileIn}_full.htx \
+        $DirOut/${FileIn}_tmp.tex  \
+        $DirOut/${FileIn}.aux  \
+        $DirOut/${FileIn}.dic  \
+        $DirOut/${FileIn}.log  \
+        $DirOut/${FileIn}.tex  \
+        $DirOut/${FileIn}.blg  \
+        $DirOut/${FileIn}.toc  \
+        $DirOut/${FileIn}.mtc  \
+        $DirOut/${FileIn}.mtc0 \
+        $DirOut/${FileIn}.out  \
+        $DirOut/pdfcolor.aux   \
         $FilesDel
 #        ${FileIn}_full.aux  \
 #        ${FileIn}_full.log  \
 #        ${FileIn}_full.dic  \
 #        ${FileIn}_full.tex  \
+
+
+
+
 endif
 
 exit
