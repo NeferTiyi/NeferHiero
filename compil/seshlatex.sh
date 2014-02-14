@@ -25,7 +25,8 @@ switch ( ${HOSTNAME} )
     set DirHome = "/mnt/Hiero"
     breaksw
   case "*.ipsl.jussieu.fr":
-    set DirHome = "/home_local/slipsl/Perso/HieroSVN"
+    # set DirHome = "/home_local/slipsl/Perso/HieroSVN"
+    set DirHome = "/home_local/slipsl/Perso/GitRepo/NeferHiero"
     breaksw
   default:
     echo "Unknown host ${HOSTNAME}, we stop."
