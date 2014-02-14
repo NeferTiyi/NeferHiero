@@ -1,0 +1,151 @@
+\ProvidesPackage{neferhiero}[2010/08/13 S.Labetoulle LaTeX package for hieroglyphs typesetting with HieroTex]
+
+\usepackage{egypto}
+\usepackage{hiero}
+\usepackage{nefercolor}
+
+% Color stuff
+% ===========
+% .. Put something in red to emphasize it ..
+\newcommand{\red}[1]{\textcolor{EmphColor}{#1}}
+
+% .. Put something in green to emphasize it ..
+\newcommand{\green}[1]{\textcolor{Gramm}{#1}}
+
+% Font stuff
+% ==========
+\makeatletter
+% .. Typesetting "Manuel de Codage" ..
+  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+      {\newcommand{\MdC}[1]{{\NoAutoSpaceBeforeFDP{}\texttt{#1}}}}%
+      {\newcommand{\MdC}[1]{\texttt{#1}}}
+
+% .. Typesetting transliteration ..
+  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+      {\newcommand{\tl}[2][TlColor]{{\NoAutoSpaceBeforeFDP{}\fontencoding{T1}\fontfamily{ttl}\selectfont \textcolor{#1}{#2}}}}%
+      {\newcommand{\tl}[2][TlColor]{{\fontencoding{T1}\fontfamily{ttl}\selectfont \textcolor{#1}{#2}}}}
+\makeatother
+
+% .. Typesetting translation ..
+\newcommand{\td}[1]{{%
+  \fontencoding{T1}\fontfamily{antt}\selectfont\textcolor{TdColor}{#1}%
+}}
+
+% .. Typesetting grammar ..
+\newcommand{\tg}[1]{\green{$\rightarrow$~\itshape#1}}
+
+% Add a line number
+% ====================
+\newcommand{\lgn}[1]{%
+  %\textcolor{EmphColor}%
+  \textcolor{Bronze}%
+            %{\fontencoding{OT1}\fontfamily{antt}\selectfont%
+            {\fontfamily{antt}\fontseries{bx}\selectfont%
+             $^{\text{[#1]}}$}%
+}
+
+% Tranliteration stuff
+% ====================
+% .. Transliteration in red ..
+\newcommand{\tlr}[1]{\tl[EmphColor]{#1}}
+
+% .. Small transliteration in green ..
+\newcommand{\tlg}[1]{\tl[Gramm]{\smaller#1}}
+
+% .. Really small transliteration ..
+\newcommand{\tls}[1]{\tl{\footnotesize#1}}
+
+% .. Exclamation point for transliteration : regular color and red ..
+\newcommand{\ex}[1][TlColor]{{\textcolor{#1}{\itshape !\xspace}}}
+
+% .. Capital S ..
+\newcommand{\Smaj}{\textasciicircum\xspace}
+
+% .. "Glue" sign ..
+\newcommand{\col}{$\sim$}
+
+% .. Translit shortcuts ..
+\newcommand{\mr}{(j)m(y)-r(A)\xspace}
+\newcommand{\XHb}{Xr(y)-Hb(.t)\xspace}
+
+% .. Add \xspace to \zero from HieroTeX ..
+\renewcommand{\zero}{$\emptyset$\xspace}
+
+% ... Aïn ...
+\newcommand{\ain}{{\tl[black]{a}}}
+
+% Grammar stuff
+% =============
+% .. "Racine du verbe" ..
+\newcommand{\racin}{{\color{TlColor}{$\sqrt{*}$}}\xspace}
+
+% .. "Radical du verbe" pour verbes faibles ..
+\newcommand{\radic}{{\color{TlColor}{$\sqrt{rad}$}}\xspace}
+
+% .. No reduplication ..
+\newcommand{\nored}{{\color{TlColor}{$\sqrt{S.R.}$}}\xspace}
+
+% .. Verbes ..
+\newcommand{\vl} [1]{[\emph{#1-lit.}]\xspace}
+\newcommand{\vi} [1]{[\emph{#1-inf.}]\xspace}
+\newcommand{\vg} [1]{[\emph{#1-gem.}]\xspace}
+\newcommand{\va}    {[\emph{anom}]\xspace}
+\newcommand{\vcl}[1]{[\emph{caus.~#1-lit.}]\xspace}
+\newcommand{\vci}[1]{[\emph{caus.~#1-inf.}]\xspace}
+
+% GM stuff
+% ========
+% .. CEHGM exercices titles ..
+\newcommand{\titreVersion}{Translittérer et traduire}
+\newcommand{\titreTheme}{Traduire en égyptien, en joignant aux h\iero s leur translittération}
+
+
+
+
+
+\def\MySection#1{ 
+  \vspace*{0.5\baselineskip}%
+  \section{#1}%
+  \vspace*{-0.5\baselineskip}%
+  \noindent\rule[\baselineskip]{\textwidth}{1pt}%
+  \vspace*{-0.5\baselineskip}%
+ }
+
+\def\MySectionB#1{ 
+  {\color{DarkBlue}
+%  \section*{#1}%
+  \section*{\normalsize#1}%
+  \vspace*{-0.75\baselineskip}%
+  \noindent\rule[\baselineskip]{\textwidth}{1pt}%
+  \vspace*{-0.5\baselineskip}}%
+ }
+
+\def\MySubsectionB#1{ 
+  {\color{DarkBlue}
+%  \section*{#1}%
+  \section*{\small#1}%
+  \vspace*{-0.5\baselineskip}}%
+ }
+
+% .. Define an environment to enclose the hiero text and its translit./translation .. 
+%\newenvironment{hierobox}
+%  {\setlength{\parindent}{0pt}\setlength\parskip{0.4\baselineskip} \vspace{\baselineskip}}
+%  {\vspace{0pt}}
+\newmdenv[backgroundcolor=Tan!5, nobreak=true,
+          outermargin=0, innermargin=0, 
+          innerleftmargin=0, innerrightmargin=0, 
+          innertopmargin=0, innerbottommargin=0, 
+          skipabove={9pt plus 1pt minus .4pt}, skipbelow=0, 
+          hidealllines=true, 
+          settings={\setlength{\parindent}{0pt}}, 
+          frametitlefont=\bfseries]
+         {hierobox}
+\mdfsetup{frametitlealignment=\RaggedRight, align=center, nobreak=true}
+
+
+% .. Table header : dark green text over light green backgound
+%\definecolor{TblHdTx}{rgb}{.46,.57,.24}
+%\definecolor{TblHdBg}{rgb}{.92,.95,.87}
+\def\TblHd#1{{\bfseries\cellcolor{TblHdBg}\color{TblHdTx}{#1}}}
+
+\endinput

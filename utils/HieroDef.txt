@@ -1,0 +1,51 @@
+% Epithètes divines
+\begin{hieroglyph}
+  #def tpyDwf     tp*Dw:\!\!\!f#
+\end{hieroglyph}
+
+% Titres
+\begin{hieroglyph}
+  #def nswbjty    sw:\!t\s1 bit:\!t\s1#
+  #def imyrA      ns:\!\!\!pr\s1#
+  #def XryHbt     H-Xr:.-\!\!b#
+  #def smrwaty    s-Ab-wa:t*1#
+  #def jmAx       i-mA-imAx:\!\!\!x\s1#
+  #def jmAxt      i-mA-imAx:\!\!\!t\s1#
+  #def chambellan sw-t:tp-Xr#
+  #def irypat     r:p:\!\!a#
+  #def HAtya      HAt:\!\!a#
+  #def jmyrAst    ns:\!\!\!\!(st\s1-.:t\s1:pr\s1)#
+\end{hieroglyph}
+
+% Noms propres
+\begin{hieroglyph}
+  #def jww        i-w-w-A50#
+  #def shendoua   S:n-dwA-i#
+  #def xntyka     W18\s2:n-t:kA#
+  #def ixxi       i-x:x-i#
+  #def mrytti     <-t:t-i->-mr-i-i#
+  #def wAHkA      wAH:\!\!kA#
+\end{hieroglyph}
+
+% Divers
+\begin{hieroglyph}
+  #def mAdw       mA:d-w-niwt#
+  #def mnTw       mn:n:T-w-C17#
+  #def prxrw      pr:\!\!\!xrw\s1#
+  #def nsty       (n:ns:\!\!\!t)-g:g#
+  #def Ddmdw      D:\!\!\!\!\!md\s1*.#
+  #def Dt         D:\!\!\!\!t\s1:\!N17#
+  #def di'        D37#
+  #def wnn        wn:n:n#
+  #def nn         D35:n#
+  #def n'         D35#
+  #def ink        nw:k#
+  #def imAa       M1:\!\!a#
+  #def XrytnTr    nTr*\!\!.:\!\!\!Xr\s2#
+  #def aHan       aHa-a:n#
+  #def wy         w-\!\!y:.#
+  #def jnmj       n-\!m-\!\!a\s1:.#
+  #def Dd'        D:\!\!\!d\s2#
+  #def nDs        n:D-z:G37#
+  #def M'         Aa16#
+\end{hieroglyph}

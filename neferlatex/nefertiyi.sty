@@ -1,0 +1,273 @@
+\ProvidesPackage{nefertiyi}[2010/08/15 S.Labetoulle LaTeX package]
+
+% Encoding
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%
+% Code
+\usepackage{ifthen}
+\usepackage{multido}
+%
+\usepackage{geometry}
+\usepackage{relsize}
+\usepackage{setspace}
+\usepackage{nccparskip}
+%
+\usepackage{calc}
+%
+% Fonts and symbols
+\usepackage{pifont}
+\usepackage{fourier}
+\usepackage{amsmath, mathtools}
+%\usepackage{gfsartemisia-euler}
+\usepackage{fouriernc}
+\usepackage{xspace}
+%
+\usepackage{wrapfig}
+\usepackage[bottom]{footmisc}
+\usepackage[normalem]{ulem}
+%
+% Arrays
+\usepackage{array}
+%\usepackage{tabularx}
+\usepackage{ltxtable}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{colortbl}
+%
+% Boxes
+\usepackage[framemethod=tikz]{mdframed}
+%
+\usepackage{nefercolor}
+\usepackage{neferalias}
+%
+\usepackage{fancybox}
+%
+\usepackage[english,french]{babel}
+\usepackage[hidelinks,unicode]{hyperref}
+\usepackage{siunitx}
+%
+
+% Babel options
+% =============
+\frenchbsetup{ItemLabelii=\pucea}
+\addto\captionsfrench{\def\contentsname{Sommaire}}
+%\mathchardef\times="2202
+
+% siunitx options
+% ===============
+\sisetup{
+  locale           = FR, 
+  exponent-product = \cdot, 
+  range-phrase     = --, 
+  detect-all
+}
+
+\DeclareSIUnit{\coudee}{c}
+\DeclareSIUnit{\paume}{p}
+\DeclareSIUnit{\doigt}{d}
+\DeclareSIUnit{\an}{an}
+\DeclareSIUnit{\jour}{j}
+% .. Dimensions 2D et 3D ..
+\newcommand{\dimTD}[4]{%
+  \SI{#1}{#4}$\times$\SI{#2}{#4}$\times$\SI{#3}{#4}%
+}
+\newcommand{\dimDD}[3]{%
+  \SI{#1}{#3}$\times$\SI{#2}{#3}%
+}
+
+
+
+\newcommand{\mybrace}[2]{%
+  $\underbrace{\text{#1}}_{\mathclap{\text{#2}}}$%
+}
+\newcommand{\mybracenospace}[2]{%
+  $\mathclap{\underbrace{\phantom{\text{#1\strut}}}_{\text{#2}}}\text{#1}$%
+}
+
+
+% Font stuff
+% ==========
+% .. Typesetting remark ..
+\newcommand{\rem}[1]{{\textcolor{black}{\itshape\smaller#1}}}
+\newcommand{\remg}[1]{{\green{\itshape\smaller#1}}}
+
+%\newcommand{\donc}{\noindent\hspace*{2em}$\Rightarrow$}
+\newcommand{\donc}{$\Longrightarrow$}
+
+\newcommand{\noi}{\noindent}
+
+\newcommand{\oeuvre}[1]{{\noi\bfseries#1\hspace{1em}}}
+
+\newcommand{\saispas}{\uwave{\dots}\xspace}
+
+% .. Arabic transliteration ..
+\newcommand{\ta}[1]{%
+%  {\fontfamily{cmr}\fontshape{it}\fontseries{bx}\selectfont{#1}}%
+  {{\itshape\bfseries#1}}%
+}
+
+
+% Figure
+% ======
+\newcommand{\figs}[2][]{\figurerefname s~\ref{#2}#1}
+\newcommand{\fig}[2][]{\figurerefname~\ref{#2}#1}
+\newcommand{\tbl}[2][]{\tablerefname~\ref{#2}#1}
+
+\makeatletter
+  % .. Define subtitle ..
+  \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+
+  % .. Define short title for header ..
+  \newcommand{\short}[1]{\def\@short{#1}}
+
+  % .. Define teacher name ..
+  \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+
+  % .. Define organisation name ..
+  \newcommand{\orga}[1]{\def\@orga{#1}}
+
+  % .. Define nospace font ..
+  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+    {\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}}%
+    {\newcommand{\nospace}[1]{#1}}
+
+% % .. Define URL font ..
+%   \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+%     {\@ifpackageloaded{hyperref}%
+%        {}%
+%        {\newcommand{\url}[1]{{\NoAutoSpaceBeforeFDP{}\textsf{#1}}}}}%
+%     {\@ifpackageloaded{hyperref}%
+%        {}%
+%        {\newcommand{\url}[1]{\textsf{#1}}}}
+\makeatother
+
+% Dimensions stuff
+% ================
+% .. Command to test text dimensions ..
+\newcommand{\fillpage}{\rule{\textwidth}{\textheight}}
+
+% .. Change dimensions a bit ..
+%\addtolength{\hoffset}{-2cm}
+%\addtolength{\textwidth}{4cm}
+%\addtolength{\voffset}{-2cm}
+%\addtolength{\textheight}{4cm}
+%%\setlength{\parindent}{0pt}
+
+% .. Distance from text to line (ulem) ..
+\setlength{\ULdepth}{1.5pt}
+
+% .. Shortcut to skip a line ..
+\newcommand{\espace}{\vspace*{\baselineskip}}
+
+% .. Paragraphs ..
+%\SetParskip{6pt plus 1pt minus .4pt}
+
+% Environment
+% ===========
+% .. Exemple ..
+\newenvironment{exple}
+{%
+  \begin{list}{Ex}
+    {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
+     \settowidth\labelwidth{\makelabel{Ex}}%
+     \setlength\leftmargin{\labelwidth + \labelsep}%
+    }
+  \item\ignorespaces%
+}
+{\unskip\end{list}}
+
+% .. Remarks ..
+\newenvironment{remarque}
+{%
+  \begin{list}{Rem}
+    {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
+     \settowidth\labelwidth{\makelabel{Rem}}%
+     \setlength\leftmargin{\labelwidth + \labelsep}%
+    }
+  \item\ignorespaces%
+}
+{\unskip\end{list}}
+
+% .. Shadowbox ..
+%\newcommand{\encadre}[1]{%
+%  {%
+%    \begin{center}
+%    \setlength\fboxsep{3mm}
+%    \shadowbox{\parbox{.90\textwidth}{#1}}
+%    \end{center}%
+%  }%
+%}
+\newmdenv[shadow=true, shadowcolor=RoyalBlue!20, 
+          backgroundcolor=RoyalBlue!20, 
+          outermargin=12pt, innermargin=12pt,
+          innertopmargin=1.0\baselineskip, 
+          innerbottommargin=1.0\baselineskip, 
+          splittopskip=5pt, splitbottomskip=5pt, 
+          frametitlefont=\bfseries]
+         {encadre}
+\newmdenv[backgroundcolor=BrickRed!20,
+          shadow=true, shadowcolor=BrickRed!20, 
+          outermargin=12pt, innermargin=12pt,
+          innertopmargin=1.0\baselineskip, 
+          innerbottommargin=1.0\baselineskip, 
+          splittopskip=5pt, splitbottomskip=5pt, 
+          frametitlefont=\bfseries\larger, 
+          frametitle=\Att~Attention !]
+         {warning}
+\newmdenv[backgroundcolor=PineGreen!20,
+          shadow=true, shadowcolor=PineGreen!20, 
+          outermargin=12pt, innermargin=12pt,
+          innertopmargin=1.0\baselineskip, 
+          innerbottommargin=1.0\baselineskip, 
+          splittopskip=5pt, splitbottomskip=5pt, 
+          frametitlefont=\bfseries, 
+          frametitle=\uline{Gramm} :]
+         {grammaire}
+\mdfsetup{frametitlealignment=\RaggedRight, align=center}
+
+
+% Image stuff
+% ===========
+% .. Licence ..
+\newcommand{\licence}[1]
+           %{\\[-0.4\baselineskip]\raggedleft\rem{\smaller 
+           {\vspace{-0.4\baselineskip}\raggedleft\rem{\smaller 
+            \textcopyright\,#1}\vspace{-0.3\baselineskip}}
+
+% Tabular stuff
+% =============
+\renewcommand{\multirowsetup}{\centering}
+\newcolumntype{C}[1]{>{\vspace{0pt}\centering}p{#1}<{\vspace{0pt}}}
+\newcolumntype{M}[1]{>{\vspace{2pt}\centering}m{#1}<{\vspace{2pt}}}
+\newcolumntype{L}[1]{>{\vspace{2pt}\raggedleft}m{#1}<{\vspace{2pt}}}
+\newcolumntype{R}[1]{>{\vspace{2pt}\raggedright}m{#1}<{\vspace{2pt}}}
+\newcolumntype{N}[1]{>{\vspace{3pt}}m{#1}<{\vspace{3pt}}}
+
+
+
+% Things that might be useful someday
+% ===================================
+%\renewcommand\rmdefault{cmr}                           % Change default font
+%\newcounter{version}[subsection] \newsavebox{\points}
+%\newcounter{question}[section] \newsavebox{\points}
+%\setlength\fboxsep{0pt}
+%\setlength\shadowsize{2pt}
+%\markright{\@title\ - par \@author}
+%\markright{\@title}
+%\renewcommand\tabularxcolumn[1]{M{#1}}
+%\renewcommand\rmdefault{ptm}
+%\setlength\extrarowheight{4pt}
+%\arrayrulecolor{black}
+%\setlength\arrayrulewidth{1pt}
+
+%\floatstyle{plain}
+%\newfloat{photo}{!h}{lop}
+%\floatname{photo}{Photo}
+
+%\rhead{\thepage}
+%\rfoot{Paul François}
+%\cfoot{}
+%\renewcommand{\footrulewidth}{1pt}
+
+\endinput

@@ -1,0 +1,149 @@
+\ProvidesPackage{neferbeamer}[2010/08/15 S.Labetoulle LaTeX package]
+
+%%%\usepackage[pdftex]{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+%
+%\usepackage{textcomp}
+\usepackage{pifont}
+\usepackage{fourier}
+\usepackage{amsmath}
+%%%\usepackage{mathptmx}
+%
+\usepackage{gfsartemisia-euler}
+\usepackage[bottom]{footmisc}
+\usepackage[normalem]{ulem}
+%
+\usepackage{relsize}
+\usepackage{setspace}
+%
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{colortbl}
+%
+\usepackage{fancybox}
+%\usepackage{fancyhdr}
+%\usepackage[usenames]{color}
+%
+\usepackage{nefercolor}
+\usepackage{neferalias}
+%
+%\usepackage{xspace}
+%
+\usepackage[english,french]{babel}
+\usepackage[np]{numprint}
+%\usepackage[hidelinks]{hyperref}
+%%%\include{pdfcolor}
+
+% Babel options
+% =============
+\addto\captionsfrench{\def\contentsname{Sommaire}}
+
+% Font stuff
+% ==========
+% .. Typesetting remark ..
+\newcommand{\rem}[1]{{\textcolor{black}{\itshape\smaller#1}}}
+\newcommand{\remg}[1]{{\green{\itshape\smaller#1}}}
+
+\newcommand{\donc}{\noindent\hspace*{2em}$\Rightarrow$\xspace}
+
+\newcommand{\noi}{\noindent}
+
+\newcommand{\oeuvre}[1]{{\noi\bfseries#1\hspace{1em}}}
+
+% Figure
+% ======
+\newcommand{\fig}[2][]{[fig.\ref{#2}#1]}
+
+\makeatletter
+% .. Define short title for header ..
+  \newcommand{\short}[1]{\def\@short{#1}}
+
+% .. Define nospace font ..
+  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+    {\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}}%
+    {\newcommand{\nospace}[1]{#1}}
+
+% .. Define URL font ..
+  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+    {\@ifpackageloaded{hyperref}%
+       {}%
+       {\newcommand{\url}[1]{{\NoAutoSpaceBeforeFDP{}\textsf{#1}}}}}%
+    {\@ifpackageloaded{hyperref}%
+       {}%
+       {\newcommand{\url}[1]{\textsf{#1}}}}
+\makeatother
+
+% Dimensions stuff
+% ================
+% .. Distance from text to line (ulem) ..
+\setlength{\ULdepth}{1.5pt}
+
+% .. Shortcut to skip a line ..
+\newcommand{\espace}{\vspace*{\baselineskip}}
+
+% Environment
+% ===========
+% .. Exemple ..
+\newenvironment{exple}%
+  {\begin{list}{\textbf{\uline{Ex} :}}%
+      {\setlength\itemindent{0.0ex}\setlength\leftmargin{5.0ex}}%
+   \item\ignorespaces}%
+  {\unskip\end{list}}
+
+% .. Remarks ..
+\newenvironment{remarque}%
+  {\begin{list}{\textbf{\uline{Rem} :}}%
+      {\setlength\itemindent{-2.4ex}\setlength\leftmargin{7.8ex}}%
+   \item\ignorespaces}%
+  {\unskip\end{list}}
+
+% .. Shadowbox ..
+\newcommand{\encadre}[1]{%
+{\begin{center}
+\setlength\fboxsep{3mm}
+\shadowbox{\parbox{.75\textwidth}{#1}}
+\end{center}}%
+}
+
+% Image stuff
+% ===========
+% .. Licence ..
+\newcommand{\licence}[1]{\\[-0.4\baselineskip]\raggedleft\rem{\smaller \textcopyright\,#1}\vspace{-0.6\baselineskip}}
+
+% Tabular stuff
+% =============
+\renewcommand{\multirowsetup}{\centering}
+\newcolumntype{C}[1]{>{\vspace{0pt}\centering}p{#1}<{\vspace{0pt}}}
+\newcolumntype{M}[1]{>{\vspace{2pt}\centering}m{#1}<{\vspace{2pt}}}
+\newcolumntype{L}[1]{>{\vspace{2pt}\raggedleft}m{#1}<{\vspace{2pt}}}
+\newcolumntype{R}[1]{>{\vspace{2pt}\raggedright}m{#1}<{\vspace{2pt}}}
+
+
+% Things that might be useful someday
+% ===================================
+%\renewcommand\rmdefault{cmr}                           % Change default font
+%\newcounter{version}[subsection] \newsavebox{\points}
+%\newcounter{question}[section] \newsavebox{\points}
+%\setlength\fboxsep{0pt}
+%\setlength\shadowsize{2pt}
+%\markright{\@title\ - par \@author}
+%\markright{\@title}
+%\renewcommand\tabularxcolumn[1]{M{#1}}
+%\renewcommand\rmdefault{ptm}
+%\setlength\extrarowheight{4pt}
+%\arrayrulecolor{black}
+%\setlength\arrayrulewidth{1pt}
+
+%\floatstyle{plain}
+%\newfloat{photo}{!h}{lop}
+%\floatname{photo}{Photo}
+
+%\rhead{\thepage}
+%\rfoot{Paul François}
+%\cfoot{}
+%\renewcommand{\footrulewidth}{1pt}
+
+\endinput
