@@ -94,9 +94,7 @@ endif
 
 cd $PathIn
 
-
 # Construct bibliography
-
 if ( $fg_bib == ".true." && \
      -f $DirOut/$FileIn.aux ) then
   echo "=================================== Bibliographie ==================================="
