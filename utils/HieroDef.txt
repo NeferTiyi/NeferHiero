@@ -1,4 +1,4 @@
-% Epithètes divines
+% EpithÃ¨tes divines
 \begin{hieroglyph}
   #def tpyDwf     tp*Dw:\!\!\!f#
 \end{hieroglyph}

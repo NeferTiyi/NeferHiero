@@ -7,13 +7,13 @@
 % Code
 \usepackage{ifthen}
 \usepackage{multido}
+\usepackage{calc}
 %
 \usepackage{geometry}
 \usepackage{relsize}
 \usepackage{setspace}
 \usepackage{nccparskip}
-%
-\usepackage{calc}
+\usepackage{ragged2e}
 %
 % Fonts and symbols
 \usepackage{pifont}
@@ -47,6 +47,11 @@
 \usepackage[hidelinks,unicode]{hyperref}
 \usepackage{siunitx}
 %
+% Biblio
+\usepackage{csquotes}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+\DeclareLanguageMapping{french}{french-apa}
+%
 
 % Babel options
 % =============
@@ -57,11 +62,43 @@
 % siunitx options
 % ===============
 \sisetup{
-  locale           = FR, 
-  exponent-product = \cdot, 
-  range-phrase     = --, 
-  detect-all
+  locale            = FR, 
+  exponent-product  = \cdot, 
+  range-phrase      = \ à\ , 
+  detect-all,
+  color             = purple,
+  list-units        = single,
+  range-units       = single,
+  multi-part-units  = single,
+  input-comparators = {<=>\approx\ge\geq\gg\le\leq\ll\sim\pm},
+  retain-unity-mantissa = false
 }
+
+% \newcommand{\annee}[2][BC]{%
+%   \SI{#2}{#1}%
+% }
+% \newcommand{\anneerange}[3][BC]{%
+%   \SIrange[range-phrase=-]{#2}{#3}{#1}%
+% }
+
+\newcommand{\ano}[2][-1]{%
+  \ifthenelse{#1 = 0}%
+    {\num{#2}}%
+    {\ifthenelse{#1 > 0}%
+       {\SI{#2}{AD}}%
+       {\SI{#2}{BC}}%
+    }%
+}
+\newcommand{\anorange}[3][-1]{{%
+  \sisetup{range-phrase=-}%
+  \ifthenelse{#1 = 0}%
+    {\numrange{#2}{#3}}%
+    {\ifthenelse {#1 > 0}%
+       {\SIrange{#2}{#3}{AD}}%
+       {\SIrange{#2}{#3}{BC}}%
+    }%
+}}
+
 
 \DeclareSIUnit{\coudee}{c}
 \DeclareSIUnit{\paume}{p}
@@ -70,10 +107,12 @@
 \DeclareSIUnit{\jour}{j}
 % .. Dimensions 2D et 3D ..
 \newcommand{\dimTD}[4]{%
-  \SI{#1}{#4}$\times$\SI{#2}{#4}$\times$\SI{#3}{#4}%
+%  \SI{#1}{#4}$\times$\SI{#2}{#4}$\times$\SI{#3}{#4}%
+  \SI{#1x#2x#3}{#4}%
 }
 \newcommand{\dimDD}[3]{%
-  \SI{#1}{#3}$\times$\SI{#2}{#3}%
+%  \SI{#1}{#3}$\times$\SI{#2}{#3}%
+  \SI{#1x#2}{#3}%
 }
 
 

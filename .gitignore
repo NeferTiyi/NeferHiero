@@ -49,6 +49,7 @@
 *_full.htx
 *_tmp.tex
 *.bak
+*~
 
 *.odt
 *.doc

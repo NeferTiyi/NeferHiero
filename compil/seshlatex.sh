@@ -16,13 +16,14 @@ set fg_windows = ".false."
 #set ViewBin = "okular"
 #set ViewBin = "evince"
 set ViewBin = "xpdf"
-set BibBin  = "bibtex"
+# set BibBin  = "bibtex"
+set BibBin  = "biber"
 
 # Define directories
 # ==================
 switch ( ${HOSTNAME} )
   case "elkab":
-    set DirHome = "/mnt/Hiero"
+    set DirHome = "/mnt/NeferHiero"
     breaksw
   case "*.ipsl.jussieu.fr":
     # set DirHome = "/home_local/slipsl/Perso/HieroSVN"
@@ -93,9 +94,12 @@ endif
 
 cd $PathIn
 
+
 # Construct bibliography
+
 if ( $fg_bib == ".true." && \
      -f $DirOut/$FileIn.aux ) then
+  echo "=================================== Bibliographie ==================================="
   cd $DirOut
   $BibBin $FileIn
   cd -
@@ -172,15 +176,22 @@ else
 
   # Are there .htx inputs ?
   echo "================================= Inputs / Include ================================="
+  set InputList   = ""
   set IncludeList = ""
   set fg_inputs = ".false."
+  echo "* Inputs"
+  grep  "\\input{" ${FileIn}_full.htx
   if ( `grep -c "\\input" ${FileIn}_full.htx` > 0 ) then
     set fg_inputs = ".true."
     set InputList = `grep "\\input" ${FileIn}_full.htx | sed -e "s/\\input{//" -e "s/}//"`
   else
     echo "No input"
   endif
-  echo $fg_inputs
+  # echo $fg_inputs
+  echo "====="
+  echo $InputList
+
+  echo "* Includes"
   grep  "\\include{" ${FileIn}_full.htx
   if ( `grep -c "\\include{" ${FileIn}_full.htx` > 0 ) then
     set fg_inputs = ".true."
@@ -188,7 +199,8 @@ else
   else
     echo "No include"
   endif
-  echo $fg_inputs
+  # echo $fg_inputs
+  echo "====="
   echo $IncludeList
 
   if ( $fg_inputs == ".true." ) then
@@ -268,22 +280,26 @@ if ( $fg_debug == ".false." || $fg_clean == ".true." ) then
   echo "========================= A little cleanin' ========================="
   rm -v $DirOut/${FileIn}_full.htx \
         $DirOut/${FileIn}_tmp.tex  \
+        $DirOut/${FileIn}.run.xml  \
         $DirOut/${FileIn}.aux  \
         $DirOut/${FileIn}.dic  \
+        $DirOut/${FileIn}.toc  \
+        $DirOut/${FileIn}.lof  \
+        $DirOut/${FileIn}.lot  \
         $DirOut/${FileIn}.log  \
         $DirOut/${FileIn}.tex  \
         $DirOut/${FileIn}.blg  \
-        $DirOut/${FileIn}.toc  \
+        $DirOut/${FileIn}.bbl  \
+        $DirOut/${FileIn}.bcf  \
         $DirOut/${FileIn}.mtc  \
         $DirOut/${FileIn}.mtc0 \
-        $DirOut/${FileIn}.out  \
+        $DirOut/${FileIn}.maf  \
         $DirOut/pdfcolor.aux   \
         $FilesDel
 #        ${FileIn}_full.aux  \
 #        ${FileIn}_full.log  \
 #        ${FileIn}_full.dic  \
 #        ${FileIn}_full.tex  \
-
 
 
 
