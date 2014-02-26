@@ -63,3 +63,7 @@
 *.odt
 *.doc
 *.docx
+
+# accept licences images
+# ======================
+!cc*.png

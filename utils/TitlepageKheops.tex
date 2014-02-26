@@ -1,0 +1,38 @@
+% Redefine title page
+% ===================
+
+\newlength{\drop}% for my convenience
+
+\makeatletter
+
+  \def\maketitle{%
+    \drop = 0.1\textheight
+    \vfill%
+    \hbox{%
+      \hspace*{0.2\textwidth}%
+      \rule{1pt}{\textheight}
+      \hspace*{0.05\textwidth}%
+      \parbox[b]{0.75\textwidth}{
+        \vbox{%
+          \vspace{\drop}
+          {\noindent\HUGE\bfseries \@title}\\[2\baselineskip]
+          {\Large\itshape \@subtitle}\\[4\baselineskip]
+          {\Large Cours de \textsf{\@orga} par\\[0.5\baselineskip] 
+                  \@lecturer}\par
+          \vspace{0.5\textheight}
+          {\noindent \@author}\\[\baselineskip]
+          {\small\itshape\today, \printtime}
+        }% end of vbox
+      }% end of parbox
+    }% end of hbox
+    \vfill%
+
+    \pagebreak
+
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \input{../../../utils/licence}
+    \pagebreak
+  }
+
+\makeatother

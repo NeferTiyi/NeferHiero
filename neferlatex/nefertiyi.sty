@@ -131,6 +131,7 @@
 % .. Typesetting remark ..
 \newcommand{\rem}[1]{{\textcolor{black}{\itshape\smaller#1}}}
 \newcommand{\remg}[1]{{\green{\itshape\smaller#1}}}
+\newcommand{\infos}[1]{{\smaller#1}}
 
 %\newcommand{\donc}{\noindent\hspace*{2em}$\Rightarrow$}
 \newcommand{\donc}{$\Longrightarrow$}
@@ -140,6 +141,32 @@
 \newcommand{\oeuvre}[1]{{\noi\bfseries#1\hspace{1em}}}
 
 \newcommand{\saispas}{\uwave{\dots}\xspace}
+
+\newcommand{\datation}[1]{{\normalfont\emph{#1}}}
+
+\newcommand{\musee}[1]{\emph{\textcolor{MidnightBlue}{#1}}}
+\newcommand{\inv}[1]{\emph{\textcolor{RawSienna}{#1}}}
+
+\newcommand{\titre}[1]{{\sffamily#1}}
+\newcommand{\source}[1]{\emph{#1}}
+
+\newcommand{\nouveaute}[1]{\textcolor{DarkBlue}{\flech~#1}}
+\newcommand{\XIIA}{{\normalfont\bfseries\textcolor{ForestGreen}{A\xspace}}}
+\newcommand{\XIIB}{{\normalfont\bfseries\textcolor{Fuchsia}{B\xspace}}}
+\newcommand{\XIIC}{{\normalfont\bfseries\textcolor{RedOrange}{B'\xspace}}}
+
+
+\newcommand{\listeroislabel}[1]{\bfseries\sffamily{#1}\enspace}
+\newenvironment{listerois}
+  {\begin{list}{}{%
+     \setlength\itemsep{0.8\baselineskip}
+     \let\makelabel\listeroislabel%
+     \setlength\labelwidth{2em}%
+     \setlength\leftmargin{\labelwidth+\labelsep}%
+   }
+  }
+  {\end{list}}
+
 
 % .. Arabic transliteration ..
 \newcommand{\ta}[1]{%
