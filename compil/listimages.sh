@@ -8,9 +8,6 @@ endif
 set fg_verbose = ".false."
 set fg_out     = ".false."
 
-set ViewBin = "xpdf"
-set BibBin  = "biber"
-
 # Define directories
 # ==================
 switch ( ${HOSTNAME} )
@@ -24,6 +21,7 @@ switch ( ${HOSTNAME} )
     echo "Unknown host ${HOSTNAME}, we stop."
     exit 1
 endsw
+set ImgHome = "${DirHome}/images"
 set DirOut  = "$PWD"
 
 @ NArg = 1
@@ -56,215 +54,58 @@ endif
 
 cd $PathIn
 
+# Image dir
+set ImgDir = `pwd | sed -e "s+documents+images+"`
 
-# Construct bibliography
-
-if ( $fg_bib == ".true." && \
-     -f $DirOut/$FileIn.aux ) then
-  echo "=================================== Bibliographie ==================================="
-  cd $DirOut
-  $BibBin $FileIn
-  cd -
-endif
-
-# If the source has not been modified, don't compile again
-set fg_compil = ".true."
-if ( $fg_upd == ".false." ) then
-  test $FileIn.htx -nt $DirOut/$FileIn.$OutType
-  set rc_code = $?
-  if ( $rc_code != 0 ) then
-    set fg_compil = ".false."
-  endif
-  if ( $fg_clean == ".true." ) then
-    set fg_compil = ".false."
+rm ${FileIn}.full
+if ( `head -n 1 $FileIn` != "%###include" ) then
+  if ( `grep -c "%##preambule.tex" $FileIn` > 0 ) then
+    cat preambule.tex >> ${FileIn}.full
   endif
 endif
+cat $FileIn >> ${FileIn}.full
 
 
-if ( `head -n 1 $FileIn.htx` == "%###include" ) then
-  echo "Not a standalone file, we stop here."
-  exit
+# Find used image files
+set InputList   = ""
+set IncludeList = ""
+
+if ( `grep -c "\\input" ${FileIn}_full.htx` > 0 ) then
+  set fg_inputs = ".true."
+  set InputList = `grep "\\input" ${FileIn}_full.htx | \
+                        sed -e "s/\\input{//" -e "s/}//"`
 endif
 
-if ( $fg_compil == ".false." ) then
-  echo "Nothing to do!"
-else
-  echo "=============================== preambule / HieroDef ================================"
+if ( `grep -c "\\include{" ${FileIn}_full.htx` > 0 ) then
+  set fg_inputs = ".true."
+  set IncludeList = `grep "\\include{" ${FileIn}_full.htx | \
+                          sed -e "s/\\include{//" -e "s/}//"`
+endif
 
-  # Construct full file from preambule.tex, HieroDef.txt and $FileIn.htx
-  rm -f ${FileIn}_full.htx
+set ImgList = "Img.tmp"
+rm $ImgList
 
-  if ( `grep -c "%##preambule.tex" $FileIn.htx` > 0 ) then
-    echo " => preambule.tex"
-    cat preambule.tex >> ${FileIn}_full.htx
-
-    if ( `grep -c '%##short' $FileIn.htx` > 0 ) then
-      cat ${FileIn}_full.htx | \
-          sed -e "s+##short##+`grep '%##short'   $FileIn.htx | sed -e 's+%##short *++'`+"   \
-              > ${FileIn}_full.htx.tmp
-      set RC = $?
-      if ( $RC != 0 ) then
-        exit
-      endif
-    else
-      cat ${FileIn}_full.htx | \
-          sed -e "s+##short##+`grep '%##title'   $FileIn.htx | sed -e 's+%##title *++'`+"   \
-              > ${FileIn}_full.htx.tmp
-      set RC = $?
-      if ( $RC != 0 ) then
-        exit
-      endif
-    endif
-    mv ${FileIn}_full.htx.tmp ${FileIn}_full.htx
-
-    cat ${FileIn}_full.htx | \
-        sed -e "s+##title##+`grep '%##title'   $FileIn.htx | sed -e 's+%##title *++'`+"  \
-            -e "s+##short##+`grep '%##short'   $FileIn.htx | sed -e 's+%##short *++'`+"   \
-            -e "s+##date##+`grep '%##date'     $FileIn.htx | sed -e 's+%##date *++'`+"   \
-            -e "s+##author##+`grep '%##author' $FileIn.htx | sed -e 's+%##author *++'`+" \
-            > ${FileIn}_full.htx.tmp
-    set RC = $?
-    if ( $RC != 0 ) then
-      exit
-    endif
-    mv ${FileIn}_full.htx.tmp ${FileIn}_full.htx
-  endif
-
-  if ( `grep -c "%##HieroDef.txt" $FileIn.htx` > 0 ) then
-    echo " => HieroDef.txt"
-    cat $HieroDef  >> ${FileIn}_full.htx
-  endif
-  cat $FileIn.htx >> ${FileIn}_full.htx
-
-  # Are there .htx inputs ?
-  echo "================================= Inputs / Include ================================="
-  set InputList   = ""
-  set IncludeList = ""
-  set fg_inputs = ".false."
-  echo "* Inputs"
-  grep  "\\input{" ${FileIn}_full.htx
-  if ( `grep -c "\\input" ${FileIn}_full.htx` > 0 ) then
-    set fg_inputs = ".true."
-    set InputList = `grep "\\input" ${FileIn}_full.htx | sed -e "s/\\input{//" -e "s/}//"`
+foreach InputFile ( ${FileIn}.full $InputList $IncludeList )
+  if ( -s $InputFile ) then
+    set File = "${InputFile}"
+  else if ( -s $InputFile.htx ) then
+    set File = "${InputFile}.htx"
   else
-    echo "No input"
+    set File = "${InputFile}.tex"
   endif
-  # echo $fg_inputs
-  echo "====="
-  echo $InputList
+  grep "\\includegraphics" $File | \
+       sed -e "s+.*\\includegraphics.*{\(.*\)}.*+\1+" | \
+       sed -e "s+\(.*\)}.*+\1+" \
+       >> $ImgList
+end
 
-  echo "* Includes"
-  grep  "\\include{" ${FileIn}_full.htx
-  if ( `grep -c "\\include{" ${FileIn}_full.htx` > 0 ) then
-    set fg_inputs = ".true."
-    set IncludeList = `grep "\\include{" ${FileIn}_full.htx | sed -e "s/\\include{//" -e "s/}//"`
-  else
-    echo "No include"
-  endif
-  # echo $fg_inputs
-  echo "====="
-  echo $IncludeList
+# Get images extensions and path
+set ImgUsed = "ImgUsed.tmp"
+rm $ImgUsed
+foreach ImgName ( `cat $ImgList` )
+  find $ImgHome -name "$ImgName.*" >> $ImgUsed
+end
 
-  if ( $fg_inputs == ".true." ) then
-    foreach InputFile ( $InputList $IncludeList )
-      if ( -s $InputFile.htx ) then
-        test $InputFile.htx -nt $InputFile.tex
-        set RC = $?
-        if ( $RC == 0 ) then
-          echo "========================= $InputFile.htx => $InputFile.tex ========================="
-          rm ${InputFile}_full.htx
-          if ( `grep -c "%##HieroDef.txt" ${InputFile}.htx` > 0 ) then
-            echo " => HieroDef.txt"
-            cat ${HieroDef}  > ${InputFile}_full.htx
-          endif
-          cat ${InputFile}.htx >> ${InputFile}_full.htx
-
-          sesh < ${InputFile}_full.htx > ${InputFile}.tex
-          if ( $? != 0 ) then
-            echo "Something wrong happened"
-            exit
-          endif
-          sed -e "s+\\rm +\\rmfamily +" \
-              -e "s+\\sl +\\slshape +"  \
-              ${InputFile}.tex > ${InputFile}_tmp.tex
-          mv ${InputFile}_tmp.tex ${InputFile}.tex
-        endif
-        set FilesDel = "${FilesDel} ${InputFile}.tex ${InputFile}_full.htx"
-      endif
-    end
-  endif
-
-  echo "========================= $FileIn.htx => $FileIn.tex ========================="
-  sesh < ${FileIn}_full.htx > ${FileIn}.tex
-  if ( $? != 0 ) then
-    echo "Something wrong happened"
-    exit
-  endif
-
-  # Change \rm (hierotek +l ?!) en \rmfamily
-  sed -e "s+\\rm +\\rmfamily +" \
-      -e "s+\\sl +\\slshape +"  \
-      ${FileIn}.tex > ${FileIn}_tmp.tex
-
-  # Add Encoding
-  #echo "%!TEX encoding = UTF-8 Unicode" > ${FileIn}.tex
-  cat ${FileIn}_tmp.tex > ${FileIn}.tex
-
-  echo "========================= $FileIn.tex => $FileIn.pdf ========================="
-  $TexComp ./$FileIn.tex
-  if ( $? != 0 ) then
-    echo "Something wrong happened"
-    exit
-  endif
-
-endif
-
-
-# Open pdf document in viewer
-if ( $fg_view == ".true." ) then
-  echo "========================= View $FileIn.$OutType ========================="
-  $ViewBin $DirOut/$FileIn.$OutType &
-endif
-
-# Copy $FileIn.pdf to windows directory
-if ( $fg_windows == ".true." ) then
-  echo "========================= Copy $FileIn.$OutType to Windows directory ========================="
-  if ( ! -d "$DirWin/`basename $DirOut`" ) then
-    mkdir "$DirWin/`basename $DirOut`"
-  endif
-
-  cp -v $FileIn.htx              $DirWin/`basename $DirOut`
-  cp -v $DirOut/$FileIn.$OutType $DirWin/`basename $DirOut`
-endif
-
-# A little cleanin'
-if ( $fg_debug == ".false." || $fg_clean == ".true." ) then
-  echo "========================= A little cleanin' ========================="
-  rm -v $DirOut/${FileIn}_full.htx \
-        $DirOut/${FileIn}_tmp.tex  \
-        $DirOut/${FileIn}.run.xml  \
-        $DirOut/${FileIn}.aux  \
-        $DirOut/${FileIn}.dic  \
-        $DirOut/${FileIn}.toc  \
-        $DirOut/${FileIn}.lof  \
-        $DirOut/${FileIn}.lot  \
-        $DirOut/${FileIn}.log  \
-        $DirOut/${FileIn}.tex  \
-        $DirOut/${FileIn}.blg  \
-        $DirOut/${FileIn}.bbl  \
-        $DirOut/${FileIn}.bcf  \
-        $DirOut/${FileIn}.mtc  \
-        $DirOut/${FileIn}.mtc0 \
-        $DirOut/${FileIn}.maf  \
-        $DirOut/pdfcolor.aux   \
-        $FilesDel
-#        ${FileIn}_full.aux  \
-#        ${FileIn}_full.log  \
-#        ${FileIn}_full.dic  \
-#        ${FileIn}_full.tex  \
-
-
-
-endif
+# awk
 
 exit

@@ -71,7 +71,7 @@
   list-units        = single,
   range-units       = single,
   multi-part-units  = single,
-  input-comparators = {<=>\approx\ge\geq\gg\le\leq\ll\sim\pm},
+  input-comparators = {<=>\approx\ge\geq\gg\le\leq\ll\sim\pm\no},
   retain-unity-mantissa = false
 }
 
@@ -238,33 +238,54 @@
 %    \end{center}%
 %  }%
 %}
-\newmdenv[shadow=true, shadowcolor=RoyalBlue!20, 
-          backgroundcolor=RoyalBlue!20, 
-          outermargin=12pt, innermargin=12pt,
-          innertopmargin=1.0\baselineskip, 
-          innerbottommargin=1.0\baselineskip, 
-          splittopskip=5pt, splitbottomskip=5pt, 
-          frametitlefont=\bfseries]
-         {encadre}
-\newmdenv[backgroundcolor=BrickRed!20,
-          shadow=true, shadowcolor=BrickRed!20, 
-          outermargin=12pt, innermargin=12pt,
-          innertopmargin=1.0\baselineskip, 
-          innerbottommargin=1.0\baselineskip, 
-          splittopskip=5pt, splitbottomskip=5pt, 
-          frametitlefont=\bfseries\larger, 
-          frametitle=\Att~Attention !]
-         {warning}
-\newmdenv[backgroundcolor=PineGreen!20,
-          shadow=true, shadowcolor=PineGreen!20, 
-          outermargin=12pt, innermargin=12pt,
-          innertopmargin=1.0\baselineskip, 
-          innerbottommargin=1.0\baselineskip, 
-          splittopskip=5pt, splitbottomskip=5pt, 
-          frametitlefont=\bfseries, 
-          frametitle=\uline{Gramm} :]
-         {grammaire}
-\mdfsetup{frametitlealignment=\RaggedRight, align=center}
+\newmdenv
+  [shadow            = true, 
+   shadowcolor       = RoyalBlue!20, 
+   backgroundcolor   = RoyalBlue!18, 
+   outermargin       = 12pt, 
+   innermargin       = 12pt,
+   innertopmargin    = 1.0\baselineskip, 
+   innerbottommargin = 1.0\baselineskip, 
+   skipabove         = 1.0\baselineskip, 
+   skipbelow         = 1.0\baselineskip, 
+   splittopskip      = 5pt, 
+   splitbottomskip   = 5pt, 
+   frametitlefont    = \bfseries]
+  {encadre}
+\newmdenv
+  [backgroundcolor   = BrickRed!20,
+   shadow            = true, 
+   shadowcolor       = BrickRed!20, 
+   outermargin       = 12pt, 
+   innermargin       = 12pt,
+   innertopmargin    = 1.0\baselineskip, 
+   innerbottommargin = 1.0\baselineskip, 
+   skipabove         = 1.0\baselineskip, 
+   skipbelow         = 1.0\baselineskip, 
+   splittopskip      = 5pt, 
+   splitbottomskip   = 5pt, 
+   frametitlefont    = \bfseries\larger, 
+   frametitle        = \Att~Attention !]
+  {warning}
+\newmdenv
+  [backgroundcolor   = PineGreen!20,
+   shadow            = true, 
+   shadowcolor       = PineGreen!20, 
+   outermargin       = 12pt, 
+   innermargin       = 12pt,
+   innertopmargin    = 1.0\baselineskip, 
+   innerbottommargin = 1.0\baselineskip, 
+   skipabove         = 1.0\baselineskip, 
+   skipbelow         = 1.0\baselineskip, 
+   splittopskip      = 5pt, 
+   splitbottomskip   = 5pt, 
+   frametitlefont    = \bfseries, 
+   frametitle        = \uline{Gramm} :]
+  {grammaire}
+\mdfsetup{%
+  frametitlealignment = \RaggedRight, 
+  align               = center
+}
 
 
 % Image stuff
