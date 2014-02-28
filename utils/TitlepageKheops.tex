@@ -13,14 +13,19 @@
       \rule{1pt}{\textheight}
       \hspace*{0.05\textwidth}%
       \parbox[b]{0.75\textwidth}{
-        \vbox{%
+        \vbox to 0.9\textheight{%
           \vspace{\drop}
-          {\noindent\HUGE\bfseries \@title}\\[2\baselineskip]
-          {\Large\itshape \@subtitle}\\[4\baselineskip]
-          {\Large\@orga\\[0.5\baselineskip]\@lecturer}\par
-          \vspace{0.5\textheight}
-          {\noindent \@author}\\[\baselineskip]
-          {\small\itshape\today, \printtime}
+          {\noindent\HUGE\bfseries \@title\par}
+          \vspace{2\baselineskip}
+          {\Large\itshape \@subtitle\par}
+          \vspace{4\baselineskip}
+          {\Large\@orga\\[0.5\baselineskip]\@lecturer\par}
+
+          \vspace*{\fill}
+
+          {\noindent \@author\par}
+          \bigskip
+          {\small\itshape\today, \printtime\par}
         }% end of vbox
       }% end of parbox
     }% end of hbox
@@ -36,3 +41,4 @@
   }
 
 \makeatother
+
