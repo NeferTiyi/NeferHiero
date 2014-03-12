@@ -10,14 +10,10 @@ set fg_clean   = ".false."
 set fg_debug   = ".false."
 set fg_upd     = ".false."
 set fg_bib     = ".false."
+set fg_idx     = ".false."
 set fg_out     = ".false."
 set fg_windows = ".false."
-
-#set ViewBin = "okular"
-#set ViewBin = "evince"
-set ViewBin = "xpdf"
-# set BibBin  = "bibtex"
-set BibBin  = "biber"
+set fg_img     = ".false."
 
 # Define directories
 # ==================
@@ -35,10 +31,19 @@ switch ( ${HOSTNAME} )
 endsw
 set DirWin  = "$DirHome"
 set DirOut  = "$PWD"
+set DirCpl  = "${DirHome}/compil"
 
 set HieroDef = "$DirHome/utils/HieroDef.txt"
 
 set FilesDel = ""
+
+#set ViewBin = "okular"
+#set ViewBin = "evince"
+set ViewBin = "xpdf"
+# set BibBin  = "bibtex"
+set BibBin  = "biber"
+set IdxBin  = "texindy -L french"
+set GlsBin  = "makeindex -s ${DirCpl}/glossaire.gst"
 
 @ NArg = 1
 while ( $NArg <= $# )
@@ -56,11 +61,15 @@ while ( $NArg <= $# )
     case "-d":
       set fg_debug = ".true."
       breaksw
+    case "-i":
+      set fg_img = ".true."
+      breaksw
     case "-u":
       set fg_upd = ".true."
       breaksw
     case "-b":
       set fg_bib   = ".true."
+      set fg_idx   = ".true."
       set fg_debug = ".true."
       set fg_upd   = ".true."
       breaksw
@@ -94,12 +103,61 @@ endif
 
 cd $PathIn
 
+# Construct images list
+if ( $fg_img == ".true." && \
+     -f $DirOut/$FileIn.log ) then
+  set LinDeb = `grep -n "\*File List\*" $FileIn.log | \
+                  gawk -F \: '{print $1}'`
+  @ LinDeb   = $LinDeb + 1
+  set LinFin = `grep -n " \*\*\*\*\*\*\*\*\*\*\*" $FileIn.log | \
+                  gawk -F \: '{print $1}'`
+  @ LinNb    = $LinFin - $LinDeb
+
+  set UsedFile = `tail -n +$LinDeb $FileIn.log | head -n $LinNb | gawk '{print $1}'`
+
+  set ImgFile = "${FileIn}_img.txt"
+  rm $ImgFile
+
+  foreach File ( $UsedFile )
+    set FileName = `basename $File | gawk -F \. '{print $1}'`
+    set FileExt  = `basename $File | gawk -F \. '{print $2}'`
+
+    if ( $FileExt == "jpg" || \
+         $FileExt == "png" || \
+         $FileExt == "pdf" ) then
+      echo "$File" >> $ImgFile
+    endif
+  end
+  exit
+endif
+
 # Construct bibliography
 if ( $fg_bib == ".true." && \
      -f $DirOut/$FileIn.aux ) then
-  echo "=================================== Bibliographie ==================================="
+  echo "============================= Bibliographie ============================"
   cd $DirOut
   $BibBin $FileIn
+  cd -
+endif
+
+# Construct index
+if ( $fg_idx == ".true." && \
+     -f $DirOut/$FileIn.idx ) then
+  echo "================================= Index ================================"
+  cd $DirOut
+  rm $FileIn.ind
+  $IdxBin $FileIn.idx
+  cd -
+endif
+
+
+# Construct glossary
+if ( $fg_idx == ".true." && \
+     -f $DirOut/$FileIn.glo ) then
+  echo "=============================== Glossaire =============================="
+  cd $DirOut
+  # rm $FileIn.gls
+  $GlsBin -o $FileIn.gls $FileIn.glo
   cd -
 endif
 
@@ -292,6 +350,11 @@ if ( $fg_debug == ".false." || $fg_clean == ".true." ) then
         $DirOut/${FileIn}.mtc  \
         $DirOut/${FileIn}.mtc0 \
         $DirOut/${FileIn}.maf  \
+        $DirOut/${FileIn}.idx  \
+        $DirOut/${FileIn}.ind  \
+        $DirOut/${FileIn}.glo  \
+        $DirOut/${FileIn}.gls  \
+        $DirOut/${FileIn}.ilg  \
         $DirOut/pdfcolor.aux   \
         $FilesDel
 #        ${FileIn}_full.aux  \

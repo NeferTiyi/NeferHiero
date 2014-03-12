@@ -1,17 +1,47 @@
-% Redefnine headings
-% ==================
+% Redefine headings
+% =================
 
 \makeatletter
 
 %  \markboth{\@lecturer}{\@short}
   \makepagestyle{ruled}
   \makeevenhead{ruled}
-    {\normalfont\itshape\@title}{}{\normalfont\itshape\leftmark}
+    {\normalfont\itshape\@short}
+    {}
+    {\normalfont\itshape\leftmark}
   \makeoddhead{ruled}
-    {\normalfont\itshape\rightmark}{}{\normalfont\itshape\@lecturer}
-  \makeevenfoot{ruled}{}{\thepage}{}
-  \makeoddfoot{ruled}{}{\thepage}{}
+    {\normalfont\itshape\rightmark}
+    {}
+    {\normalfont\itshape\@lecturer}
+  \makeevenfoot{ruled}
+    {}
+    {\thepage}
+    {}
+  \makeoddfoot{ruled}
+    {}
+    {\thepage}
+    {}
   \makeheadrule{ruled}{\textwidth}{\normalrulethickness}
+%  \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
+
+  \makepagestyle{ruledarticle}
+  \makeevenhead{ruledarticle}
+    {\normalfont\itshape\@short}
+    {}
+    {}
+  \makeoddhead{ruledarticle}
+    {}
+    {}
+    {\normalfont\itshape\leftmark}
+  \makeevenfoot{ruledarticle}
+    {}
+    {\thepage}
+    {}
+  \makeoddfoot{ruledarticle}
+    {}
+    {\thepage}
+    {}
+  \makeheadrule{ruledarticle}{\textwidth}{\normalrulethickness}
 %  \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
 
 \makeatother
@@ -20,6 +50,18 @@
   \nouppercaseheads
   \createmark{chapter}{left}{shownumber}{}{.\ }
   \createmark{section}{right}{shownumber}{}{.\ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+
+\makepsmarks{ruledarticle}{%
+  \nouppercaseheads
+  \createmark{chapter}{left}{nonumber}{}{.\ }
+  \createmark{section}{right}{nonumber}{}{.\ }
   \createplainmark{toc}{both}{\contentsname}
   \createplainmark{lof}{both}{\listfigurename}
   \createplainmark{lot}{both}{\listtablename}
