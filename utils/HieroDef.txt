@@ -48,4 +48,6 @@
   #def Dd'        D:\!\!\!d\s2#
   #def nDs        n:D-z:G37#
   #def M'         Aa16#
+  #def tA'        N17#
+
 \end{hieroglyph}
