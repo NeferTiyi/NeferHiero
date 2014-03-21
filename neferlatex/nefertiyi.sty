@@ -142,7 +142,12 @@
 
 \newcommand{\saispas}{\uwave{\dots}\xspace}
 
-\newcommand{\faitle}[1]{\hfill\emph{\smaller#1}}
+% \newcommand{\faitle}[1]{\hfill\emph{\smaller#1}}
+% \newcommand{\faitle}[1]{\marginpar{\emph{\smaller#1}}}
+% \newcommand{\faitle}[1]{\sidepar{\emph{\smaller#1}}}
+\newcommand{\faitle}[1]{%
+  \rule{0pt}{0pt}\marginpar{\qquad\emph{\smaller#1}\qquad}%
+}
 
 \newcommand{\datation}[1]{{\normalfont\emph{#1}}}
 
@@ -157,9 +162,15 @@
 
 
 \newcommand{\nouveaute}[1]{\textcolor{DarkBlue}{\flech~#1}}
-\newcommand{\XIIA}{{\normalfont\bfseries\textcolor{ForestGreen}{A\xspace}}}
-\newcommand{\XIIB}{{\normalfont\bfseries\textcolor{Fuchsia}{B\xspace}}}
-\newcommand{\XIIC}{{\normalfont\bfseries\textcolor{RedOrange}{B'\xspace}}}
+\newcommand{\XIIA}{{%
+  \normalfont\bfseries\textcolor{ForestGreen}{A\xspace}
+}}
+\newcommand{\XIIB}{{%
+  \normalfont\bfseries\textcolor{Fuchsia}{B\xspace}
+}}
+\newcommand{\XIIC}{{%
+  \normalfont\bfseries\textcolor{RedOrange}{B'\xspace}
+}}
 
 
 \newcommand{\listeroislabel}[1]{\bfseries\sffamily{#1}\enspace}
