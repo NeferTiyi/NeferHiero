@@ -5,7 +5,8 @@
 \usepackage[utf8]{inputenc}
 %
 % Code
-\usepackage{ifthen}
+% \usepackage{ifthen}
+\usepackage{xifthen}
 \usepackage{multido}
 \usepackage{calc}
 %
@@ -23,6 +24,7 @@
 \usepackage{fouriernc}
 \usepackage{xspace}
 %
+\usepackage{marginnote}
 \usepackage{wrapfig}
 \usepackage[bottom]{footmisc}
 \usepackage[normalem]{ulem}
@@ -75,13 +77,6 @@
   retain-unity-mantissa = false
 }
 
-% \newcommand{\annee}[2][BC]{%
-%   \SI{#2}{#1}%
-% }
-% \newcommand{\anneerange}[3][BC]{%
-%   \SIrange[range-phrase=-]{#2}{#3}{#1}%
-% }
-
 \newcommand{\ano}[2][-1]{%
   \ifthenelse{#1 = 0}%
     {\num{#2}}%
@@ -117,7 +112,6 @@
 % }
 
 
-
 \newcommand{\mybrace}[2]{%
   $\underbrace{\text{#1}}_{\mathclap{\text{#2}}}$%
 }
@@ -142,11 +136,16 @@
 
 \newcommand{\saispas}{\uwave{\dots}\xspace}
 
+% Macro "fait le"
+% ===============
 % \newcommand{\faitle}[1]{\hfill\emph{\smaller#1}}
 % \newcommand{\faitle}[1]{\marginpar{\emph{\smaller#1}}}
 % \newcommand{\faitle}[1]{\sidepar{\emph{\smaller#1}}}
+% \renewcommand*{\marginfont}{\color{gray}\itshape\scriptsize}
 \newcommand{\faitle}[1]{%
-  \rule{0pt}{0pt}\marginpar{\qquad\emph{\smaller#1}\qquad}%
+  \rule{0pt}{0pt}%
+  % \marginpar{\centering\emph{\smaller#1}}%
+  \marginnote{\color{gray}\itshape\scriptsize\centering#1}%
 }
 
 \newcommand{\datation}[1]{{\normalfont\emph{#1}}}
@@ -199,17 +198,17 @@
 \newcommand{\tbl}[2][]{\tablerefname~\ref{#2}#1}
 
 \makeatletter
-  % .. Define subtitle ..
-  \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+  % % .. Define subtitle ..
+  % \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
 
-  % .. Define short title for header ..
-  \newcommand{\short}[1]{\def\@short{#1}}
+  % % .. Define short title for header ..
+  % \newcommand{\short}[1]{\def\@short{#1}}
 
-  % .. Define teacher name ..
-  \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+  % % .. Define teacher name ..
+  % \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
 
-  % .. Define organisation name ..
-  \newcommand{\orga}[1]{\def\@orga{#1}}
+  % % .. Define organisation name ..
+  % \newcommand{\orga}[1]{\def\@orga{#1}}
 
   % .. Define nospace font ..
   \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
@@ -232,10 +231,6 @@
 \newcommand{\fillpage}{\rule{\textwidth}{\textheight}}
 
 % .. Change dimensions a bit ..
-%\addtolength{\hoffset}{-2cm}
-%\addtolength{\textwidth}{4cm}
-%\addtolength{\voffset}{-2cm}
-%\addtolength{\textheight}{4cm}
 %%\setlength{\parindent}{0pt}
 
 % .. Distance from text to line (ulem) ..
@@ -274,14 +269,6 @@
 {\unskip\end{list}}
 
 % .. Shadowbox ..
-%\newcommand{\encadre}[1]{%
-%  {%
-%    \begin{center}
-%    \setlength\fboxsep{3mm}
-%    \shadowbox{\parbox{.90\textwidth}{#1}}
-%    \end{center}%
-%  }%
-%}
 \newmdenv
   [shadow            = true, 
    shadowcolor       = RoyalBlue!20, 
@@ -337,7 +324,7 @@
 % .. Licence ..
 \newcommand{\licence}[1]
            %{\\[-0.4\baselineskip]\raggedleft\rem{\smaller 
-           {\vspace{-0.4\baselineskip}\raggedleft\rem{\smaller 
+           {\vspace{-0.4\baselineskip}\RaggedLeft\rem{\smaller 
             \textcopyright\,#1}\vspace{-0.3\baselineskip}}
 
 % Tabular stuff

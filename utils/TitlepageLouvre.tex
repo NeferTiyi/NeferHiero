@@ -1,0 +1,118 @@
+% Redefine title page
+% ===================
+
+\makeatletter
+
+  % .. Define subtitle ..
+  \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+  % .. Define teacher name ..
+  \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+  % .. Define organisation name ..
+  \newcommand{\orga}[1]{\def\@orga{#1}}
+  % .. Define logo ..
+  \newcommand{\logo}[1]{\def\@logo{#1}}
+  % .. Define saison ..
+  \newcommand{\saison}[2]{\def\@saison{#1\quad#2}}
+
+  \tikzset{ligne/.style = {thick, dotted}}
+
+
+  \def\maketitle{%
+
+    {\fontfamily{DejaVuSansCondensed-TLF}\selectfont
+
+    \begin{tikzpicture}[remember picture, overlay, 
+                        inner sep=0, x=1cm, y=1cm]
+      \begin{scope}[shift={(current page.south west)}]
+
+        % \draw [help lines, opacity=0.5, step=0.1] 
+        %       (0,0) grid (current page.north east) ;
+        % \draw [help lines, opacity=0.5, step=1, red] 
+        %       (0,0) grid (current page.north east) ;
+
+        % Angles
+        \coordinate (OO) at ($ (current page.south west) + (+1,+1) $) ;
+        \coordinate (XY) at ($ (current page.north east) + (-1,-1) $) ;
+        \coordinate (OY) at ($ (current page.north west) + (+1,-1) $) ;
+        \coordinate (XO) at ($ (current page.south east) + (-1,+1) $) ;
+
+        % Origine
+        \coordinate (O1) at ( 7.00,14.00) ;
+
+        % Logo du Louvre
+        \coordinate (I1) at ($ (O1) + (-0.2,0.2) $) ;
+        \node [above left]  at (I1) 
+              {\includegraphics[width=4cm]{logo-louvre}} ;
+
+        % Logo de la conf
+        \coordinate (I2) at ($ (O1) + (0.2,0.2) $) ;
+        \node [above right] at (I2) 
+          {\includegraphics[width=12.7cm,height=12.7cm,keepaspectratio]
+          {\@logo}} ;
+
+        % Auditorium
+        \path let \p1 = ($ (I1) + (0,-1) $), \p2 = (OO) in 
+              coordinate (W1) at (\x2,\y1) ;
+        \node [rotate=90, below right] at (W1) 
+              {\Large\bfseries Auditorium du Louvre\par} ;
+        % Saison
+        \coordinate (W2) at (OY) ;
+        \node [rotate=90, below left]  at (W2) 
+              {\Large\bfseries saison\quad\@saison\par} ;
+
+        % Auteur
+        \coordinate (A)  at (XO) ;
+        \node [above left] at (A) 
+              {\small\bfseries\@author\par} ;
+        % Titre
+        \coordinate (T)  at ($ (O1) + (0.5,-0.2) $) ;
+        \node [below right, text width=12cm] (T2) at (T) 
+              {\RaggedRight\HUGE\bfseries\@title\par} ;
+
+        % Croisement des axes
+        \coordinate (O2) at ($ (T2.south west) + (-0.5,-0.5) $) ;
+
+        % Sous-titre et conférencier
+        \coordinate (S)  at ($ (O2) + (+4.5,-0.5) $) ;
+        \node [below right, text width=8cm] (S2) at (S) 
+              {%
+                {\RaggedRight\bfseries%
+                 {\LARGE\@subtitle\par}%
+                 {\large\ifthenelse{\equal{\@subtitle}{}}{}{/}\par%
+                  \@lecturer,\par}
+                }\@orga\par%
+              } ;
+
+        % Contexte et date
+        \path let \p1 = (S), \p2 = (OO) in 
+              node [below right, text width=8cm] at (\x2,\y1) 
+                   {\large\bfseries Actualité de la recherche\\
+                                    archéologique\par} 
+              node [below right, text width=5cm, gray, yshift=-1.5cm] at (\x2,\y1) 
+                   {\large\bfseries\@date\\12h30\par} ;
+
+        % Lignes
+        \draw [ligne]
+              let \p1 = ($(O2)+(-0.2,0)$), \p2 = ($(O2)+(0.2,0)$), 
+                  \p3 = (OO), \p4 = (XO) in 
+              (\p1) -- (\x3,\y1) (\p2) -- (\x4,\y1) ;
+        \draw [ligne]
+              let \p1 = (O2), \p2 = (OO), \p3 = (O1) in 
+              (\p3) -- (\x1,\y2) ;
+
+      \end{scope}
+    \end{tikzpicture}
+
+    }
+
+    \pagebreak
+
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \input{\DirUtils/licence}
+    Licence
+    \pagebreak
+  }
+
+\makeatother
+

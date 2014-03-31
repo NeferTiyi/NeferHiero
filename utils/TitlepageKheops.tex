@@ -5,6 +5,16 @@
 
 \makeatletter
 
+  % .. Define subtitle ..
+  \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+  % % .. Define short title for header ..
+  % \newcommand{\short}[1]{\def\@short{#1}}
+  % .. Define teacher name ..
+  \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+  % .. Define organisation name ..
+  \newcommand{\orga}[1]{\def\@orga{#1}}
+
+
   \def\maketitle{%
     \drop = 0.1\textheight
     \vfill%

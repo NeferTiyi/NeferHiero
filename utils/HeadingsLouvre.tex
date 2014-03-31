@@ -1,0 +1,41 @@
+% Redefine headings
+% =================
+
+\makeatletter
+  % .. Define short title for header ..
+  \newcommand{\short}[1]{\def\@short{#1}}
+
+  \makepagestyle{ruled}
+  \makeevenhead{ruled}
+    {\normalfont\itshape\@short}
+    {}
+    {}
+  \makeoddhead{ruled}
+    {}
+    {}
+    {\normalfont\itshape\leftmark}
+  \makeevenfoot{ruled}
+    {}
+    {\thepage}
+    {}
+  \makeoddfoot{ruled}
+    {}
+    {\thepage}
+    {}
+  \makeheadrule{ruled}{\textwidth}{\normalrulethickness}
+%  \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
+
+\makeatother
+
+\makepsmarks{ruled}{%
+  \nouppercaseheads
+  \createmark{chapter}{both}{nonumber}{}{.\ }
+  \createmark{section}{both}{nonumber}{}{.\ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+
