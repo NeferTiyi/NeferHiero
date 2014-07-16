@@ -71,3 +71,32 @@
 }
 
 
+% daleif3
+% =======
+\newif\iffelinenonum
+\makechapterstyle{daleif3}{
+  \renewcommand\chapternamenum{}
+  \renewcommand\printchaptername{}
+  \renewcommand\chapnamefont{\large\itshape\centering} 
+  \setlength\midchapskip{7pt}
+  \setlength\afterchapskip{\baselineskip}
+  \renewcommand\printchapternum{%
+    \par\chapnamefont\decofourleft\enspace%
+    \ifanappendix
+      \appendixname\space\thechapter%
+    \else%
+      \chaptername\space\thechapter%
+    \fi%
+    \/\enspace\decofourright}
+  \renewcommand\printchapternonum{\par\felinenonumtrue}
+  \renewcommand\chaptitlefont{\huge\bfseries\itshape\centering}
+  \renewcommand\afterchapternum{%
+    \par\nobreak\vskip5pt%
+  }
+  \renewcommand\afterchaptertitle{%
+    \par\vskip-2\midchapskip%
+    \rule\textwidth\normalrulethickness
+    \felinenonumfalse
+    \nobreak\vskip\afterchapskip%
+  }
+}

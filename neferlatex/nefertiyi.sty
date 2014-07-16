@@ -52,7 +52,8 @@
 %
 % Biblio
 \usepackage{csquotes}
-\usepackage[backend=biber,style=authoryear]{biblatex}
+% \usepackage[backend=biber,style=authoryear]{biblatex}
+\usepackage[backend=biber,style=alphabetic]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
 %
 
@@ -259,6 +260,7 @@
 % .. Remarks ..
 \newenvironment{remarque}
 {%
+  \bigskip
   \begin{list}{Rem}
     {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
      \settowidth\labelwidth{\makelabel{Rem}}%
@@ -266,7 +268,10 @@
     }
   \item\ignorespaces%
 }
-{\unskip\end{list}}
+{%
+  \unskip\end{list}
+  \bigskip
+}
 
 % .. Shadowbox ..
 \newmdenv
