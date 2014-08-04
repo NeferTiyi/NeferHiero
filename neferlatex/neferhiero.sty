@@ -69,11 +69,14 @@
 \newcommand{\tls}[1]{\tl{\footnotesize#1}}
 
 % .. Exclamation point for transliteration : regular color and red ..
-% \newcommand{\ex}[1][TlColor]{{\textcolor{#1}{\itshape !\xspace}}}
-\newcommand{\ex}[1][TlColor]{{%
+\newcommand{\ex}{{%
   \fontencoding{T1}\fontfamily{antt}\selectfont
-  \textcolor{#1}{\itshape !\xspace}%
+  \itshape !\xspace%
 }}
+% \newcommand{\ex}[1][TlColor]{{%
+%   \fontencoding{T1}\fontfamily{antt}\selectfont
+%   \textcolor{#1}{\itshape !\xspace}%
+% }}
 
 % .. Capital S ..
 \newcommand{\Smaj}{\textasciicircum}
@@ -158,10 +161,10 @@
   % innertopmargin    = 0, 
   % innerbottommargin = 0, 
   % innermargin       = 0, 
-  skipabove         = {9pt plus 1pt minus .4pt}, 
-  skipbelow         = 0, 
+  skipabove         = {1ex plus 1pt minus .4pt}, 
+  skipbelow         = {1ex plus 1pt minus .4pt}, %0, 
   hidealllines      = true, 
-  settings          = {\setlength{\parindent}{0pt}}, 
+  startcode         = {\setlength{\parindent}{0pt}}, 
   frametitlefont    = \bfseries
 ]
 {hierobox}

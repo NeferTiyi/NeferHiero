@@ -15,6 +15,28 @@
   }
 }
 
+% souligne
+% ========
+\makechapterstyle{souligne}{%
+  \setlength\afterchapskip{\baselineskip}
+
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\chaptitlefont}{\normalfont\LARGE\bfseries}
+  \renewcommand*{\chapnumfont}{\chaptitlefont}
+  \renewcommand*{\printchapternum}{\chapnumfont \thechapter.\space}
+  \renewcommand*{\afterchapternum}{}
+  \renewcommand*{\afterchaptertitle}{%
+    {%
+      \par\nobreak\vskip 5pt
+      \par\offinterlineskip\hbox{%
+        \rule{\textwidth}{2pt}
+      }
+      \par\nobreak\vskip \afterchapskip
+    }
+  }
+}
+
 % hansen
 % ======
 \definecolor{chaptercolor}{gray}{0.8}
@@ -29,7 +51,7 @@
     \leavevmode%
     \chapnumfont%
     \strut%
-    \numlifter{\thechpater}%
+    \numlifter{\thechapter}%
     \numindent%
     \endgroup%
   }
@@ -100,3 +122,109 @@
     \nobreak\vskip\afterchapskip%
   }
 }
+
+
+
+
+
+% \definecolor{myrulecolor}{RGB}{150,20,0}
+% \titleformat{\chapter}[display]
+%   {\normalfont\scshape\Huge}
+%   {\hspace*{-70pt}\thechapter.~#1}
+%   {-15pt}
+%   {\hspace*{-110pt}{%
+%      \color{myrulecolor}\rule{\dimexpr\textwidth+80pt\relax}{3pt}
+%    }\Huge}
+% \titleformat{name=\chapter,numberless}[display]
+%   {\normalfont\scshape\Huge}
+%   {\hspace*{-70pt}#1}
+%   {-15pt}
+%   {\hspace*{-110pt}{%
+%      \color{myrulecolor}\rule{\dimexpr\textwidth+80pt\relax}{3pt}
+%    }\Huge}
+% \titlespacing*{\chapter}{0pt}{0pt}{30pt}
+
+
+
+\makechapterstyle{southall2}{%
+  % \setlength{\afterchapskip}{5\baselineskip}
+  % \setlength{\beforechapskip}{36pt}
+  % \setlength{\midchapskip}{\textwidth}
+  % \addtolength{\midchapskip}{-\beforechapskip}
+
+  \renewcommand*{\chapterheadstart}{\vspace*{2\baselineskip}}
+  \renewcommand*{\chaptitlefont}{\huge\rmfamily\raggedright}
+  \renewcommand*{\chapnumfont}{\chaptitlefont}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\afterchapternum}{}
+  \renewcommand*{\printchapternum}{%
+    \begin{minipage}[t][\baselineskip][b]{\beforechapskip}
+      {\vspace{0pt}\chapnumfont%%%\figureversion{lining}
+      \thechapter}
+    \end{minipage}
+  }
+  \renewcommand*{\printchaptertitle}[1]{%
+    \hfill\begin{minipage}[t]{\midchapskip}
+    {\vspace{0pt}\chaptitlefont ##1\par}\end{minipage}
+  }
+  \renewcommand*{\afterchaptertitle}{%
+    \par\vspace{\baselineskip}%
+    \hrulefill \par\nobreak\noindent \vskip\afterchapskip
+  }
+}
+
+
+
+% % souligne
+% % ========
+% \definecolor{myrulecolor}{RGB}{150,20,0}
+
+% \makechapterstyle{souligne}{%
+  % \renewcommand{\printchaptername}{\raggedleft}
+  % \renewcommand{\printchapternum}{%
+  %   \begingroup%
+  %   \leavevmode%
+  %   \chapnumfont%
+  %   \strut%
+  %   \numlifter{\thechapter}%
+  %   \numindent%
+  %   \endgroup%
+  % }
+  % \renewcommand*{\printchapternonum}{
+  %   \vphantom{%
+  %     \begingroup%
+  %     \leavevmode%
+  %     \chapnumfont%
+  %     \numlifter{\vphantom{9}}%
+  %     \numindent%
+  %     \endgroup%
+  %   }
+  %   \afterchapternum
+  % }
+%   \setlength\midchapskip{0pt}
+%   \setlength\beforechapskip{0.5\baselineskip}
+%   \setlength\afterchapskip{3\baselineskip}
+%   \renewcommand{\chapnumfont}{%
+%     \fontsize{4cm}{0cm}%
+%     \bfseries%
+%     \sffamily%
+%     \color{chaptercolor}%
+%   }
+%   \renewcommand{\chaptitlefont}{%
+%     \normalfont%
+%     \huge%
+%     \bfseries%
+%     \raggedleft%
+%   }
+%   \settototalheight\chaptertitleboxheight{%
+%     \parbox{\textwidth}{\chaptitlefont \strut bg\\bg\strut}
+%   }
+%   \renewcommand{\printchaptertitle}[1]{%
+%     \parbox[t][\chaptertitleboxheight][t]{\textwidth}{%
+%       %\microtypesetup{protrusion=false}% add this if you use microtype
+%       \chaptitlefont\strut ##1\strut
+%     }
+%   }
+% }
+

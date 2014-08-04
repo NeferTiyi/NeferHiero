@@ -97,6 +97,14 @@
 }}
 
 
+% Bibliography
+\defbibheading{memoir}[\bibname]{%
+\chapter*{#1}%
+\addcontentsline{toc}{chapter}{#1}
+\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
+
+
+
 \DeclareSIUnit{\coudee}{c}
 \DeclareSIUnit{\paume}{p}
 \DeclareSIUnit{\doigt}{d}
