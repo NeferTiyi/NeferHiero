@@ -23,16 +23,19 @@
 
   % .. Typesetting transliteration ..
   % !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-  \@ifpackageloaded{babel}%
-      {\newcommand{\tl}[2][TlColor]{{%
-        \NoAutoSpaceBeforeFDP{}%
-        \fontencoding{T1}\fontfamily{ttl}\selectfont%
-        \textcolor{#1}{#2}}}%
-      }%
-      {\newcommand{\tl}[2][TlColor]{{%
-        \fontencoding{T1}\fontfamily{ttl}\selectfont%
-        \textcolor{#1}{#2}}}%
-      }
+  \@ifpackageloaded{babel}{%
+    \newcommand{\tl}[2][TlColor]{{%
+      \NoAutoSpaceBeforeFDP{}%
+      \fontencoding{T1}\fontfamily{ttl}\selectfont%
+      \textcolor{#1}{#2}%
+    }}%
+  }%
+  {%
+    \newcommand{\tl}[2][TlColor]{{%
+      \fontencoding{T1}\fontfamily{ttl}\selectfont%
+      \textcolor{#1}{#2}
+    }}%
+  }
 \makeatother
 
 % .. Typesetting translation ..
@@ -50,11 +53,12 @@
 % Add a line number
 % ====================
 \newcommand{\lgn}[1]{%
-  %\textcolor{EmphColor}%
-  \textcolor{Bronze}%
-            %{\fontencoding{OT1}\fontfamily{antt}\selectfont%
-            {\fontfamily{antt}\fontseries{bx}\selectfont%
-             $^{\text{[#1]}}$}%
+  %\textcolor{EmphColor}{%
+  \textcolor{Bronze}{%
+    % \fontencoding{OT1}\fontfamily{antt}\selectfont%
+    \fontfamily{antt}\fontseries{bx}\selectfont%
+    $^{\text{[#1]}}$%
+  }%
 }
 
 % Tranliteration stuff
@@ -92,7 +96,7 @@
 \renewcommand{\zero}{$\emptyset$\xspace}
 
 % ... Aïn ...
-\newcommand{\ain}{{\tl[black]{a}}}
+\newcommand{\ain}[1][black]{{\tl[#1]{a}}}
 
 % Grammar stuff
 % =============
