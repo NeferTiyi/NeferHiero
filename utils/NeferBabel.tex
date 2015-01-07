@@ -37,7 +37,6 @@
   \fi%
 }\space\def\thepart{}}%
 
-
 % % TikZ library spy
 % \makeatletter
 %   \def\tikz@lib@spy@parse@opt[#1]{%
@@ -53,13 +52,19 @@
 %       \pgfutil@g@addto@macro\tikz@lib@spy@collection{\tikz@lib@spy\do{#1}{#2}{#3}}%
 %     }
 %   }
-
-
 \makeatother
 
-\renewcommand{\chapterrefname}{Chapitre~}
-\renewcommand{\bookrefname}{Livre~}
-\renewcommand{\partrefname}{Partie~}
+\renewcommand{\appendixrefname}{annexe~}
+\renewcommand{\bookrefname}{livre~}
+\renewcommand{\chapterrefname}{chapitre~}
+\renewcommand{\figurerefname}{figure}
+\renewcommand{\partrefname}{partie~}
+\renewcommand{\tablerefname}{table}
 
 \renewcommand{\bookname}{Livre}
+\renewcommand{\appendixpagename}{Annexes}
+\renewcommand{\appendixtocname}{\appendixpagename}
 \renewcommand{\listfigurename}{Liste des figures}
+
+
+
