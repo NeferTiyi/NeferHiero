@@ -25,11 +25,16 @@
       \parbox[b]{0.75\textwidth}{
         \vbox to 0.9\textheight{%
           \vspace{\drop}
-          {\noindent\HUGE\bfseries \@title\par}
+          {\noindent\HUGE\bfseries\RaggedRight\@title\par}
           \vspace{2\baselineskip}
-          {\Huge\itshape \@subtitle\par}
+          {\Huge\itshape\@subtitle\par}
           \vspace{4\baselineskip}
-          {\Large\@orga\\[0.5\baselineskip]\@lecturer\par}
+          {\Large\itshape\@date\par}
+          \vspace{2\baselineskip}
+          % {\Large\@orga\\[0.5\baselineskip]\@lecturer\par}
+          {\Large\@orga\par
+           \vspace{0.5\baselineskip}
+           \@lecturer\par}
 
           \vspace*{\fill}
 
@@ -51,4 +56,3 @@
   }
 
 \makeatother
-

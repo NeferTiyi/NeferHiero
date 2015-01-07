@@ -15,6 +15,28 @@
   }
 }
 
+% souligne
+% ========
+\makechapterstyle{souligne}{%
+  \setlength\afterchapskip{\baselineskip}
+
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\chaptitlefont}{\normalfont\LARGE\bfseries}
+  \renewcommand*{\chapnumfont}{\chaptitlefont}
+  \renewcommand*{\printchapternum}{\chapnumfont \thechapter.\space}
+  \renewcommand*{\afterchapternum}{}
+  \renewcommand*{\afterchaptertitle}{%
+    {%
+      \par\nobreak\vskip 5pt
+      \par\offinterlineskip\hbox{%
+        \rule{\textwidth}{2pt}
+      }
+      \par\nobreak\vskip \afterchapskip
+    }
+  }
+}
+
 % hansen
 % ======
 \definecolor{chaptercolor}{gray}{0.8}
@@ -29,7 +51,7 @@
     \leavevmode%
     \chapnumfont%
     \strut%
-    \numlifter{\thechpater}%
+    \numlifter{\thechapter}%
     \numindent%
     \endgroup%
   }
@@ -70,4 +92,63 @@
   }
 }
 
+
+% daleif3
+% =======
+\newif\iffelinenonum
+\makechapterstyle{daleif3}{
+  \renewcommand\chapternamenum{}
+  \renewcommand\printchaptername{}
+  \renewcommand\chapnamefont{\large\itshape\centering} 
+  \setlength\midchapskip{7pt}
+  \setlength\afterchapskip{\baselineskip}
+  \renewcommand\printchapternum{%
+    \par\chapnamefont\decofourleft\enspace%
+    \ifanappendix
+      \appendixname\space\thechapter%
+    \else%
+      \chaptername\space\thechapter%
+    \fi%
+    \/\enspace\decofourright}
+  \renewcommand\printchapternonum{\par\felinenonumtrue}
+  \renewcommand\chaptitlefont{\huge\bfseries\itshape\centering}
+  \renewcommand\afterchapternum{%
+    \par\nobreak\vskip5pt%
+  }
+  \renewcommand\afterchaptertitle{%
+    \par\vskip-2\midchapskip%
+    \rule\textwidth\normalrulethickness
+    \felinenonumfalse
+    \nobreak\vskip\afterchapskip%
+  }
+}
+
+
+\makechapterstyle{southall2}{%
+  % \setlength{\afterchapskip}{5\baselineskip}
+  % \setlength{\beforechapskip}{36pt}
+  % \setlength{\midchapskip}{\textwidth}
+  % \addtolength{\midchapskip}{-\beforechapskip}
+
+  \renewcommand*{\chapterheadstart}{\vspace*{2\baselineskip}}
+  \renewcommand*{\chaptitlefont}{\huge\rmfamily\raggedright}
+  \renewcommand*{\chapnumfont}{\chaptitlefont}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapternamenum}{}
+  \renewcommand*{\afterchapternum}{}
+  \renewcommand*{\printchapternum}{%
+    \begin{minipage}[t][\baselineskip][b]{\beforechapskip}
+      {\vspace{0pt}\chapnumfont%%%\figureversion{lining}
+      \thechapter}
+    \end{minipage}
+  }
+  \renewcommand*{\printchaptertitle}[1]{%
+    \hfill\begin{minipage}[t]{\midchapskip}
+    {\vspace{0pt}\chaptitlefont ##1\par}\end{minipage}
+  }
+  \renewcommand*{\afterchaptertitle}{%
+    \par\vspace{\baselineskip}%
+    \hrulefill \par\nobreak\noindent \vskip\afterchapskip
+  }
+}
 

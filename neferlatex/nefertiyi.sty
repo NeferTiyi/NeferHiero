@@ -53,6 +53,7 @@
 % Biblio
 \usepackage{csquotes}
 \usepackage[backend=biber,style=authoryear]{biblatex}
+% \usepackage[backend=biber,style=alphabetic]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
 %
 
@@ -94,6 +95,14 @@
        {\SIrange{#2}{#3}{BC}}%
     }%
 }}
+
+
+% Bibliography
+\defbibheading{memoir}[\bibname]{%
+\chapter*{#1}%
+\addcontentsline{toc}{chapter}{#1}
+\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
+
 
 
 \DeclareSIUnit{\coudee}{c}
@@ -142,10 +151,14 @@
 % \newcommand{\faitle}[1]{\marginpar{\emph{\smaller#1}}}
 % \newcommand{\faitle}[1]{\sidepar{\emph{\smaller#1}}}
 % \renewcommand*{\marginfont}{\color{gray}\itshape\scriptsize}
-\newcommand{\faitle}[1]{%
-  \rule{0pt}{0pt}%
-  % \marginpar{\centering\emph{\smaller#1}}%
-  \marginnote{\color{gray}\itshape\scriptsize\centering#1}%
+% \newcommand{\faitle}[1]{%
+\DeclareRobustCommand{\faitle}[1]{%
+  \texorpdfstring{%
+    \rule{0pt}{0pt}%
+    % \marginpar{\centering\emph{\smaller#1}}%
+    \marginnote{\normalfont\color{gray}\itshape
+                \scriptsize\centering#1}%
+  }{}
 }
 
 \newcommand{\datation}[1]{{\normalfont\emph{#1}}}
@@ -259,6 +272,7 @@
 % .. Remarks ..
 \newenvironment{remarque}
 {%
+  \bigskip
   \begin{list}{Rem}
     {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
      \settowidth\labelwidth{\makelabel{Rem}}%
@@ -266,7 +280,10 @@
     }
   \item\ignorespaces%
 }
-{\unskip\end{list}}
+{%
+  \unskip\end{list}
+  \bigskip
+}
 
 % .. Shadowbox ..
 \newmdenv

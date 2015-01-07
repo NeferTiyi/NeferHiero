@@ -15,33 +15,50 @@
 % Font stuff
 % ==========
 \makeatletter
-% .. Typesetting "Manuel de Codage" ..
-  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+  % .. Typesetting "Manuel de Codage" ..
+  % !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+  \@ifpackageloaded{babel}%
       {\newcommand{\MdC}[1]{{\NoAutoSpaceBeforeFDP{}\texttt{#1}}}}%
       {\newcommand{\MdC}[1]{\texttt{#1}}}
 
-% .. Typesetting transliteration ..
-  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-      {\newcommand{\tl}[2][TlColor]{{\NoAutoSpaceBeforeFDP{}\fontencoding{T1}\fontfamily{ttl}\selectfont \textcolor{#1}{#2}}}}%
-      {\newcommand{\tl}[2][TlColor]{{\fontencoding{T1}\fontfamily{ttl}\selectfont \textcolor{#1}{#2}}}}
+  % .. Typesetting transliteration ..
+  % !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+  \@ifpackageloaded{babel}{%
+    \newcommand{\tl}[2][TlColor]{{%
+      \NoAutoSpaceBeforeFDP{}%
+      \fontencoding{T1}\fontfamily{ttl}\selectfont%
+      \textcolor{#1}{#2}%
+    }}%
+  }%
+  {%
+    \newcommand{\tl}[2][TlColor]{{%
+      \fontencoding{T1}\fontfamily{ttl}\selectfont%
+      \textcolor{#1}{#2}
+    }}%
+  }
 \makeatother
 
 % .. Typesetting translation ..
 \newcommand{\td}[1]{{%
-  \fontencoding{T1}\fontfamily{antt}\selectfont\textcolor{TdColor}{#1}%
+  \fontencoding{T1}\fontfamily{antt}\selectfont%
+  \textcolor{TdColor}{#1}%
 }}
 
 % .. Typesetting grammar ..
-\newcommand{\tg}[1]{\green{$\rightarrow$~\itshape#1}}
+\newcommand{\tg}[1]{{%
+  % \green{$\rightarrow$~\itshape#1}%
+  \green{$\rightarrow$\ \itshape#1}%
+}}
 
 % Add a line number
 % ====================
 \newcommand{\lgn}[1]{%
-  %\textcolor{EmphColor}%
-  \textcolor{Bronze}%
-            %{\fontencoding{OT1}\fontfamily{antt}\selectfont%
-            {\fontfamily{antt}\fontseries{bx}\selectfont%
-             $^{\text{[#1]}}$}%
+  %\textcolor{EmphColor}{%
+  \textcolor{Bronze}{%
+    % \fontencoding{OT1}\fontfamily{antt}\selectfont%
+    \fontfamily{antt}\fontseries{bx}\selectfont%
+    $^{\text{[#1]}}$%
+  }%
 }
 
 % Tranliteration stuff
@@ -56,10 +73,17 @@
 \newcommand{\tls}[1]{\tl{\footnotesize#1}}
 
 % .. Exclamation point for transliteration : regular color and red ..
-\newcommand{\ex}[1][TlColor]{{\textcolor{#1}{\itshape !\xspace}}}
+\newcommand{\ex}{{%
+  \fontencoding{T1}\fontfamily{antt}\selectfont
+  \itshape !\xspace%
+}}
+% \newcommand{\ex}[1][TlColor]{{%
+%   \fontencoding{T1}\fontfamily{antt}\selectfont
+%   \textcolor{#1}{\itshape !\xspace}%
+% }}
 
 % .. Capital S ..
-\newcommand{\Smaj}{\textasciicircum\xspace}
+\newcommand{\Smaj}{\textasciicircum}
 
 % .. "Glue" sign ..
 \newcommand{\col}{$\sim$}
@@ -72,7 +96,7 @@
 \renewcommand{\zero}{$\emptyset$\xspace}
 
 % ... Aïn ...
-\newcommand{\ain}{{\tl[black]{a}}}
+\newcommand{\ain}[1][black]{{\tl[#1]{a}}}
 
 % Grammar stuff
 % =============
@@ -127,20 +151,32 @@
   \vspace*{-0.5\baselineskip}}%
  }
 
+
 % .. Define an environment to enclose the hiero text and its translit./translation .. 
 %\newenvironment{hierobox}
 %  {\setlength{\parindent}{0pt}\setlength\parskip{0.4\baselineskip} \vspace{\baselineskip}}
 %  {\vspace{0pt}}
-\newmdenv[backgroundcolor=Tan!5, nobreak=true,
-          outermargin=0, innermargin=0, 
-          innerleftmargin=0, innerrightmargin=0, 
-          innertopmargin=0, innerbottommargin=0, 
-          skipabove={9pt plus 1pt minus .4pt}, skipbelow=0, 
-          hidealllines=true, 
-          settings={\setlength{\parindent}{0pt}}, 
-          frametitlefont=\bfseries]
-         {hierobox}
-\mdfsetup{frametitlealignment=\RaggedRight, align=center, nobreak=true}
+\newmdenv[%
+  backgroundcolor   = Tan!5, 
+  nobreak           = true, 
+  outermargin       = 0, 
+  % innerleftmargin   = 0, 
+  % innerrightmargin  = 0, 
+  % innertopmargin    = 0, 
+  % innerbottommargin = 0, 
+  % innermargin       = 0, 
+  skipabove         = {1ex plus 1pt minus .4pt}, 
+  skipbelow         = {1ex plus 1pt minus .4pt}, %0, 
+  hidealllines      = true, 
+  startcode         = {\setlength{\parindent}{0pt}}, 
+  frametitlefont    = \bfseries
+]
+{hierobox}
+\mdfsetup{%
+  frametitlealignment = \RaggedRight, 
+  align               = center, 
+  nobreak             = true
+}
 
 
 % .. Table header : dark green text over light green backgound
