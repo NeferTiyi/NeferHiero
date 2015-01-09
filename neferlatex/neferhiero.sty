@@ -9,6 +9,13 @@
 % .. Put something in red to emphasize it ..
 \newcommand{\red}[1]{\textcolor{EmphColor}{#1}}
 
+% .. Rubrique ..
+\newcommand{\ruber}[1]{{%
+  \setlength{\ULdepth}{0.8ex}
+  \color{DarkRed}%
+  \uline{#1}%
+}}
+
 % .. Put something in green to emphasize it ..
 \newcommand{\green}[1]{\textcolor{Gramm}{#1}}
 
@@ -85,19 +92,12 @@
 % Add a scansion point
 % ====================
 \newcommand{\scansion}{%
-  % \tikz[baseline=(n.base), x=.1ex, y=.1ex]{%
-  %   \fill [Crimson, preaction={fill=black,opacity=.5, 
-  %          transform canvas={shift={(2,-2)}}}]%
-  %       (0,0) circle (3.5) %
-  %       node [shift={(0,-15)}] (n) {}%
-  % }\ %
-  \tikz[baseline=(n.base), x=.1ex, y=.1ex]{%
-    \fill [Crimson, 
-           circular drop shadow={shadow xshift=2, shadow yshift=-1.5,
-           path fading={circle with fuzzy edge 20 percent}}]%
-        (0,0) circle (3.5) %
-        node [shift={(0,-15)}] (n) {}%
-  }\ %
+  \begin{tikzpicture}[baseline=(n.base), x=.1ex, y=.1ex]%
+    \fill [circular drop shadow={shadow xshift=2, shadow yshift=-1.5,
+           path fading={circle with fuzzy edge 20 percent}}, Crimson]%
+        (0,0) circle (3.5) ;
+    \node [inner sep=0] at (0,-15) (n) {} ;
+  \end{tikzpicture}\ %
 }
 
 \newcommand{\crtch}[1]{%
@@ -181,10 +181,9 @@
 % ========
 % .. CEHGM exercices titles ..
 \newcommand{\titreVersion}{Translittérer et traduire}
-\newcommand{\titreTheme}{Traduire en égyptien, en joignant aux h\iero s leur translittération}
-
-
-
+\newcommand{\titreTheme}{%
+  Traduire en égyptien, en joignant aux h\iero s leur translittération%
+}
 
 
 \def\MySection#1{ 
@@ -242,18 +241,29 @@
   bicolor,
   boxrule      = 0pt,
   parbox       = false,
-  enlarge top initially by  = \baselineskip,
-  enlarge bottom finally by = \baselineskip,
-  before upper = \indent,
+  before = \hspace{1ex plus 1pt minus .4pt},
+  after  = \hspace{1ex plus 1pt minus .4pt},
+  % enlarge top initially by  = 0.5\baselineskip,
+  % enlarge bottom finally by = 0.5\baselineskip,
   before upper = {\setlength{\parindent}{0pt}},
   fonttitle    = \large\bfseries,
   colframe     = RoyalBlue!75!white,
   colback      = Ivory,
-  colbacklower = Ivory!25!white,
+  colbacklower = Ivory!20!white,
   fuzzy shadow={3mm}{-2mm}{0mm}{0.3mm}{black},
   #1
 }
 
+\newenvironment{vocab}[1][\qquad\qquad]%
+{%
+  \paragraph{Vocabulaire :}
+  \begin{list}{}
+    {\renewcommand\makelabel[1]{\hfill\tl{##1}}%
+     \settowidth\labelwidth{\makelabel{#1}}%
+     \setlength\leftmargin{\labelwidth + \labelsep}%
+    }%
+}%
+{\unskip\end{list}}
 
 
 % .. Table header : dark green text over light green backgound
