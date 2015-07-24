@@ -1,0 +1,58 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd": "seshlatex -b $file",
+			"name": "SeshLatex",
+			"shell": true
+		}
+	],
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.aux",
+				"*.bak",
+				"*.bbl",
+				"*.bcf",
+				"*.blg",
+				"*.dic",
+				"*.lof",
+				"*.lot",
+				"*.maf",
+				"*.mtc",
+				"*.mtc0",
+				"*.out",
+				"*.pdf",
+				"*.toc",
+				"*_tmp.tex",
+				"*_full.htx",
+				"*.run.xml",
+				"*.*~",
+				".git*"
+			],
+			"name": "Sources",
+			"path": "D:\\Egypto\\NeferHiero\\documents\\Kheops\\Grandet\\Abydos"
+		},
+		{
+			"name": "Images",
+			"path": "D:\\Egypto\\NeferHiero\\images\\Kheops\\Grandet\\Abydos"
+		},
+		{
+			"name": "Fichiers communs",
+			"path": "D:\\Egypto\\NeferHiero\\utils"
+		},
+		{
+			"name": "Styles LaTeX",
+			"path": "D:\\Egypto\\NeferHiero\\neferlatex"
+		},
+		{
+			"name": "Compil",
+			"path": "D:\\Egypto\\NeferHiero\\compil"
+		},
+		{
+			"path": "G:\\Egypto\\NeferHiero\\documents\\Kheops\\Grandet\\Histoire"
+		}
+	]
+}

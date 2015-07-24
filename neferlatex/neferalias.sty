@@ -1,118 +1,79 @@
+% .. Identification ..
+% ====================
 \ProvidesPackage{neferalias}[2012/04/24 S.Labetoulle LaTeX package]
 
-% .. Some useful shortcuts ..
-\newcommand{\iero}{iéroglyph}
-\newcommand{\ptol}{ptolémaïque}
+% % .. Gens ..
+% % ==========
+% \newcommand{\SL}{Sonia~\bsc{Labetoulle}\xspace}
 
-\newcommand{\dynum}[2][\ieme]{\textcolor{DarkGreen}{\bsc{#2}#1}}
-\newcommand{\dyn}[2][\ieme]{\textcolor{DarkGreen}{\dynum[#1]{#2}~dynastie}}
-\newcommand{\dynlist}[3][\ieme]{%
-  \dynum[#1]{#2} \textcolor{DarkGreen}{et \bsc{#3}\ieme~dynasties}%
-}
-\newcommand{\siecle}[2][\ieme]{{\color{DarkGreen}#2#1~siècle}}
-\newcommand{\ar}[1]{an~\num{#1}}
+% % .. Numéros de siècles ..
+% % ========================
+% \newcommand{\siecle}[2][\ieme]{{\color{DarkGreen}\bsc{#2}#1~siècle}}
 
-\newcommand{\kmt}{\textcolor{violet}{Égypte}\xspace}
-\newcommand{\HE}{\textcolor{violet}{Haute-\kmt}\xspace}
-\newcommand{\ME}{\textcolor{violet}{Moyen\-ne-\kmt}\xspace}
-\newcommand{\BE}{\textcolor{violet}{Basse-\kmt}\xspace}
-\newcommand{\HBE}{\textcolor{violet}{Haute et Basse-\kmt}\xspace}
-\newcommand{\PO}{\textcolor{violet}{Proche-Orient}\xspace}
-\newcommand{\MO}{\textcolor{violet}{Moyen-Orient}\xspace}
-\newcommand{\HN}{\textcolor{violet}{Haute-Nubie}\xspace}
-\newcommand{\BN}{\textcolor{violet}{Basse-Nubie}\xspace}
+% % .. Dates ..
+% % ===========
+% \newcommand{\ano}[2][-1]{%
+%   \ifthenelse{#1 = 0}%
+%     {\num{#2}}%
+%     {\ifthenelse{#1 > 0}%
+%        {\SI{#2}{AD}}%
+%        {\SI{#2}{BC}}%
+%     }%
+% }
+% \newcommand{\anorange}[3][-1]{{%
+%   \sisetup{range-phrase=-}%
+%   \ifthenelse{#1 = 0}%
+%     {\numrange{#2}{#3}}%
+%     {\ifthenelse {#1 > 0}%
+%        {\SIrange{#2}{#3}{AD}}%
+%        {\SIrange{#2}{#3}{BC}}%
+%     }%
+% }}
+% \newcommand{\datation}[1]{{\normalfont\emph{#1}}}
 
-\newcommand{\Mtn}{\textcolor{DarkRed}{Mitanni}\xspace}
-\newcommand{\Htt}{\textcolor{DarkRed}{Hatti}\xspace}
-\newcommand{\Bqa}{\textcolor{DarkRed}{Béqa\ain}\xspace}
-\newcommand{\PdlM}{\textcolor{DarkRed}{Peuples de la mer}\xspace}
 
-\newcommand{\PD}{\textcolor{blue}{Prédynastique}\xspace}
-\newcommand{\PT}{\textcolor{blue}{Période Thinite}\xspace}
-\newcommand{\OK}{\textcolor{blue}{Ancien Empire}\xspace}
-\newcommand{\MK}{\textcolor{blue}{Moyen Empire}\xspace}
-\newcommand{\NK}{\textcolor{blue}{Nouvel Empire}\xspace}
-\newcommand{\LP}{\textcolor{blue}{Basse Époque}\xspace}
-
-\newcommand{\PPI}{\textcolor{blue}{Première Période intermédiaire}\xspace}
-\newcommand{\DPI}{\textcolor{blue}{Deuxième Période intermédiaire}\xspace}
-\newcommand{\TPI}{\textcolor{blue}{Troisième Période intermédiaire}\xspace}
-
-\newcommand{\CT}{\textcolor{Sepia}{\source{Canon de Turin}}\xspace}
-\newcommand{\TP}{\textcolor{Sepia}{\source{Textes des Pyramides}}\xspace}
-\newcommand{\TS}{\textcolor{Sepia}{\source{Textes des Sarcophages}}\xspace}
-\newcommand{\LM}{\textcolor{Sepia}{\source{Livre des Morts}}\xspace}
-\newcommand{\LdP}{\textcolor{Sepia}{\source{Livre des Portes}}\xspace}
-\newcommand{\AD}{\textcolor{Sepia}{\source{Amdouat}\xspace}}
-\newcommand{\LVdC}{\textcolor{Sepia}{\source{Livre de la Vache du Ciel}}\xspace}
-
-\newcommand{\GeS}{\textcolor{darkgray}{Gébel el-Silsiléh}\xspace}
-\newcommand{\SeK}{\textcolor{darkgray}{Sérâbît el-Khâdim}\xspace}
-\newcommand{\OeQ}{%
-  \textcolor{darkgray}{Oumm el-Qa\texorpdfstring{\ain}{'}ab}\xspace%
-}
-\newcommand{\KeS}{\textcolor{darkgray}{Kôm el-Sultan}\xspace}
-\newcommand{\KeH}{\textcolor{darkgray}{Kôm el-Hettan}\xspace}
-\newcommand{\TeD}[1][black]{%
-  \textcolor{darkgray}{Tell el-Dab\texorpdfstring{\ain[#1]}{'}a}\xspace%
-}
-\newcommand{\DeB}{\textcolor{darkgray}{Deîr el-Bahari}\xspace}
-\newcommand{\DeM}{\textcolor{darkgray}{Deîr el-Médînéh}\xspace}
-\newcommand{\DAN}{\textcolor{darkgray}{Dra Abou'l-Naga}\xspace}
-\newcommand{\MH}{\textcolor{darkgray}{Médînet Habou}\xspace}
-\newcommand{\KV}{\textcolor{darkgray}{Vallée des rois}\xspace}
-\newcommand{\QV}{\textcolor{darkgray}{Vallée des reines}\xspace}
-\newcommand{\EA}[1][black]{%
-  \textcolor{darkgray}{El-\texorpdfstring{\ain[#1]}{'}Arîsh}\xspace%
-}
-\newcommand{\Timna}[1][black]{%
-  \textcolor{darkgray}{Timna\texorpdfstring{\ain[#1]}{'}}\xspace%
-}
-\newcommand{\ReA}[1][black]{%
-  \textcolor{darkgray}{Ra\texorpdfstring{\ain[#1]}{'}s %
-  el-\texorpdfstring{\ain[#1]}{'}Ayn}\xspace%
-}
-\newcommand{\Allaqi}[1][black]{%
-  \textcolor{darkgray}{\texorpdfstring{\ain[#1]}{'}Allâqi}\xspace%
-}
-
-\newcommand{\BeH}{\textcolor{darkgray}{Batn el-Hagar}\xspace}
-\newcommand{\SeZ}{\textcolor{darkgray}{Shounet el-Zebib}\xspace}
-
-\newcommand{\VRK}{%
-  % \iflowertonumname v\else V\fi ice-roi de Kouch\xspace%
-  \titre{Vice-roi de Kouch}\xspace%
-}
-\newcommand{\PPA}[1][Premier ]{%
-  \titre{#1Prophète d'Amon}\xspace%
-}
-
-\newcommand{\ENS}{École Normale Supérieure\xspace}
-\newcommand{\SFE}{Société Française d'Égyptologie\xspace}
-\newcommand{\IK}{Institut Khéops\xspace}
-\newcommand{\BM}{British Museum\xspace}
-
-\newcommand{\DF}{Dominique~\bsc{Farout}\xspace}
-\newcommand{\PG}{Pierre~\bsc{Grandet}\xspace}
-\newcommand{\CB}{Christophe~\bsc{Barbotin}\xspace}
-
-\newcommand{\MG}{\emph{Cours d'Égyptien Hiéroglyphique}\xspace}
-
-\newcommand{\litt}{\emph{litt.}\xspace}
+% .. Symbols ..
+% =============
+\newcommand{\litt}{{\normalfont\color{black}\emph{litt.}}\xspace}
 \newcommand{\Att}{\red{\danger}\xspace}
-
-% .. Some symbols ..
-% ... Tick symbol ...
 \newcommand{\yes}{\ding{'63}}
-% ... Tick symbol ...
+% ... Correction ...
+% ------------------
 \newcommand{\good}{{\color{DarkGreen}\ding{51}}}
 \newcommand{\bad}{{\color{DarkRed}\ding{55}}}
-% ... Level 1 puce (star) ...
+% ... Puces ...
+% -------------
+% Level 1 (star)
 \newcommand{\pucea}{{\relsize{-2}\ding{'130}}}
-% ... Level 2 puce (arrow) ...
+% Level 2 (arrow)
 \newcommand{\puceb}{{\ding{'333}}}
 % ... Flèches ...
-\newcommand{\flech}{$\rightarrow$}
-\newcommand{\flechinv}{\phantom{$\rightarrow$}}
+% ---------------
+\newcommand{\flech}{\ensuremath{\rightarrow}}
+\newcommand{\flechinv}{\phantom{\ensuremath{\rightarrow}}}
+
+
+% .. Typesetting remark ..
+\newcommand{\rem}[1]{{%
+  \color{black}\normalfont\em\smaller#1%
+}}
+\newcommand{\remg}[1]{{\green{\em\smaller#1}}}
+\newcommand{\infos}[1]{{\smaller#1}}
+% \newcommand{\refdoc}[1]{{%
+%   \color{black}\normalfont\itshape\smaller#1%
+% }}
+
+%\newcommand{\donc}{\noindent\hspace*{2em}\ensuremath{\Rightarrow}}
+\newcommand{\donc}{\ensuremath{\Longrightarrow}}
+
+\newcommand{\oeuvre}[1]{{\noindent\bfseries#1\hspace{1em}}}
+\newcommand{\saispas}[1][\dots]{{\uwave{#1}}}
+
+\newcommand{\missingstuff}{%
+  \vspace*{3\baselineskip}
+  \noindent\makebox[\textwidth][c]{\LARGE\color{red}\vdots}
+  \vspace*{3\baselineskip}
+}
+
 
 \endinput

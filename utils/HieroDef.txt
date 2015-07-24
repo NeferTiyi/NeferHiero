@@ -6,6 +6,7 @@
 % Titres
 \begin{hieroglyph}
   #def nswbjty    sw:\!t\s1 bit:\!t\s1#
+  #def sAra       zA-\!\!\!ra:.#
   #def imyrA      ns:\!\!\!pr\s1#
   #def XryHbt     H-Xr:.-\!\!b#
   #def smrwaty    s-Ab-wa:t*1#
@@ -37,6 +38,7 @@
   #def Dt         D:\!\!\!\!t\s1:\!N17#
   #def di'        D37#
   #def wnn        wn:n:n#
+  #def nn'        M22-M22-n:n#
   #def nn         D35:n#
   #def n'         D35#
   #def ink        nw:k#
@@ -50,4 +52,5 @@
   #def M'         Aa16#
   #def tA'        N17#
   #def rmT        A1*B1:3#
+  #def nty        n:t*y#
 \end{hieroglyph}

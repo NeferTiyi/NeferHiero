@@ -1,59 +1,39 @@
-\ProvidesPackage{neferhiero}[2010/08/13 S.Labetoulle LaTeX package for hieroglyphs typesetting with HieroTex]
+% .. Identification ..
+% ====================
+\ProvidesPackage{neferhiero}[%
+  2010/08/13 S.Labetoulle LaTeX package for %
+  hieroglyphs typesetting with HieroTex%
+]
 
+% .. Code initial ..
+% ==================
+\usepackage{etoolbox}
+\providebool{draft}
+
+% .. Declaration options ..
+% =========================
+\DeclareOption{draft}{%
+  \booltrue{draft}
+  \PassOptionToPackage{draft}{neferegypto}
+}
+
+% .. Execution options ..
+% =======================
+\ProcessOptions
+
+% .. Chargement extensions ..
+% ===========================
 \usepackage{egypto}
 \usepackage{hiero}
-\usepackage{nefercolor}
+% \usepackage{nefercolor}
+\usepackage{neferegypto}
+
+
+% .. Commandes spéciales ..
+% =========================
 
 % Color stuff
 % ===========
-% .. Put something in red to emphasize it ..
-\newcommand{\red}[1]{\textcolor{EmphColor}{#1}}
-
-% .. Rubrique ..
-\newcommand{\ruber}[1]{{%
-  \setlength{\ULdepth}{0.8ex}
-  \color{DarkRed}%
-  \uline{#1}%
-}}
-
-% .. Put something in green to emphasize it ..
-\newcommand{\green}[1]{\textcolor{Gramm}{#1}}
-
-% Font stuff
-% ==========
-% .. Typesetting "Manuel de Codage" ..
-% !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-\@ifpackageloaded{babel}%
-    {\newcommand{\MdC}[1]{{\NoAutoSpaceBeforeFDP{}\texttt{#1}}}}%
-    {\newcommand{\MdC}[1]{\texttt{#1}}}
-
-% .. Typesetting transliteration ..
-% !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-\@ifpackageloaded{babel}{%
-  \newcommand{\tl}[2][TlColor]{{%
-    \NoAutoSpaceBeforeFDP{}%
-    \fontencoding{T1}\fontfamily{ttl}\selectfont%
-    \textcolor{#1}{#2}%
-  }}%
-}%
-{%
-  \newcommand{\tl}[2][TlColor]{{%
-    \fontencoding{T1}\fontfamily{ttl}\selectfont%
-    \textcolor{#1}{#2}
-  }}%
-}
-
-% .. Typesetting translation ..
-\newcommand{\td}[1]{{%
-  \fontencoding{T1}\fontfamily{antt}\selectfont%
-  \textcolor{TdColor}{#1}%
-}}
-
-% .. Typesetting grammar ..
-\newcommand{\tg}[1]{{%
-  % \green{$\rightarrow$~\itshape#1}%
-  \green{$\rightarrow$\ \itshape#1}%
-}}
 
 % Add a line number
 % =================
@@ -62,213 +42,66 @@
 %   \textcolor{Bronze}{%
 %     % \fontencoding{OT1}\fontfamily{antt}\selectfont%
 %     \fontfamily{antt}\fontseries{bx}\selectfont%
-%     $^{\text{[#1]}}$%
+%     \ensuremath{^{\text{[#1]}}}%
 %   }%
 % }
-\newcommand{\lgn}[1]{{%
-  \tcbox[%
-    sharpish corners,
-    boxrule    = 0pt,
-    rightrule  = 1pt,
-    leftrule   = 1pt,
-    nobeforeafter,
-    boxsep     = 0pt,
-    left       = 1pt,
-    right      = 1pt,
-    top        = 2pt,
-    bottom     = 2pt,
-    enlarge by = 1.5ex,
-    colback    = FireBrick!10!white,
-    colframe   = FireBrick,
-  ]%
-  {%
-  \color{FireBrick}
-    \fontfamily{antt}\fontseries{bx}\selectfont%
-    \tiny#1%
-    % $^{\text{[#1]}}$%
-  }%
-}}
 
-% Add a scansion point
-% ====================
-\newcommand{\scansion}{%
-  \begin{tikzpicture}[baseline=(n.base), x=.1ex, y=.1ex]%
-    \fill [circular drop shadow={shadow xshift=2, shadow yshift=-1.5,
-           path fading={circle with fuzzy edge 20 percent}}, Crimson]%
-        (0,0) circle (3.5) ;
-    \node [inner sep=0] at (0,-15) (n) {} ;
-  \end{tikzpicture}\ %
-}
-
-\newcommand{\crtch}[1]{%
-  \tikzset{cartouche/.style = {%
-    thick, %
-    x = 1ex, %
-    y = 1ex, %
-    line cap  = round, %
-    line join = round, %
-  }}%
-  %
-  \begin{tikzpicture}[baseline=(n), cartouche]%
-    \node at (0,-0.75) (n) {} ; %
-    \draw (0,1.5) arc (100:260:1.5) ; %
-  \end{tikzpicture}%
-  \hspace{-1ex}#1\hspace{-1ex}%
-  \begin{tikzpicture}[baseline=(n), cartouche]%
-    \node at (0,-0.75) (n) {} ; %
-    \draw (0,-1.5) arc (-80:80:1.5) ; %
-    \draw (1.3,-1.5) -- ++ (0,3) ; %
-  \end{tikzpicture}%
-}
-
-% Tranliteration stuff
-% ====================
-% .. Transliteration in red ..
-\newcommand{\tlr}[1]{\tl[EmphColor]{#1}}
-
-% .. Small transliteration in green ..
-\newcommand{\tlg}[1]{\tl[Gramm]{\smaller#1}}
-
-% .. Really small transliteration ..
-\newcommand{\tls}[1]{\tl{\footnotesize#1}}
-
-% .. Exclamation point for transliteration : regular color and red ..
-\newcommand{\ex}{{%
-  \fontencoding{T1}\fontfamily{antt}\selectfont
-  \itshape !\xspace%
-}}
-% \newcommand{\ex}[1][TlColor]{{%
-%   \fontencoding{T1}\fontfamily{antt}\selectfont
-%   \textcolor{#1}{\itshape !\xspace}%
-% }}
-
-% .. Capital S ..
-\newcommand{\Smaj}{\textasciicircum}
-
-% .. "Glue" sign ..
-\newcommand{\col}{$\sim$}
 
 % .. Translit shortcuts ..
 \newcommand{\mr}{(j)m(y)-r(A)\xspace}
 \newcommand{\XHb}{Xr(y)-Hb(.t)\xspace}
 
-% .. Add \xspace to \zero from HieroTeX ..
-\renewcommand{\zero}{$\emptyset$\xspace}
-
-% ... Aïn ...
-\newcommand{\ain}[1][black]{{\tl[#1]{a}}}
-
-% Grammar stuff
-% =============
-% .. "Racine du verbe" ..
-\newcommand{\racin}{{\color{TlColor}{$\sqrt{*}$}}\xspace}
-
-% .. "Radical du verbe" pour verbes faibles ..
-\newcommand{\radic}{{\color{TlColor}{$\sqrt{rad}$}}\xspace}
-
-% .. No reduplication ..
-\newcommand{\nored}{{\color{TlColor}{$\sqrt{S.R.}$}}\xspace}
-
-% .. Verbes ..
-\newcommand{\vl} [1]{[\emph{#1-lit.}]\xspace}
-\newcommand{\vi} [1]{[\emph{#1-inf.}]\xspace}
-\newcommand{\vg} [1]{[\emph{#1-gem.}]\xspace}
-\newcommand{\va}    {[\emph{anom}]\xspace}
-\newcommand{\vcl}[1]{[\emph{caus.~#1-lit.}]\xspace}
-\newcommand{\vci}[1]{[\emph{caus.~#1-inf.}]\xspace}
-
-% GM stuff
-% ========
-% .. CEHGM exercices titles ..
-\newcommand{\titreVersion}{Translittérer et traduire}
-\newcommand{\titreTheme}{%
-  Traduire en égyptien, en joignant aux h\iero s leur translittération%
-}
 
 
-\def\MySection#1{ 
-  \vspace*{0.5\baselineskip}%
-  \section{#1}%
-  \vspace*{-0.5\baselineskip}%
-  \noindent\rule[\baselineskip]{\textwidth}{1pt}%
-  \vspace*{-0.5\baselineskip}%
- }
+% \def\MySection#1{ 
+%   \vspace*{0.5\baselineskip}%
+%   \section{#1}%
+%   \vspace*{-0.5\baselineskip}%
+%   \noindent\rule[\baselineskip]{\textwidth}{1pt}%
+%   \vspace*{-0.5\baselineskip}%
+%  }
 
-\def\MySectionB#1{ 
-  {\color{DarkBlue}
-%  \section*{#1}%
-  \section*{\normalsize#1}%
-  \vspace*{-0.75\baselineskip}%
-  \noindent\rule[\baselineskip]{\textwidth}{1pt}%
-  \vspace*{-0.5\baselineskip}}%
- }
+% \def\MySectionB#1{ 
+%   {\color{DarkBlue}
+% %  \section*{#1}%
+%   \section*{\normalsize#1}%
+%   \vspace*{-0.75\baselineskip}%
+%   \noindent\rule[\baselineskip]{\textwidth}{1pt}%
+%   \vspace*{-0.5\baselineskip}}%
+%  }
 
-\def\MySubsectionB#1{ 
-  {\color{DarkBlue}
-%  \section*{#1}%
-  \section*{\small#1}%
-  \vspace*{-0.5\baselineskip}}%
- }
-
-
-% .. Define an environment to enclose the hiero text and its translit./translation .. 
-%\newenvironment{hierobox}
-%  {\setlength{\parindent}{0pt}\setlength\parskip{0.4\baselineskip} \vspace{\baselineskip}}
-%  {\vspace{0pt}}
-\newmdenv[%
-  backgroundcolor   = Tan!5, 
-  nobreak           = true, 
-  outermargin       = 0, 
-  % innerleftmargin   = 0, 
-  % innerrightmargin  = 0, 
-  % innertopmargin    = 0, 
-  % innerbottommargin = 0, 
-  % innermargin       = 0, 
-  skipabove         = {1ex plus 1pt minus .4pt}, 
-  skipbelow         = {1ex plus 1pt minus .4pt}, %0, 
-  hidealllines      = true, 
-  startcode         = {\setlength{\parindent}{0pt}}, 
-  frametitlefont    = \bfseries
-]
-{hieroenv}
-\mdfsetup{%
-  frametitlealignment = \RaggedRight, 
-  align               = center, 
-  nobreak             = true
-}
-
-\newtcolorbox{hierobox}[1][]{%
-  bicolor,
-  boxrule      = 0pt,
-  parbox       = false,
-  before = \hspace{1ex plus 1pt minus .4pt},
-  after  = \hspace{1ex plus 1pt minus .4pt},
-  % enlarge top initially by  = 0.5\baselineskip,
-  % enlarge bottom finally by = 0.5\baselineskip,
-  before upper = {\setlength{\parindent}{0pt}},
-  fonttitle    = \large\bfseries,
-  colframe     = RoyalBlue!75!white,
-  colback      = Ivory,
-  colbacklower = Ivory!20!white,
-  fuzzy shadow={3mm}{-2mm}{0mm}{0.3mm}{black},
-  #1
-}
-
-\newenvironment{vocab}[1][\qquad\qquad]%
-{%
-  \paragraph{Vocabulaire :}
-  \begin{list}{}
-    {\renewcommand\makelabel[1]{\hfill\tl{##1}}%
-     \settowidth\labelwidth{\makelabel{#1}}%
-     \setlength\leftmargin{\labelwidth + \labelsep}%
-    }%
-}%
-{\unskip\end{list}}
+% \def\MySubsectionB#1{ 
+%   {\color{DarkBlue}
+% %  \section*{#1}%
+%   \section*{\small#1}%
+%   \vspace*{-0.5\baselineskip}}%
+%  }
 
 
-% .. Table header : dark green text over light green backgound
-%\definecolor{TblHdTx}{rgb}{.46,.57,.24}
-%\definecolor{TblHdBg}{rgb}{.92,.95,.87}
-\def\TblHd#1{{\bfseries\cellcolor{TblHdBg}\color{TblHdTx}{#1}}}
+% % .. Define an environment to enclose the hiero text and its translit./translation .. 
+% %\newenvironment{hierobox}
+% %  {\setlength{\parindent}{0pt}\setlength\parskip{0.4\baselineskip} \vspace{\baselineskip}}
+% %  {\vspace{0pt}}
+% \newmdenv[%
+%   backgroundcolor   = Tan!5, 
+%   nobreak           = true, 
+%   outermargin       = 0, 
+%   % innerleftmargin   = 0, 
+%   % innerrightmargin  = 0, 
+%   % innertopmargin    = 0, 
+%   % innerbottommargin = 0, 
+%   % innermargin       = 0, 
+%   skipabove         = {1ex plus 1pt minus .4pt}, 
+%   skipbelow         = {1ex plus 1pt minus .4pt}, %0, 
+%   hidealllines      = true, 
+%   startcode         = {\setlength{\parindent}{0pt}}, 
+%   frametitlefont    = \bfseries
+% ]
+% {hieroenv}
+% \mdfsetup{%
+%   frametitlealignment = \RaggedRight, 
+%   align               = center, 
+%   nobreak             = true
+% }
 
 \endinput

@@ -1,0 +1,502 @@
+% .. Identification ..
+% ====================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{neferegypto}
+  [2014/01/10 Sonia Labetoulle LaTeX package]
+
+% .. Code initial ..
+% ==================
+\usepackage{etoolbox}
+\providebool{draft}
+\providebool{hiero}
+
+% .. Declaration options ..
+% =========================
+\DeclareOption{draft}{\booltrue{draft}}
+\DeclareOption{hiero}{\booltrue{hiero}}
+
+% .. Execution options ..
+% =======================
+\ProcessOptions
+
+% .. Chargement extensions ..
+% ===========================
+\ifbool{hiero}{%
+  \RequirePackage{egypto}
+  \RequirePackage{hiero}
+}{}
+\RequirePackage[skins,breakable]{tcolorbox}
+
+% .. Commandes spéciales ..
+% =========================
+
+\ifbool{hiero}{%
+  \newcommand{\mr}{(j)m(y)-r(A)\xspace}
+  \newcommand{\XHb}{Xr(y)-Hb(.t)\xspace}
+}{}
+
+% \providecommand{\colordraft}[2]{{\ifbool{draft}{\color{#1}}{}#2}}
+% \providecommand{\colordraft}[2]{%
+%   \hspace{0pt}%
+%   \texorpdfstring{%
+%     \ifbool{draft}{\textcolor{#1}{#2}}{#2}%
+%   }{%
+%     #2%
+%   }%
+% }
+\providecommand{\colordraft}[2]{%
+  \texorpdfstring{%
+    \ifbool{draft}
+           {\hspace*{0pt}{\color{#1}#2}}
+           {#2}%
+  }{%
+    #2%
+  }%
+}
+
+
+
+% Shortcuts
+% =========
+
+% .. Noms communs ..
+% ------------------
+\newcommand{\hiero}{hiéroglyph}
+\newcommand{\Hiero}{Hiéroglyph}
+\newcommand{\ptol}{ptolémaïque}
+\newcommand{\Ptol}{Ptolémaïque}
+
+% .. Datation ..
+% --------------
+% \texorpdfstring{\dynum{9}-\dyn{10}}{IXe-Xe dynastie}
+\newcommand{\dynum}[1]{%
+  % \bsc{#1}\ifstrequal{i}{#1}{\iere}{\ieme}%
+  \ifrmnum{#1}{%
+    \colordraft{DarkRed}{%
+      \bsc{\MakeLowercase{#1}}%
+      \ifstrequal{#1}{i}{\iere}{\ieme}%
+    }%
+  }{%
+    % \texorpdfstring{%
+      \colordraft{DarkGreen}{%
+        \bsc{\MakeLowercase{\romannumeral#1}}%
+        \ifnumequal{#1}{1}{\iere}{\ieme}%
+      }%
+    % }{%
+    %   \MakeLowercase{\romannumeral#1}e
+    % }%
+  }%
+}
+\newcommand{\dyn}[1]{%
+  \colordraft{DarkGreen}{\dynum{#1}~dynastie}%
+}
+\newcommand{\dynlist}[2]{%
+  \dynum{#1} \colordraft{DarkGreen}{et \dynum{#2}~dynasties}%
+}
+
+\newcommand{\ar}[1]{an~\num{#1}}
+
+% .. Périodes historiques ..
+% --------------------------
+\newcommand{\PD}{\colordraft{blue}{Prédynastique}\xspace}
+\newcommand{\PT}{\colordraft{blue}{Période Thinite}\xspace}
+\newcommand{\OK}{\colordraft{blue}{Ancien Empire}\xspace}
+\newcommand{\PPI}{%
+  \colordraft{blue}{Première Période intermédiaire}\xspace%
+}
+\newcommand{\MK}{\colordraft{blue}{Moyen Empire}\xspace}
+\newcommand{\DPI}{%
+  \colordraft{blue}{Deuxième Période intermédiaire}\xspace%
+}
+\newcommand{\NK}{\colordraft{blue}{Nouvel Empire}\xspace}
+\newcommand{\TPI}{%
+  \colordraft{blue}{Troisième Période intermédiaire}\xspace%
+}
+\newcommand{\LP}{\colordraft{blue}{Basse Époque}\xspace}
+
+% .. Régions d'Égypte ..
+% ----------------------
+\newcommand{\kmt}{\colordraft{violet}{Égypte}\xspace}
+\newcommand{\HE}{\colordraft{violet}{Haute-\kmt}\xspace}
+\newcommand{\ME}{\colordraft{violet}{Moyen\-ne-\kmt}\xspace}
+\newcommand{\BE}{\colordraft{violet}{Basse-\kmt}\xspace}
+\newcommand{\HBE}{\colordraft{violet}{Haute et Basse-\kmt}\xspace}
+\newcommand{\PO}{\colordraft{violet}{Proche-Orient}\xspace}
+\newcommand{\MO}{\colordraft{violet}{Moyen-Orient}\xspace}
+
+% .. Villes et sites d'Égypte ..
+% ------------------------------
+\newcommand{\kv}[1]{\colordraft{DarkRed}{KV\,#1}\xspace}
+\renewcommand{\tt}[1]{\colordraft{DarkRed}{TT\,#1}\xspace}
+
+\newcommand{\GeS}{\colordraft{darkgray}{Gébel el-Silsiléh}\xspace}
+\newcommand{\SeK}{\colordraft{darkgray}{Sérâbît el-Khâdim}\xspace}
+\newcommand{\OeQ}{%
+  \colordraft{darkgray}{Oumm el-Qa\texorpdfstring{\ain}{'}ab}\xspace%
+}
+\newcommand{\SeZ}{\colordraft{darkgray}{Shounet el-Zebib}\xspace}
+\newcommand{\KeS}{\colordraft{darkgray}{Kôm el-Sultan}\xspace}
+\newcommand{\KeH}{\colordraft{darkgray}{Kôm el-Hettan}\xspace}
+\newcommand{\TeD}[1][black]{%
+  \colordraft{darkgray}{%
+    Tell el-Dab\texorpdfstring{\ain[#1]}{'}a%
+  }\xspace%
+}
+\newcommand{\OH}{\colordraft{darkgray}{Ouadi Hammâmât}\xspace}
+\newcommand{\DeB}{\colordraft{darkgray}{Deîr el-Bahari}\xspace}
+\newcommand{\DeM}{\colordraft{darkgray}{Deîr el-Médînéh}\xspace}
+\newcommand{\DAN}{\colordraft{darkgray}{Dra Abou'l-Naga}\xspace}
+\newcommand{\MH}{\colordraft{darkgray}{Médînet Habou}\xspace}
+\newcommand{\KV}{\colordraft{darkgray}{Vallée des rois}\xspace}
+\newcommand{\QV}{\colordraft{darkgray}{Vallée des reines}\xspace}
+\newcommand{\Timna}[1][black]{%
+  \colordraft{darkgray}{Timna\texorpdfstring{\ain[#1]}{'}}\xspace%
+}
+\newcommand{\ReA}[1][black]{%
+  \colordraft{darkgray}{Ra\texorpdfstring{\ain[#1]}{'}s %
+  el-\texorpdfstring{\ain[#1]}{'}Ayn}\xspace%
+}
+\newcommand{\Allaqi}[1][black]{%
+  \colordraft{darkgray}{\texorpdfstring{\ain[#1]}{'}Allâqi}\xspace%
+}
+
+% .. Proche Orient, Méditerranée, Nubie ..
+% ---------------------------------
+\newcommand{\HN}{\colordraft{violet}{Haute-Nubie}\xspace}
+\newcommand{\BN}{\colordraft{violet}{Basse-Nubie}\xspace}
+\newcommand{\Mtn}{\colordraft{DarkRed}{Mitanni}\xspace}
+\newcommand{\Htt}{\colordraft{DarkRed}{Hatti}\xspace}
+\newcommand{\Bqa}{\colordraft{DarkRed}{Béqa\ain}\xspace}
+\newcommand{\PdlM}{\colordraft{DarkRed}{Peuples de la mer}\xspace}
+
+% .. Villes et sites d'ailleurs ..
+% --------------------------------
+\newcommand{\BeH}{\colordraft{darkgray}{Batn el-Hagar}\xspace}
+\newcommand{\EA}[1][black]{%
+  \colordraft{darkgray}{%
+    El-\texorpdfstring{\ain[#1]}{'}Arîsh%
+  }\xspace%
+}
+
+% .. Textes ..
+% ------------
+\newcommand{\CT}{\colordraft{Sepia}{\source{Canon de Turin}}\xspace}
+\newcommand{\TP}{%
+  \colordraft{Sepia}{\source{Textes des Pyramides}}\xspace%
+}
+\newcommand{\TS}{%
+  \colordraft{Sepia}{\source{Textes des Sarcophages}}\xspace%
+}
+\newcommand{\LM}{\colordraft{Sepia}{\source{Livre des Morts}}\xspace}
+\newcommand{\LdP}{\colordraft{Sepia}{\source{Livre des Portes}}\xspace}
+\newcommand{\AD}{\colordraft{Sepia}{\source{Amdouat}\xspace}}
+\newcommand{\LVdC}{%
+  \colordraft{Sepia}{\source{Livre de la Vache du Ciel}}\xspace%
+}
+
+% .. Titres ..
+% ------------
+\newcommand{\VRK}{%
+  % \iflowertonumname v\else V\fi ice-roi de Kouch\xspace%
+  \titre{Vice-roi de Kouch}\xspace%
+}
+\newcommand{\PPA}[1][Premier ]{%
+  \titre{#1Prophète d'Amon}\xspace%
+}
+
+% .. Styles ..
+% ------------
+\newtcbox{\boxtitre}[1][red]{%
+  parbox = true, %
+  enlarge by = 0pt, %
+  before upper =, %
+  no shadow, %
+  on line, %
+  sharpish corners, %
+  colback    = #1!10!white, %
+  colframe   = #1!50!black, %
+  boxsep     = 0pt, %
+  left       = 1pt, %
+  right      = 1pt, %
+  top        = 2pt, %
+  bottom     = 2pt, %
+  boxrule    = 0pt, %
+  bottomrule = 1pt, %
+  toprule    = 1pt, %
+  % opacityback  = 0.1, %
+}
+% \newcommand{\titre}[1]{\boxtitre[orange]{#1}}
+\newcommand{\titre}[1]{\colordraft{orange}{\emph{#1}}}
+\newcommand{\source}[1]{\colordraft{orange}{\emph{#1}}}
+\newcommand{\roi}[1]{\colordraft{RawSienna}{#1}}
+\newcommand{\dieu}[1]{\colordraft{Maroon}{#1}}
+\providecommand{\gens}[2][]{%
+  \colordraft{orange}{\notblank{#1}{#1~}{}\bsc{#2}}%
+}
+
+
+% .. Instituts, musées, ouvrages ..
+% ---------------------------------
+\newcommand{\musee}[1]{\textit{\colordraft{MidnightBlue}{#1}}}
+\newcommand{\inv}[1]{\textit{\colordraft{MidnightBlue}{#1}}}
+\newcommand{\ENS}{École Normale Supérieure\xspace}
+\newcommand{\SFE}{Société Française d'Égyptologie\xspace}
+\newcommand{\IK}{Institut Khéops\xspace}
+\newcommand{\BM}{British Museum\xspace}
+
+% .. Gens ..
+% ----------
+\newcommand{\DF}{\gens[Dominique]{Farout}\xspace}
+\newcommand{\PG}{\gens[Pierre]{Grandet}\xspace}
+\newcommand{\CB}{\gens[Christophe]{Barbotin}\xspace}
+
+% .. GM ..
+% --------
+\newcommand{\MG}{\emph{Cours d'Égyptien Hiéroglyphique}\xspace}
+\newcommand{\titreVersion}{Translittérer et traduire\xspace}
+\newcommand{\titreTheme}{%
+  Traduire en égyptien, en joignant aux {\hiero}es leur 
+  translittération\xspace%
+}
+
+
+% .. Chronologie ..
+% -----------------
+\newcommand{\nouveaute}[1]{\textcolor{DarkBlue}{\flech~#1}}
+\newcommand{\XIIA}{{%
+  \normalfont\bfseries\color{ForestGreen}A\xspace%
+}}
+\newcommand{\XIIB}{{%
+  \normalfont\bfseries\color{Fuchsia}B\xspace%
+}}
+\newcommand{\XIIC}{{%
+  \normalfont\bfseries\color{RedOrange}B'\xspace%
+}}
+\newcommand{\listeroislabel}[1]{\bfseries\sffamily{#1}\enspace}%
+\newenvironment{listerois}{%
+  \begin{list}{}{%
+   \setlength\itemsep{0.8\baselineskip}%
+   \let\makelabel\listeroislabel%
+   \setlength\labelwidth{2em}%
+   \setlength\leftmargin{\labelwidth+\labelsep}%
+  }
+}{\end{list}}
+
+
+
+% Color stuff
+% ===========
+% .. Emphasize in red ..
+% ----------------------
+\newcommand{\red}[1]{\textcolor{EmphColor}{#1}}
+% .. Emphasize in green ..
+% ------------------------
+\newcommand{\green}[1]{\textcolor{Gramm}{#1}}
+
+
+% Trado
+% =====
+
+% .. "Manuel de Codage" ..
+% ------------------------
+\@ifpackageloaded{babel}%
+  {\newcommand{\MdC}[1]{{\NoAutoSpaceBeforeFDP{}\texttt{#1}}}}%
+  {\newcommand{\MdC}[1]{\texttt{#1}}}
+
+% .. Transliteration ..
+% ---------------------
+\@ifpackageloaded{babel}{%
+  \newcommand{\tl}[2][TlColor]{{%
+    \NoAutoSpaceBeforeFDP{}%
+    \fontencoding{T1}\fontfamily{ttl}\selectfont%
+    \textcolor{#1}{#2}%
+  }}%
+}{%
+  \newcommand{\tl}[2][TlColor]{{%
+    \fontencoding{T1}\fontfamily{ttl}\selectfont%
+    \textcolor{#1}{#2}
+  }}%
+}
+% ... Exclamation point ...
+\newcommand{\ex}{{%
+  % \fontencoding{T1}\fontfamily{antt}\selectfont%
+  \normalfont%
+  \itshape !\xspace%
+}}
+% ... Capital S ...
+\newcommand{\Smaj}{\textasciicircum}
+% ... "Glue" sign ...
+\newcommand{\col}{\ensuremath{\sim}}
+
+% ... Transliteration in red ...
+\newcommand{\tlr}[1]{\tl[EmphColor]{#1}}
+% ... Small transliteration in green ...
+\newcommand{\tlg}[1]{\tl[Gramm]{\smaller#1}}
+% ... Really small transliteration ...
+\newcommand{\tls}[1]{\tl{\footnotesize#1}}
+
+
+
+% ... Sujet zero ...
+\@ifpackageloaded{hiero}%
+  % Add \xspace to \zero from HieroTeX ..
+  {\providecommand{\zero}{\ensuremath{\emptyset}\xspace}}
+  {}
+% \@ifpackageloaded{hiero}%
+%   % Add \xspace to \zero from HieroTeX ..
+%   {\renewcommand{\zero}{$\emptyset$\xspace}}
+%   {\newcommand{\zero}{$\emptyset$\xspace}}
+
+% ... Aïn ...
+\newcommand{\ain}[1][black]{{\tl[#1]{a}}}
+
+
+
+
+
+% .. Translation ..
+% -----------------
+\newcommand{\td}[1]{{%
+  \fontencoding{T1}\fontfamily{antt}\selectfont%
+  \textcolor{TdColor}{#1}%
+}}
+
+% .. Grammar ..
+% -------------
+\newcommand{\tg}[1]{{%
+  % \green{\ensuremath{\rightarrow}~\itshape#1}%
+  \green{\ensuremath{\rightarrow}\ \itshape#1}%
+}}
+
+% ... "Racine du verbe" ...
+\newcommand{\racin}{{\color{TlColor}{\ensuremath{\sqrt{*}}}}\xspace}
+% ... "Radical du verbe" pour verbes faibles ...
+\newcommand{\radic}{{\color{TlColor}{\ensuremath{\sqrt{rad}}}}\xspace}
+% ... No reduplication ...
+\newcommand{\nored}{{\color{TlColor}{\ensuremath{\sqrt{S.R.}}}}\xspace}
+
+% ... Verbes ...
+\newcommand{\vl} [1]{[\emph{#1-lit.}]\xspace}
+\newcommand{\vi} [1]{[\emph{#1-inf.}]\xspace}
+\newcommand{\vg} [1]{[\emph{#1-gem.}]\xspace}
+\newcommand{\va}    {[\emph{anom}]\xspace}
+\newcommand{\vcl}[1]{[\emph{caus.~#1-lit.}]\xspace}
+\newcommand{\vci}[1]{[\emph{caus.~#1-inf.}]\xspace}
+% ... Formes nominales ...
+\newcommand{\fnimp}{forme nominale imperfective\xspace}
+\newcommand{\fnper}{forme nominale perfective\xspace}
+\newcommand{\fnpro}{forme nominale prospective\xspace}
+% ... Participes ...
+\newcommand{\ppimp}[1][]{participe#1 imperfectif#1 passif#1\xspace}
+\newcommand{\ppper}[1][]{participe#1 perfectif#1 passif#1\xspace}
+\newcommand{\pppro}[1][]{participe#1 prospectif#1 passif#1\xspace}
+\newcommand{\paimp}[1][]{participe#1 imperfectif#1 actif#1\xspace}
+\newcommand{\paper}[1][]{participe#1 perfectif#1 actif#1\xspace}
+\newcommand{\papro}[1][]{participe#1 prospectif#1 actif#1\xspace}
+
+
+
+% .. Rubrique ..
+% --------------
+\newcommand{\ruber}[1]{{%
+  \setlength{\ULdepth}{0.8ex}
+  \color{DarkRed}%
+  \uline{#1}%
+}}
+
+% .. Scansion point ..
+% --------------------
+\newcommand{\scansion}{%
+  \begin{tikzpicture}[baseline=(n.base), x=.1ex, y=.1ex]%
+    \fill [circular drop shadow={shadow xshift=2, shadow yshift=-1.5,
+           path fading={circle with fuzzy edge 20 percent}}, Crimson]%
+        (0,0) circle (3.5) ;
+    \node [inner sep=0] at (0,-15) (n) {} ;
+  \end{tikzpicture}\ %
+}
+
+% .. Line number ..
+% -----------------
+\newcommand{\lgn}[2][]{{%
+  \tcbox[%
+    sharpish corners,
+    nobeforeafter,
+    boxrule    = 0pt,
+    rightrule  = 1pt,
+    leftrule   = 1pt,
+    boxsep     = 0pt,
+    left       = 1pt,
+    right      = 1pt,
+    top        = 2pt,
+    bottom     = 2pt,
+    enlarge by = 1.5ex,
+    colback    = FireBrick!10!white,
+    colframe   = FireBrick,
+    #1
+  ]%
+  {%
+  \color{FireBrick}
+    \fontfamily{antt}\fontseries{bx}\selectfont%
+    \tiny#2%
+  }%
+}}
+
+
+
+% .. Cartouche ..
+% ---------------
+\newcommand{\crtch}[1]{%
+  \tikzset{cartouche/.style = {%
+    thick, %
+    x = 1ex, y = 1ex, %
+    line cap  = round, %
+    line join = round, %
+  }}%
+  %
+  \begin{tikzpicture}[baseline=(n), cartouche]%
+    \node at (0,-0.75) (n) {} ; %
+    \draw (0,1.5) arc (100:260:1.5) ; %
+  \end{tikzpicture}%
+  \hspace{-1ex}#1\hspace{-1ex}%
+  \begin{tikzpicture}[baseline=(n), cartouche]%
+    \node at (0,-0.75) (n) {} ; %
+    \draw (0,-1.5) arc (-80:80:1.5) ; %
+    \draw (1.3,-1.5) -- ++ (0,3) ; %
+  \end{tikzpicture}%
+}
+
+
+
+% Boite pour trado
+% ================
+\newtcolorbox{hierobox}[1][]{%
+  breakable, 
+  bicolor, 
+  boxrule      = 0pt, 
+  parbox       = false, 
+  before       = \vspace{1ex plus 1pt minus .4pt}\noindent, 
+  after        = \vspace{1ex plus 1pt minus .4pt}, 
+  before upper = {\setlength{\parindent}{0pt}}, 
+  fonttitle    = \large\bfseries, 
+  colframe     = RoyalBlue!75!white, 
+  colback      = Ivory, 
+  colbacklower = Ivory!20!white, 
+  fuzzy shadow = {3mm}{-2mm}{0mm}{0.3mm}{black}, 
+  #1
+}
+
+
+% Liste de vocabulaire
+% ====================
+\newenvironment{vocab}[1][\qquad\qquad]%
+{%
+  \paragraph{Vocabulaire :}\nopagebreak%
+  \begin{list}{}
+    {\renewcommand\makelabel[1]{\hfill\tl{##1}}%
+     \settowidth\labelwidth{\makelabel{#1}}%
+     \setlength\leftmargin{\labelwidth + \labelsep}%
+    }%
+}%
+{\unskip\end{list}}
+
+\endinput

@@ -19,7 +19,8 @@ set fg_img     = ".false."
 # ==================
 switch ( ${HOSTNAME} )
   case "elkab":
-    set DirHome = "/mnt/NeferHiero"
+    # set DirHome = "/mnt/NeferHiero"
+    set DirHome = "/mnt/egypto/NeferHiero"
     breaksw
   case "*.ipsl.jussieu.fr":
     # set DirHome = "/home_local/slipsl/Perso/HieroSVN"
@@ -93,7 +94,7 @@ while ( $NArg <= $# )
   @ NArg = $NArg + 1
 end
 
-set TexComp = "pdflatex -output-directory=$DirOut"
+set TexComp = "pdflatex -recorder -output-directory=$DirOut"
 set OutType = "pdf"
 
 # Does the input file exist ?

@@ -1,0 +1,170 @@
+% .. Identification ..
+% ====================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{neferkheops}%
+  [2015/01/10 S.Labetoulle LaTeX package]
+
+% .. Code initial ..
+% ==================
+\usepackage{etoolbox}
+\providebool{article}
+
+% .. Declaration options ..
+% =========================
+\DeclareOption{article}{\booltrue{article}}
+
+% .. Execution options ..
+% =======================
+\ProcessOptions
+
+% .. Chargement extensions ..
+% ===========================
+
+% .. Commandes spéciales ..
+% =========================
+
+% ... Redefine title page ...
+% ---------------------------
+\newlength{\drop}% for my convenience
+
+% Define subtitle
+\newcommand{\subtitle}[1]{\def\@subtitle{#1}}
+% Define teacher name
+\newcommand{\lecturer}[1]{\def\@lecturer{#1}}
+% Define organisation name
+\newcommand{\orga}[1]{\def\@orga{#1}}
+
+\def\maketitle{%
+  \drop = 0.1\textheight%
+  \vfill%
+  \hbox{%
+    \hspace*{0.2\textwidth}%
+    \rule{3pt}{\textheight}%
+    \hspace*{0.05\textwidth}%
+    \parbox[b]{0.75\textwidth}{%
+      \vbox to 0.9\textheight{%
+        \vspace{\drop}%
+        {\noindent\HUGE\bfseries\RaggedRight\@title\par}%
+        \vspace{2\baselineskip}%
+        {\Huge\itshape\@subtitle\par}%
+        \vspace{4\baselineskip}%
+        {\Large\itshape\@date\par}%
+        \vspace{2\baselineskip}%
+        {\Large\@orga\par\vspace{0.5\baselineskip}\@lecturer\par}%
+
+        \vspace*{\fill}%
+
+        {\noindent \@author\par}%
+        \bigskip%
+        {\small\itshape\today, \printtime\par}%
+      }%
+    }%
+  }%
+  \vfill%
+
+  \pagebreak
+
+  \thispagestyle{empty}
+  \vspace*{\fill}
+  \input{neferlicence}
+  \pagebreak
+}
+
+
+% ... Redefine headings ...
+% -------------------------
+% Define short title for header
+\newcommand{\short}[1]{\def\@short{#1}}
+
+% \markboth{\@lecturer}{\@short}
+\makepagestyle{ruled}
+\makeevenhead{ruled}
+  {\normalfont\itshape\@short}
+  {}
+  {\normalfont\itshape\leftmark}
+\makeoddhead{ruled}
+  {\normalfont\itshape\rightmark}
+  {}
+  {\normalfont\itshape\@lecturer}
+\makeevenfoot{ruled}
+  {}
+  {\thepage}
+  {}
+\makeoddfoot{ruled}
+  {}
+  {\thepage}
+  {}
+\makeheadrule{ruled}{\textwidth}{\normalrulethickness}
+% \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
+
+\makepagestyle{ruledarticle}
+\makeevenhead{ruledarticle}
+  {\normalfont\itshape\@short}
+  {}
+  {}
+\makeoddhead{ruledarticle}
+  {}
+  {}
+  {\normalfont\itshape\leftmark}
+\makeevenfoot{ruledarticle}
+  {}
+  {\thepage}
+  {}
+\makeoddfoot{ruledarticle}
+  {}
+  {\thepage}
+  {}
+\makeheadrule{ruledarticle}{\textwidth}{\normalrulethickness}
+% \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
+
+\makepsmarks{ruled}{%
+  \nouppercaseheads
+  \createmark{chapter}{left}{shownumber}{}{.\ }
+  \createmark{section}{right}{shownumber}{}{.\ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+
+\makepsmarks{ruledarticle}{%
+  \nouppercaseheads
+  \createmark{chapter}{left}{nonumber}{}{.\ }
+  \createmark{section}{right}{nonumber}{}{.\ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+
+
+% ... Chapter style ...
+% ---------------------
+\makechapterstyle{kheopschapter}{%
+  \renewcommand{\chapnamefont}{\raggedleft\normalfont\huge\scshape}
+  \renewcommand*{\chapnumfont}{\raggedleft\normalfont\Huge\scshape}
+  \renewcommand*{\chaptitlefont}{\raggedleft\normalfont\Huge\bfseries}
+  \renewcommand*{\afterchaptertitle}{%
+    {%
+      \par\nobreak\vskip 5pt
+      \par\offinterlineskip\hbox{%
+        \rule{\textwidth}{3pt}
+      }
+      \par\nobreak\vskip \afterchapskip
+    }
+  }
+}
+
+\ifbool{article}{%
+  \chapterstyle{article}%
+  \pagestyle{ruledarticle}
+}{%
+  \chapterstyle{kheopschapter}%
+  \pagestyle{ruled}
+}
+
+\endinput
