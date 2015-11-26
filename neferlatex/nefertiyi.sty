@@ -1,4 +1,28 @@
+% .. Identification ..
+% ====================
 \ProvidesPackage{nefertiyi}[2010/08/15 S.Labetoulle LaTeX package]
+
+% .. Code initial ..
+% ==================
+\usepackage{etoolbox}
+\providebool{draft}
+\providebool{background}
+
+% .. Declaration options ..
+% =========================
+\DeclareOption{draft}{\booltrue{draft}}
+\DeclareOption{background}{\booltrue{background}}
+
+% .. Execution options ..
+% =======================
+\ProcessOptions
+
+% .. Chargement extensions ..
+% ===========================
+
+\ifbool{background}{%
+  \RequirePackage[firstpage=true,pages=some,angle=0]{background}%
+}
 
 % Encoding
 \usepackage[T1]{fontenc}
@@ -10,16 +34,16 @@
 \usepackage{multido}
 \usepackage{calc}
 %
-\usepackage{geometry}
+% \usepackage{geometry}
 \usepackage{relsize}
-\usepackage{setspace}
+% \usepackage{setspace}
 \usepackage{nccparskip}
 \usepackage{ragged2e}
 %
 % Fonts and symbols
 \usepackage{pifont}
 \usepackage{fourier}
-\usepackage{amsmath, mathtools}
+\usepackage{amsmath, mathtools, bm}
 %\usepackage{gfsartemisia-euler}
 \usepackage{fouriernc}
 \usepackage{xspace}
@@ -35,10 +59,13 @@
 \usepackage{ltxtable}
 \usepackage{multirow}
 \usepackage{hhline}
+\usepackage{booktabs}
 \usepackage{colortbl}
 %
 % Boxes
-\usepackage[framemethod=tikz]{mdframed}
+% \usepackage[framemethod=tikz]{mdframed}
+\RequirePackage[skins,breakable]{tcolorbox}
+% \usepackage[skins,breakable]{tcolorbox}
 %
 \usepackage{nefercolor}
 \usepackage{neferalias}
@@ -46,20 +73,39 @@
 \usepackage{fancybox}
 %
 \usepackage[english,french]{babel}
+% \PassOptionsToPackage{obeyspaces}{url}
 \usepackage[hidelinks,unicode,pdfhighlight=/P]{hyperref}
 \usepackage{bookmark}
+% \usepackage[all]{hypcap}
 \usepackage{siunitx}
 %
 % Biblio
 \usepackage{csquotes}
-% \usepackage[backend=biber,style=authoryear]{biblatex}
-\usepackage[backend=biber,style=alphabetic]{biblatex}
+\usepackage[backend=biber,style=authoryear]{biblatex}
+% \usepackage[backend=biber,style=alphabetic]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
 %
 
+% \providecommand{\colordraft}[2]{{\ifbool{draft}{\color{#1}}{}#2}}
+% \providecommand{\colordraft}[2]{{%
+%   \texorpdfstring{\ifbool{draft}{\color{#1}}{}#2}{#2}%
+% }}
+\providecommand{\colordraft}[2]{%
+  \texorpdfstring{%
+    \ifbool{draft}
+           {\hspace*{0pt}{\color{#1}#2}}
+           {#2}%
+  }{%
+    #2%
+  }%
+}
+\providecommand{\gens}[2][]{%
+  \colordraft{orange}{\notblank{#1}{#1~}{}\bsc{#2}}%
+}
+
 % Babel options
 % =============
-\frenchbsetup{ItemLabelii=\pucea}
+% \frenchbsetup{ItemLabelii=\pucea}
 \addto\captionsfrench{\def\contentsname{Sommaire}}
 %\mathchardef\times="2202
 
@@ -70,128 +116,139 @@
   exponent-product  = \cdot, 
   range-phrase      = \ à\ , 
   detect-all,
-  color             = purple,
+  % color             = purple,
   list-units        = single,
   range-units       = single,
   multi-part-units  = single,
   input-comparators = {<=>\approx\ge\geq\gg\le\leq\ll\sim\pm\no},
   retain-unity-mantissa = false
 }
-
-\newcommand{\ano}[2][-1]{%
-  \ifthenelse{#1 = 0}%
-    {\num{#2}}%
-    {\ifthenelse{#1 > 0}%
-       {\SI{#2}{AD}}%
-       {\SI{#2}{BC}}%
-    }%
-}
-\newcommand{\anorange}[3][-1]{{%
-  \sisetup{range-phrase=-}%
-  \ifthenelse{#1 = 0}%
-    {\numrange{#2}{#3}}%
-    {\ifthenelse {#1 > 0}%
-       {\SIrange{#2}{#3}{AD}}%
-       {\SIrange{#2}{#3}{BC}}%
-    }%
-}}
-
-
-% Bibliography
-\defbibheading{memoir}[\bibname]{%
-\chapter*{#1}%
-\addcontentsline{toc}{chapter}{#1}
-\markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}}
-
-
-
 \DeclareSIUnit{\coudee}{c}
 \DeclareSIUnit{\paume}{p}
 \DeclareSIUnit{\doigt}{d}
 \DeclareSIUnit{\an}{an}
 \DeclareSIUnit{\jour}{j}
-% % .. Dimensions 2D et 3D ..
-% \newcommand{\dimTD}[4]{%
-% %  \SI{#1}{#4}$\times$\SI{#2}{#4}$\times$\SI{#3}{#4}%
-%   \SI{#1x#2x#3}{#4}%
+
+\ifbool{draft}{%
+  \sisetup{color = purple}
+}{%
+}
+
+
+% .. Gens ..
+% ==========
+\newcommand{\SL}{\gens[Sonia]{Labetoulle}\xspace}
+
+% .. Numéros de siècles ..
+% ========================
+\newcommand{\siecle}[2][\ieme]{%
+  \colordraft{DarkGreen}{#2#1~siècle}\xspace%
+}
+
+% .. Dates ..
+% ===========
+\newcommand{\ano}[2][-1]{%
+  \ifnumequal{#1}{0}{%
+    \num{#2}%
+  }{%
+    \SI{#2}{\ifnumless{#1}{0}{BC}{AD}}%
+  }%
+}
+% \newcommand{\ano}[2][-1]{%
+%   \ifthenelse{#1 = 0}%
+%     {\num{#2}}%
+%     {\ifthenelse{#1 > 0}%
+%        {\SI{#2}{AD}}%
+%        {\SI{#2}{BC}}%
+%     }%
 % }
-% \newcommand{\dimDD}[3]{%
-% %  \SI{#1}{#3}$\times$\SI{#2}{#3}%
-%   \SI{#1x#2}{#3}%
-% }
+\newcommand{\anorange}[3][-1]{{%
+  \sisetup{range-phrase=-}%
+  \ifnumequal{#1}{0}{%
+    \numrange{#2}{#3}%
+  }{%
+    \SIrange{#2}{#3}{\ifnumless{#1}{0}{BC}{AD}}%
+  }%
+  % \ifthenelse{#1 = 0}%
+  %   {\numrange{#2}{#3}}%
+  %   {\ifthenelse {#1 > 0}%
+  %      {\SIrange{#2}{#3}{AD}}%
+  %      {\SIrange{#2}{#3}{BC}}%
+  %   }%
+}}
+\newcommand{\datation}[1]{{\normalfont\emph{#1}}}
+
+\newcommand{\datesregne}[3][p]{%
+  \datation{%
+    \ifstrequal{#1}{p}{(}{}%
+    \anorange{#2}{#3}%
+    \ifstrequal{#1}{p}{)}{}%
+  }
+}
+
+
+% .. Quatrième de couv' ..
+\ifbool{background}{%
+  \AtEndDocument{%
+    \cleardoublepage
+    \pagestyle{empty}
+    ~\newpage
+    ~\BgThispage
+  }%
+}{}%
+
+
+% Bibliography
+\setlength\bibitemsep{0.5\baselineskip}
+\defbibheading{memoir}[\bibname]{%
+  \chapter*{#1}%
+  \addcontentsline{toc}{chapter}{#1}%
+  \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
+}
 
 
 \newcommand{\mybrace}[2]{%
-  $\underbrace{\text{#1}}_{\mathclap{\text{#2}}}$%
+  \ensuremath{\underbrace{\text{#1}}_{\mathclap{\text{#2}}}}%
 }
 \newcommand{\mybracenospace}[2]{%
-  $\mathclap{\underbrace{\phantom{\text{#1\strut}}}_{\text{#2}}}\text{#1}$%
+  \ensuremath{\mathclap{%
+    \underbrace{\phantom{\text{#1\strut}}}_{\text{#2}}}\text{#1%
+  }}%
 }
 
 
-% Font stuff
-% ==========
-% .. Typesetting remark ..
-\newcommand{\rem}[1]{{\textcolor{black}{\itshape\smaller#1}}}
-\newcommand{\remg}[1]{{\green{\itshape\smaller#1}}}
-\newcommand{\infos}[1]{{\smaller#1}}
+% Incise
+% ======
+\DeclareRobustCommand{\oinc}{\textendash~}
+\DeclareRobustCommand{\finc}{~\textendash}
+\DeclareRobustCommand{\incise}[1]{\oinc#1\finc}
+\DeclareRobustCommand{\oincise}[1]{\oinc#1}
 
-%\newcommand{\donc}{\noindent\hspace*{2em}$\Rightarrow$}
-\newcommand{\donc}{$\Longrightarrow$}
-
-\newcommand{\noi}{\noindent}
-
-\newcommand{\oeuvre}[1]{{\noi\bfseries#1\hspace{1em}}}
-
-\newcommand{\saispas}{\uwave{\dots}\xspace}
 
 % Macro "fait le"
 % ===============
-% \newcommand{\faitle}[1]{\hfill\emph{\smaller#1}}
-% \newcommand{\faitle}[1]{\marginpar{\emph{\smaller#1}}}
-% \newcommand{\faitle}[1]{\sidepar{\emph{\smaller#1}}}
-% \renewcommand*{\marginfont}{\color{gray}\itshape\scriptsize}
-\newcommand{\faitle}[1]{%
-  \rule{0pt}{0pt}%
-  % \marginpar{\centering\emph{\smaller#1}}%
-  \marginnote{\color{gray}\itshape\scriptsize\centering#1}%
+\DeclareRobustCommand{\faitle}[1]{%
+  \texorpdfstring{%
+    \rule{0pt}{0pt}%
+    \marginnote{%
+      \normalfont\color{gray}\itshape\scriptsize\centering#1%
+    }%
+  }{}
 }
 
-\newcommand{\datation}[1]{{\normalfont\emph{#1}}}
 
-\newcommand{\musee}[1]{\textit{\textcolor{MidnightBlue}{#1}}}
-\newcommand{\inv}[1]{\textit{\textcolor{RawSienna}{#1}}}
-
-\newcommand{\titre}[1]{{\sffamily#1}}
-\newcommand{\source}[1]{\emph{#1}}
-
-\newcommand{\kv}[1]{KV\,#1\xspace}
-\renewcommand{\tt}[1]{TT\,#1\xspace}
-
-
-\newcommand{\nouveaute}[1]{\textcolor{DarkBlue}{\flech~#1}}
-\newcommand{\XIIA}{{%
-  \normalfont\bfseries\textcolor{ForestGreen}{A\xspace}
-}}
-\newcommand{\XIIB}{{%
-  \normalfont\bfseries\textcolor{Fuchsia}{B\xspace}
-}}
-\newcommand{\XIIC}{{%
-  \normalfont\bfseries\textcolor{RedOrange}{B'\xspace}
-}}
-
-
-\newcommand{\listeroislabel}[1]{\bfseries\sffamily{#1}\enspace}
-\newenvironment{listerois}
-  {\begin{list}{}{%
-     \setlength\itemsep{0.8\baselineskip}
-     \let\makelabel\listeroislabel%
-     \setlength\labelwidth{2em}%
-     \setlength\leftmargin{\labelwidth+\labelsep}%
-   }
-  }
-  {\end{list}}
-
+\newenvironment{sidefig}[3]{%
+  \CaptionPetit
+  \begin{figure}[htb]
+    % \setsidecaps{\marginparsep}{\marginparwidth}
+    \setsidecaps{-#1}{#1}
+    \begin{sidecaption}{#2}[#3]
+      \centerfloat
+}{%
+    \end{sidecaption}
+  \end{figure}
+  \CaptionNormal
+}
 
 % .. Arabic transliteration ..
 \newcommand{\ta}[1]{%
@@ -199,54 +256,17 @@
   {{\itshape\bfseries#1}}%
 }
 
+% .. Define nospace font ..
+% !! Double {{}} pour cantonner l'effet à l'argument #1 !!
+\@ifpackageloaded{babel}%
+  {\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}}%
+  {\newcommand{\nospace}[1]{#1}}
 
-% Figure
-% ======
-\newcommand{\figs}[2][]{\figurerefname s~\ref{#2}#1}
-\newcommand{\fig}[2][]{\figurerefname~\ref{#2}#1}
-\newcommand{\tbl}[2][]{\tablerefname~\ref{#2}#1}
-
-\makeatletter
-  % % .. Define subtitle ..
-  % \newcommand{\subtitle}[1]{\def\@subtitle{#1}}
-
-  % % .. Define short title for header ..
-  % \newcommand{\short}[1]{\def\@short{#1}}
-
-  % % .. Define teacher name ..
-  % \newcommand{\lecturer}[1]{\def\@lecturer{#1}}
-
-  % % .. Define organisation name ..
-  % \newcommand{\orga}[1]{\def\@orga{#1}}
-
-  % .. Define nospace font ..
-  \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-    {\newcommand{\nospace}[1]{{\NoAutoSpaceBeforeFDP{}#1}}}%
-    {\newcommand{\nospace}[1]{#1}}
-
-% % .. Define URL font ..
-%   \@ifpackageloaded{babel}%   !! Double {{}} pour cantonner l'effet à l'argument #1 !!
-%     {\@ifpackageloaded{hyperref}%
-%        {}%
-%        {\newcommand{\url}[1]{{\NoAutoSpaceBeforeFDP{}\textsf{#1}}}}}%
-%     {\@ifpackageloaded{hyperref}%
-%        {}%
-%        {\newcommand{\url}[1]{\textsf{#1}}}}
-\makeatother
 
 % Dimensions stuff
 % ================
-% .. Command to test text dimensions ..
-\newcommand{\fillpage}{\rule{\textwidth}{\textheight}}
-
-% .. Change dimensions a bit ..
-%%\setlength{\parindent}{0pt}
-
 % .. Distance from text to line (ulem) ..
 \setlength{\ULdepth}{1.5pt}
-
-% .. Shortcut to skip a line ..
-\newcommand{\espace}{\vspace*{\baselineskip}}
 
 % .. Paragraphs ..
 %\SetParskip{6pt plus 1pt minus .4pt}
@@ -254,82 +274,101 @@
 % Environment
 % ===========
 % .. Exemple ..
-\newenvironment{exple}
-{%
-  \begin{list}{Ex}
-    {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
-     \settowidth\labelwidth{\makelabel{Ex}}%
-     \setlength\leftmargin{\labelwidth + \labelsep}%
-    }
+\newenvironment{exple}{%
+  \begin{list}{Ex}{%
+    \renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
+    \settowidth\labelwidth{\makelabel{Ex}}%
+    \setlength\leftmargin{\labelwidth + \labelsep}%
+  }%
   \item\ignorespaces%
-}
+}%
 {\unskip\end{list}}
 
 % .. Remarks ..
-\newenvironment{remarque}
-{%
+\newenvironment{remarque}{%
   \bigskip
-  \begin{list}{Rem}
-    {\renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
-     \settowidth\labelwidth{\makelabel{Rem}}%
-     \setlength\leftmargin{\labelwidth + \labelsep}%
-    }
+  \begin{list}{Rem}{%
+    \renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
+    \settowidth\labelwidth{\makelabel{Rem}}%
+    \setlength\leftmargin{\labelwidth + \labelsep}%
+  }%
   \item\ignorespaces%
-}
+}%
 {%
-  \unskip\end{list}
-  \bigskip
+  \unskip\end{list}%
+  \bigskip%
 }
 
-% .. Shadowbox ..
-\newmdenv
-  [shadow            = true, 
-   shadowcolor       = RoyalBlue!20, 
-   backgroundcolor   = RoyalBlue!18, 
-   outermargin       = 12pt, 
-   innermargin       = 12pt,
-   innertopmargin    = 1.0\baselineskip, 
-   innerbottommargin = 1.0\baselineskip, 
-   skipabove         = 1.0\baselineskip, 
-   skipbelow         = 1.0\baselineskip, 
-   splittopskip      = 5pt, 
-   splitbottomskip   = 5pt, 
-   frametitlefont    = \bfseries]
-  {encadre}
-\newmdenv
-  [backgroundcolor   = BrickRed!20,
-   shadow            = true, 
-   shadowcolor       = BrickRed!20, 
-   outermargin       = 12pt, 
-   innermargin       = 12pt,
-   innertopmargin    = 1.0\baselineskip, 
-   innerbottommargin = 1.0\baselineskip, 
-   skipabove         = 1.0\baselineskip, 
-   skipbelow         = 1.0\baselineskip, 
-   splittopskip      = 5pt, 
-   splitbottomskip   = 5pt, 
-   frametitlefont    = \bfseries\larger, 
-   frametitle        = \Att~Attention !]
-  {warning}
-\newmdenv
-  [backgroundcolor   = PineGreen!20,
-   shadow            = true, 
-   shadowcolor       = PineGreen!20, 
-   outermargin       = 12pt, 
-   innermargin       = 12pt,
-   innertopmargin    = 1.0\baselineskip, 
-   innerbottommargin = 1.0\baselineskip, 
-   skipabove         = 1.0\baselineskip, 
-   skipbelow         = 1.0\baselineskip, 
-   splittopskip      = 5pt, 
-   splitbottomskip   = 5pt, 
-   frametitlefont    = \bfseries, 
-   frametitle        = \uline{Gramm} :]
-  {grammaire}
-\mdfsetup{%
-  frametitlealignment = \RaggedRight, 
-  align               = center
+\tcbset{%
+  enhanced,
 }
+\newtcolorbox{aparte}[1][]{%
+  % show bounding box, %
+  % breakable, %
+  colframe  = RoyalBlue!75!white, %
+  colback   = RoyalBlue!5!white, %
+  parbox    = false, %
+  before    = \vspace{1ex plus 1pt minus .4pt}\noindent,
+  after     = \vspace{1ex plus 1pt minus .4pt},
+  % before    = \vspace{\baselineskip}\noindent, %
+  % after     = \vspace{\baselineskip}, %
+  before upper = \indent, %
+  % before    = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % after     = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % enlarge top initially by  = \baselineskip, %
+  % enlarge bottom finally by = \baselineskip, %
+  % before upper = {\setlength{\parindent}{0pt}}, %
+  fonttitle    = \large\bfseries, %
+  fuzzy shadow = {3mm}{-2mm}{0mm}{0.3mm}{black}, %
+  % bottomtitle = 3mm, %
+  % toptitle    = 2mm, %
+  #1, %
+}
+\newtcolorbox{warning}[1][]{%
+  % show bounding box, %
+  % breakable, %
+  title     = {\raisebox{0.3ex}{\danger}~Attention !}, %
+  colframe  = BrickRed!75!white, %
+  colback   = BrickRed!5!white, %
+  parbox    = false, %
+  before    = \vspace{1ex plus 1pt minus .4pt}\noindent,
+  after     = \vspace{1ex plus 1pt minus .4pt},
+  % before    = \vspace{\baselineskip}\noindent, %
+  % after     = \vspace{\baselineskip}, %
+  before upper = \indent, %
+  % before    = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % after     = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % enlarge top initially by  = \baselineskip, %
+  % enlarge bottom finally by = \baselineskip, %
+  fonttitle    = \large\bfseries, %
+  fuzzy shadow = {3mm}{-2mm}{0mm}{0.3mm}{black}, %
+  #1, %
+}
+\newtcolorbox{grammaire}[1][]{%
+  % show bounding box, %
+  % breakable, %
+  title     = {\uline{Gramm} :}, %
+  colframe  = PineGreen!75!white, %
+  colback   = PineGreen!5!white, %
+  parbox    = false, %
+  before    = \vspace{1ex plus 1pt minus .4pt}\noindent,
+  after     = \vspace{1ex plus 1pt minus .4pt},
+  % before    = \vspace{\baselineskip}\noindent, %
+  % after     = \vspace{\baselineskip}, %
+  before upper = \indent, %
+  % before    = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % after     = \vspace{\baselineskip plus 1pt minus .4pt}, %
+  % enlarge top initially by  = \baselineskip, %
+  % enlarge bottom finally by = \baselineskip, %
+  fonttitle    = \large\bfseries, %
+  % bottomtitle = 3mm, %
+  % toptitle    = 2mm, %
+  fuzzy shadow = {3mm}{-2mm}{0mm}{0.3mm}{black}, %
+  #1, %
+}
+\newcommand{\tcbligne}{{%
+  \setlength{\parindent}{0pt}\tcbline%
+}}
 
 
 % Image stuff
@@ -342,25 +381,79 @@
 
 % Tabular stuff
 % =============
-\renewcommand{\multirowsetup}{\centering}
-\newcolumntype{C}[1]{>{\vspace{0pt}\centering}p{#1}<{\vspace{0pt}}}
-\newcolumntype{M}[1]{>{\vspace{2pt}\centering}m{#1}<{\vspace{2pt}}}
-\newcolumntype{L}[1]{>{\vspace{2pt}\raggedleft}m{#1}<{\vspace{2pt}}}
-\newcolumntype{R}[1]{>{\vspace{2pt}\raggedright}m{#1}<{\vspace{2pt}}}
-\newcolumntype{N}[1]{>{\vspace{3pt}}m{#1}<{\vspace{3pt}}}
+\newcolumntype{M}[1]{>{\centering}m{#1}}
+% \newcolumntype{M}[1]{>{\vspace{2pt}\centering}m{#1}<{\vspace{2pt}}}
 
+\newcolumntype{C}[1]{>{\centering}m{#1}}
+\newcolumntype{L}[1]{>{\RaggedRight}m{#1}}
+\newcolumntype{R}[1]{>{\RaggedLeft}m{#1}}
+% \newcolumntype{C}[1]{>{\vspace{0pt}\centering}p{#1}<{\vspace{0pt}}}
+% \newcolumntype{L}[1]{>{\vspace{2pt}\raggedleft}m{#1}<{\vspace{2pt}}}
+% \newcolumntype{R}[1]{>{\vspace{2pt}\raggedright}m{#1}<{\vspace{2pt}}}
+\newcolumntype{N}[1]{>{\vspace{3pt}}m{#1}<{\vspace{3pt}}}
+% .. Table header : dark green text over light green backgound
+%\definecolor{TblHdTx}{rgb}{.46,.57,.24}
+%\definecolor{TblHdBg}{rgb}{.92,.95,.87}
+\newcommand{\CellHead}{%
+  \bfseries\cellcolor{TblHdBg}\color{TblHdTx}%
+}
+
+\newcommand{\otoprule}{\midrule[\heavyrulewidth]}
+\renewcommand{\multirowsetup}{\centering}
+\renewcommand{\arraystretch}{1.3}
+% \renewcommand{\tabularxcolumn}[1]{R{#1}}
+
+
+\AtBeginDocument{%
+  \def\@Fpt{%
+  {%
+    \ifcase\value{part}%
+      \or Premi{\FBegrave}re%
+      \or Deuxi{\FBegrave}me%
+      \or Troisi{\FBegrave}me%
+      \or Quatri{\FBegrave}me%
+      \or Cinqui{\FBegrave}me%
+      \or Sixi{\FBegrave}me%
+      \or Septi{\FBegrave}me%
+      \or Huiti{\FBegrave}me%
+      \or Neuvi{\FBegrave}me%
+      \or Dixi{\FBegrave}me%
+      \or Onzi{\FBegrave}me%
+      \or Douzi{\FBegrave}me%
+      \or Treizi{\FBegrave}me%
+      \or Quatorzi{\FBegrave}me%
+      \or Quinzi{\FBegrave}me%
+      \or Seizi{\FBegrave}me%
+      \or Dix-septi{\FBegrave}me%
+      \or Dix-huiti{\FBegrave}me%
+      \or Dix-neuvi{\FBegrave}me%
+      \or Vingti{\FBegrave}me%
+      \or Vingt-et-uni{\FBegrave}me%
+      \or Vingt-Deuxi{\FBegrave}me%
+      \or Vingt-Troisi{\FBegrave}me%
+      \or Vingt-Quatri{\FBegrave}me%
+      \or Vingt-Cinqui{\FBegrave}me%
+      \or Vingt-Sixi{\FBegrave}me%
+      \or Vingt-Septi{\FBegrave}me%
+      \or Vingt-Huiti{\FBegrave}me%
+      \or Vingt-Neuvi{\FBegrave}me%
+      \or Trenti{\FBegrave}me%
+      \or Trente-et-uni{\FBegrave}me%
+      \or Trente-Deuxi{\FBegrave}me%
+    \fi%
+  }\space\def\thepart{}}%
+}%
 
 
 % Things that might be useful someday
 % ===================================
-%\renewcommand\rmdefault{cmr}                           % Change default font
+%\renewcommand\rmdefault{cmr}                   % Change default font
 %\newcounter{version}[subsection] \newsavebox{\points}
 %\newcounter{question}[section] \newsavebox{\points}
 %\setlength\fboxsep{0pt}
 %\setlength\shadowsize{2pt}
 %\markright{\@title\ - par \@author}
 %\markright{\@title}
-%\renewcommand\tabularxcolumn[1]{M{#1}}
 %\renewcommand\rmdefault{ptm}
 %\setlength\extrarowheight{4pt}
 %\arrayrulecolor{black}

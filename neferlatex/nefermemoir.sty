@@ -10,8 +10,8 @@
 \subcaptionfont{\sffamily}
 \subcaptionlabelfont{\bfseries\sffamily}
 
-\captionnamefont{\bfseries\sffamily}
-\captiontitlefont{\sffamily}
+\captionnamefont{\small\bfseries\sffamily}
+\captiontitlefont{\small\sffamily}
 \captiondelim{~-- }
 
 \newcommand{\CaptionNormal}{%
@@ -24,23 +24,21 @@
   \normalcaption
 }
 
-\makeatletter
-  \renewcommand\@memfront@floats{%
-    \counterwithout{figure}{chapter}
-    \counterwithout{table}{chapter}
-  }
-  \renewcommand\@memmain@floats{%
-    \counterwithout{figure}{chapter}
-    \counterwithout{table}{chapter}
-    \counterwithin{figure}{book}
-    \counterwithin{table}{book}
-  }
-  \renewcommand\@memback@floats{%
-    \counterwithout{figure}{chapter}
-    \counterwithout{table}{chapter}
-    \setcounter{figure}{0}
-    \setcounter{table}{0}
-  }
-\makeatother
+\renewcommand\@memfront@floats{%
+  \counterwithout{figure}{chapter}
+  \counterwithout{table}{chapter}
+}
+\renewcommand\@memmain@floats{%
+  \counterwithout{figure}{chapter}
+  \counterwithout{table}{chapter}
+  \counterwithin{figure}{book}
+  \counterwithin{table}{book}
+}
+\renewcommand\@memback@floats{%
+  \counterwithout{figure}{chapter}
+  \counterwithout{table}{chapter}
+  \setcounter{figure}{0}
+  \setcounter{table}{0}
+}
 
 \endinput

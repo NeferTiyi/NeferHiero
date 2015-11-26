@@ -1,87 +1,79 @@
+% .. Identification ..
+% ====================
 \ProvidesPackage{neferalias}[2012/04/24 S.Labetoulle LaTeX package]
 
-% .. Some useful shortcuts ..
-\newcommand{\iero}{iéroglyph}
-\newcommand{\ptol}{ptolémaïque}
-%\newcommand{\dyn}[1]{\bsc{#1}%
-%  \ifthenelse{\equal{#1}{i}}{\iere}{\ieme}~dynastie%
-%}
-\newcommand{\dyn}[2][\ieme]{\bsc{#2}#1~dynastie}
+% % .. Gens ..
+% % ==========
+% \newcommand{\SL}{Sonia~\bsc{Labetoulle}\xspace}
 
-\newcommand{\kmt}{Égypte\xspace}
-\newcommand{\HE}{Haute-\kmt}
-\newcommand{\ME}{Moyenne-\kmt}
-\newcommand{\BE}{Basse-\kmt}
-\newcommand{\HBE}{Haute et Basse-\kmt}
-\newcommand{\PO}{Proche-Orient\xspace}
-\newcommand{\MO}{Moyen-Orient\xspace}
-\newcommand{\HN}{Haute-Nubie\xspace}
-\newcommand{\BN}{Basse-Nubie\xspace}
+% % .. Numéros de siècles ..
+% % ========================
+% \newcommand{\siecle}[2][\ieme]{{\color{DarkGreen}\bsc{#2}#1~siècle}}
 
-\newcommand{\Mtn}{Mitanni\xspace}
-\newcommand{\Htt}{Hatti\xspace}
-\newcommand{\Bqa}{Béqa\ain\xspace}
+% % .. Dates ..
+% % ===========
+% \newcommand{\ano}[2][-1]{%
+%   \ifthenelse{#1 = 0}%
+%     {\num{#2}}%
+%     {\ifthenelse{#1 > 0}%
+%        {\SI{#2}{AD}}%
+%        {\SI{#2}{BC}}%
+%     }%
+% }
+% \newcommand{\anorange}[3][-1]{{%
+%   \sisetup{range-phrase=-}%
+%   \ifthenelse{#1 = 0}%
+%     {\numrange{#2}{#3}}%
+%     {\ifthenelse {#1 > 0}%
+%        {\SIrange{#2}{#3}{AD}}%
+%        {\SIrange{#2}{#3}{BC}}%
+%     }%
+% }}
+% \newcommand{\datation}[1]{{\normalfont\emph{#1}}}
 
-\newcommand{\PD}{Prédynastique\xspace}
-\newcommand{\PT}{Période Thinite\xspace}
-\newcommand{\OK}{Ancien Empire\xspace}
-\newcommand{\MK}{Moyen Empire\xspace}
-\newcommand{\NK}{Nouvel Empire\xspace}
-\newcommand{\LP}{Basse Époque\xspace}
 
-\newcommand{\PPI}{Première Période intermédiaire\xspace}
-\newcommand{\DPI}{Deuxième Période intermédiaire\xspace}
-\newcommand{\TPI}{Troisième Période intermédiaire\xspace}
-
-\newcommand{\CT}{\emph{Canon de Turin}\xspace}
-\newcommand{\TP}{\emph{Textes des Pyramides}\xspace}
-\newcommand{\TS}{\emph{Textes des Sarcophages}\xspace}
-\newcommand{\LM}{\emph{Livre des Morts}\xspace}
-
-\newcommand{\SeK}{Sérabît el-Khâdîm\xspace}
-\newcommand{\OeQ}{Oumm el-Qa\texorpdfstring{\ain}{'}ab\xspace}
-\newcommand{\KeS}{Kôm el-Sultan\xspace}
-\newcommand{\KeH}{Kôm el-Hettan\xspace}
-%\newcommand{\TeD}{Tell el-Dab\ain a\xspace}
-\newcommand{\TeD}{Tell el-Dab\texorpdfstring{\ain}{'}a\xspace}
-\newcommand{\DeB}{Deir el-Bahari\xspace}
-\newcommand{\DeM}{Deir el-Medineh\xspace}
-\newcommand{\DAN}{Dra Abou'l Naga\xspace}
-\newcommand{\KV}{Vallée des rois\xspace}
-\newcommand{\QV}{Vallée des reines\xspace}
-
-\newcommand{\BeH}{Batn el-Hagar\xspace}
-\newcommand{\SeZ}{Shounet el-Zebib\xspace}
-
-\newcommand{\VRK}{%
-  % \iflowertonumname v\else V\fi ice-roi de Kouch\xspace%
-  Vice-roi de Kouch\xspace%
-}
-
-\newcommand{\ENS}{École Normale Supérieure\xspace}
-\newcommand{\SFE}{Société Française d'Égyptologie\xspace}
-\newcommand{\IK}{Institut Khéops\xspace}
-\newcommand{\DF}{Dominique~\bsc{Farout}\xspace}
-\newcommand{\PG}{Pierre~\bsc{Grandet}\xspace}
-\newcommand{\CB}{Christophe~\bsc{Barbotin}\xspace}
-
-\newcommand{\MG}{\emph{Cours d'Égyptien Hiéroglyphique\xspace}}
-
-\newcommand{\litt}{\emph{litt.}\xspace}
+% .. Symbols ..
+% =============
+\newcommand{\litt}{{\normalfont\color{black}\emph{litt.}}\xspace}
 \newcommand{\Att}{\red{\danger}\xspace}
-
-% .. Some symbols ..
-% ... Tick symbol ...
 \newcommand{\yes}{\ding{'63}}
-% ... Tick symbol ...
+% ... Correction ...
+% ------------------
 \newcommand{\good}{{\color{DarkGreen}\ding{51}}}
 \newcommand{\bad}{{\color{DarkRed}\ding{55}}}
-% ... Level 1 puce (star) ...
+% ... Puces ...
+% -------------
+% Level 1 (star)
 \newcommand{\pucea}{{\relsize{-2}\ding{'130}}}
-% ... Level 2 puce (arrow) ...
+% Level 2 (arrow)
 \newcommand{\puceb}{{\ding{'333}}}
 % ... Flèches ...
-\newcommand{\flech}{$\rightarrow$}
-\newcommand{\flechinv}{\phantom{$\rightarrow$}}
+% ---------------
+\newcommand{\flech}{\ensuremath{\rightarrow}}
+\newcommand{\flechinv}{\phantom{\ensuremath{\rightarrow}}}
+
+
+% .. Typesetting remark ..
+\newcommand{\rem}[1]{{%
+  \color{black}\normalfont\em\smaller#1%
+}}
+\newcommand{\remg}[1]{{\green{\em\smaller#1}}}
+\newcommand{\infos}[1]{{\smaller#1}}
+% \newcommand{\refdoc}[1]{{%
+%   \color{black}\normalfont\itshape\smaller#1%
+% }}
+
+%\newcommand{\donc}{\noindent\hspace*{2em}\ensuremath{\Rightarrow}}
+\newcommand{\donc}{\ensuremath{\Longrightarrow}}
+
+\newcommand{\oeuvre}[1]{{\noindent\bfseries#1\hspace{1em}}}
+\newcommand{\saispas}[1][\dots]{{\uwave{#1}}}
+
+\newcommand{\missingstuff}{%
+  \vspace*{3\baselineskip}
+  \noindent\makebox[\textwidth][c]{\LARGE\color{red}\vdots}
+  \vspace*{3\baselineskip}
+}
+
 
 \endinput

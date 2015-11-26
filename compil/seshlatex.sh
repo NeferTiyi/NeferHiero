@@ -19,11 +19,13 @@ set fg_img     = ".false."
 # ==================
 switch ( ${HOSTNAME} )
   case "elkab":
-    set DirHome = "/mnt/NeferHiero"
+    # set DirHome = "/mnt/NeferHiero"
+    set DirHome = "/mnt/egypto/NeferHiero"
     breaksw
   case "*.ipsl.jussieu.fr":
     # set DirHome = "/home_local/slipsl/Perso/HieroSVN"
-    set DirHome = "/home_local/slipsl/Perso/GitRepo/NeferHiero"
+    # set DirHome = "/home_local/slipsl/Perso/GitRepo/NeferHiero"
+    set DirHome = "/home_local/slipsl/Perso/NeferHiero"
     breaksw
   default:
     echo "Unknown host ${HOSTNAME}, we stop."
