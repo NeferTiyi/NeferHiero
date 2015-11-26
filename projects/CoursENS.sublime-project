@@ -1,0 +1,39 @@
+{
+  "folders":
+  [
+    {
+      "file_exclude_patterns":
+      [
+        "*.aux",
+        "*.bak",
+        "*.bbl",
+        "*.bcf",
+        "*.blg",
+        "*.dic",
+        "*.lof",
+        "*.lot",
+        "*.maf",
+        "*.mtc",
+        "*.mtc0",
+        "*.out",
+        "*.pdf",
+        "*.toc",
+        "*_tmp.tex",
+        "*_full.htx",
+        "*.run.xml",
+        "*.*~",
+        ".git*",
+      ],
+      "path": "../CoursENS",
+      "name": "Sources"
+    },
+    {
+      "path": "../../images/CoursENS",
+      "name": "Images"
+    },
+    {
+      "path": "../utils",
+      "name": "Utilitaires"
+    }
+  ]
+}

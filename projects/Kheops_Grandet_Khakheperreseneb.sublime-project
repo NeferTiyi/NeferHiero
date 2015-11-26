@@ -1,0 +1,58 @@
+{
+	"build_systems":
+	[
+		{
+			"cmd": "seshlatex -b $file",
+			"name": "SeshLatex",
+			"shell": true
+		}
+	],
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"*.aux",
+				"*.bak",
+				"*.bbl",
+				"*.bcf",
+				"*.blg",
+				"*.dic",
+				"*.lof",
+				"*.lot",
+				"*.maf",
+				"*.mtc",
+				"*.mtc0",
+				"*.out",
+				"*.pdf",
+				"*.toc",
+				"*_tmp.tex",
+				"*_full.htx",
+				"*.run.xml",
+				"*.*~",
+				".git*"
+			],
+			"name": "Sources",
+			"path": "../documents/Kheops/Grandet/Khakheperreseneb"
+		},
+		{
+			"name": "Images",
+			"path": "../images/Kheops/Grandet/Khakheperreseneb"
+		},
+		{
+			"name": "Fichiers communs",
+			"path": "../utils"
+		},
+		{
+			"name": "Styles LaTeX",
+			"path": "../neferlatex"
+		},
+		{
+			"name": "Compil",
+			"path": "../compil"
+		},
+		{
+			"path": "G:\\Egypto\\NeferHiero\\documents"
+		}
+	]
+}

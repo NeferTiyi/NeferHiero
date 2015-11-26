@@ -1,0 +1,48 @@
+{
+  "folders":
+  [
+    {
+			"follow_symlinks": true,
+      "file_exclude_patterns":
+      [
+        "*.aux",
+        "*.bak",
+        "*.bbl",
+        "*.bcf",
+        "*.blg",
+        "*.dic",
+        "*.lof",
+        "*.lot",
+        "*.maf",
+        "*.mtc",
+        "*.mtc0",
+        "*.out",
+        "*.pdf",
+        "*.toc",
+        "*_tmp.tex",
+        "*_full.htx",
+        "*.run.xml",
+        "*.*~",
+        ".git*"
+      ],
+      "path": "../Louvre",
+      "name": "Sources"
+    },
+    {
+      "path": "../../images/Louvre",
+      "name": "Images"
+    },
+    {
+      "path": "../../utils",
+      "name": "Fichiers communs"
+    },
+    {
+      "path": "../../neferlatex",
+      "name": "Styles LaTeX"
+    },
+    {
+      "path": "../../compil",
+      "name": "Compil"
+    }
+  ]
+}
