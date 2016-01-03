@@ -43,7 +43,8 @@
 % Fonts and symbols
 \usepackage{pifont}
 \usepackage{fourier}
-\usepackage{amsmath, mathtools, bm}
+\usepackage{coptic} % before amsmath !
+\usepackage{amsmath, amssymb, mathtools, bm}
 %\usepackage{gfsartemisia-euler}
 \usepackage{fouriernc}
 \usepackage{xspace}
@@ -72,7 +73,7 @@
 %
 \usepackage{fancybox}
 %
-\usepackage[english,french]{babel}
+\usepackage{babel}
 % \PassOptionsToPackage{obeyspaces}{url}
 \usepackage[hidelinks,unicode,pdfhighlight=/P]{hyperref}
 \usepackage{bookmark}
@@ -140,9 +141,32 @@
 
 % .. Numéros de siècles ..
 % ========================
-\newcommand{\siecle}[2][\ieme]{%
-  \colordraft{DarkGreen}{#2#1~siècle}\xspace%
+% \newcommand{\siecle}[2][\ieme]{%
+%   \colordraft{DarkGreen}{\bsc{#2}#1~siècle}\xspace%
+% }
+\newcommand{\sieclenum}[1]{%
+  \ifrmnum{#1}{%
+    \colordraft{DarkRed}{%
+      \bsc{\MakeLowercase{#1}}%
+      \ifstrequal{#1}{i}{\iere}{\ieme}%
+    }%
+  }{%
+    \colordraft{DarkGreen}{%
+      \bsc{\MakeLowercase{\romannumeral#1}}%
+      \ifnumequal{#1}{1}{\iere}{\ieme}%
+    }%
+  }%
 }
+\newcommand{\siecle}[2][siècle]{%
+  \colordraft{DarkGreen}{\sieclenum{#2}~#1}%
+}
+\newcommand{\sieclelist}[2]{%
+  \sieclenum{#1} \colordraft{DarkGreen}{et \sieclenum{#2}~siècles}%
+}
+\newcommand{\sieclerange}[2]{%
+  \sieclenum{#1}\colordraft{DarkGreen}{-\sieclenum{#2}~siècles}%
+}
+
 
 % .. Dates ..
 % ===========

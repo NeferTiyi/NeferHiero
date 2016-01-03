@@ -30,7 +30,7 @@ TMPOBJS := $(ROOTDOC).bbl \
 	   $(ROOTDOC).run.xml
 
 %.tex: %.htx
-	htx2tex $<
+	htx2tex $< || (echo "htx2tex failed $$?"; exit 1)
 
 # HTXFILES: $(HTXOBJS)
 

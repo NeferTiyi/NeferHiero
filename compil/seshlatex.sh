@@ -94,7 +94,7 @@ while ( $NArg <= $# )
   @ NArg = $NArg + 1
 end
 
-set TexComp = "pdflatex -recorder -output-directory=$DirOut"
+set TexComp = "pdflatex -output-directory=$DirOut"
 set OutType = "pdf"
 
 # Does the input file exist ?

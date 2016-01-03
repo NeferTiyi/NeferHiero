@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
   filehtx = args.filehtx
 
-  hierodef = "/media/sf_Egypto/NeferHiero/utils/HieroDef.txt"
+  hierodef = "/media/sf_egypto/NeferHiero/utils/HieroDef.txt"
 
   filehtx_base = os.path.splitext(os.path.basename(filehtx))[0]
   filehtx_ext  = os.path.splitext(os.path.basename(filehtx))[1]
@@ -79,6 +79,8 @@ if __name__ == '__main__':
   #   if "%##HieroDef.txt" in fin.read():
   #     print("ok")
 
+  if args.verbose:
+    print("build {}".format(filehtx_full))
   with open(filehtx_full, "w") as fout:
     for line in fileinput.input([hierodef, filehtx]):
       # print(line.strip())
@@ -88,14 +90,18 @@ if __name__ == '__main__':
   # command = ["sesh", "<" + filehtx_full]
   command = "sesh < " + filehtx_full
 
+  if args.verbose:
+    print("produce {}".format(filehtx_full))
   try :
     # subprocess.call(command)
     subproc = \
       subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   except Exception as rc :
     print("Error in sesh for {}:\n{}".format(filehtx_base, rc))
-    exit()
+    exit(1)
 
+  if args.verbose:
+    print("save to {}".format(filetex))
   with open(filetex, "w") as ftex:
     for line in subproc.stdout :  # .read()
       ftex.write(line)

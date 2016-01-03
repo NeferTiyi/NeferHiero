@@ -93,6 +93,9 @@
 \newcommand{\dynlist}[2]{%
   \dynum{#1} \colordraft{DarkGreen}{et \dynum{#2}~dynasties}%
 }
+\newcommand{\dynrange}[2]{%
+  \dynum{#1} \colordraft{DarkGreen}{-\dynum{#2}~dynasties}%
+}
 
 \newcommand{\ar}[1]{an~\num{#1}}
 
@@ -117,10 +120,10 @@
 % .. Régions d'Égypte ..
 % ----------------------
 \newcommand{\kmt}{\colordraft{violet}{Égypte}\xspace}
-\newcommand{\HE}{\colordraft{violet}{Haute-\kmt}\xspace}
-\newcommand{\ME}{\colordraft{violet}{Moyen\-ne-\kmt}\xspace}
-\newcommand{\BE}{\colordraft{violet}{Basse-\kmt}\xspace}
-\newcommand{\HBE}{\colordraft{violet}{Haute et Basse-\kmt}\xspace}
+\newcommand{\HE}{\colordraft{violet}{Haute-\kmt}}
+\newcommand{\ME}{\colordraft{violet}{Moyen\-ne-\kmt}}
+\newcommand{\BE}{\colordraft{violet}{Basse-\kmt}}
+\newcommand{\HBE}{\colordraft{violet}{Haute et Basse-\kmt}}
 \newcommand{\PO}{\colordraft{violet}{Proche-Orient}\xspace}
 \newcommand{\MO}{\colordraft{violet}{Moyen-Orient}\xspace}
 
@@ -186,6 +189,12 @@
 }
 \newcommand{\TS}{%
   \colordraft{Sepia}{\source{Textes des Sarcophages}}\xspace%
+}
+\newcommand{\CTx}[1]{%
+  \colordraft{Sepia}{%
+    \source{CT}%
+    \ifstrequal{#1}{}{}{~#1}%
+  }\xspace%
 }
 \newcommand{\LM}{\colordraft{Sepia}{\source{Livre des Morts}}\xspace}
 \newcommand{\LdP}{\colordraft{Sepia}{\source{Livre des Portes}}\xspace}
@@ -328,6 +337,8 @@
 % ... "Glue" sign ...
 \newcommand{\col}{\ensuremath{\sim}}
 
+% ... Transliteration in black ...
+\newcommand{\tlb}[1]{\tl[black]{#1}}
 % ... Transliteration in red ...
 \newcommand{\tlr}[1]{\tl[EmphColor]{#1}}
 % ... Small transliteration in green ...
