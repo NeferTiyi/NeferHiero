@@ -9,9 +9,11 @@
 \usepackage{etoolbox}
 \providebool{hiero}
 \providebool{egypto}
+\providebool{coptic}
 
 % .. Declaration options ..
 % =========================
+\DeclareOption{coptic}{\booltrue{coptic}}
 \DeclareOption{egypto}{\booltrue{egypto}}
 \DeclareOption{hiero}{%
   \booltrue{egypto}\booltrue{hiero}%
@@ -29,6 +31,8 @@
 % .. Chargement extensions ..
 % ===========================
 \LoadClass{memoir}
+
+\ifbool{coptic}{\RequirePackage{coptic}}{}
 
 \RequirePackage{nefertiyi}%
 
