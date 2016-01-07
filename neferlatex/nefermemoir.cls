@@ -124,7 +124,7 @@
 
 \AtBeginDocument{%
   \renewcommand{\figurerefname}{figure}
-  \renewcommand{\tablerefname}{table}
+  \renewcommand{\tablerefname}{tableau}
   \renewcommand{\appendixrefname}{annexe~}
   \renewcommand{\bookrefname}{livre~}
   \renewcommand{\chapterrefname}{chapitre~}
@@ -133,7 +133,7 @@
   \renewcommand{\bookname}{Livre}
   \renewcommand{\appendixpagename}{Annexes}
   \renewcommand{\appendixtocname}{\appendixpagename}
-  \renewcommand{\listfigurename}{Liste des figures}
+  \renewcommand{\listfigurename}{Table des illustrations}
 }
 
 \setlength{\cftbookindent}{-3em}

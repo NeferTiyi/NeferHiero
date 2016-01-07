@@ -43,7 +43,7 @@ if __name__ == '__main__':
 
   filehtx = args.filehtx
 
-  hierodef = "/media/sf_Egypto/NeferHiero/utils/HieroDef.txt"
+  hierodef = "/media/sf_egypto/NeferHiero/utils/HieroDef.txt"
 
   filehtx_base = os.path.splitext(os.path.basename(filehtx))[0]
   filehtx_ext  = os.path.splitext(os.path.basename(filehtx))[1]
