@@ -79,23 +79,29 @@ if __name__ == '__main__':
   #   if "%##HieroDef.txt" in fin.read():
   #     print("ok")
 
+  if args.verbose:
+    print("build {}".format(filehtx_full))
   with open(filehtx_full, "w") as fout:
     for line in fileinput.input([hierodef, filehtx]):
-      # print(line.strip())
       fout.write(line)
+      # print(line.strip())
 
   # # command = ["sesh", "<", filehtx_full, ">", filetex]
   # command = ["sesh", "<" + filehtx_full]
   command = "sesh < " + filehtx_full
 
+  if args.verbose:
+    print("produce {}".format(filehtx_full))
   try :
     # subprocess.call(command)
     subproc = \
       subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
   except Exception as rc :
     print("Error in sesh for {}:\n{}".format(filehtx_base, rc))
-    exit()
+    exit(1)
 
+  if args.verbose:
+    print("save to {}".format(filetex))
   with open(filetex, "w") as ftex:
     for line in subproc.stdout :  # .read()
       ftex.write(line)

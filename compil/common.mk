@@ -30,7 +30,7 @@ TMPOBJS := $(ROOTDOC).bbl \
 	   $(ROOTDOC).run.xml
 
 %.tex: %.htx
-	htx2tex $<
+	htx2tex $< || (echo "htx2tex failed $$?"; exit 1)
 
 # HTXFILES: $(HTXOBJS)
 
@@ -50,8 +50,8 @@ TMPOBJS := $(ROOTDOC).bbl \
 # 		-use-make Kheops_Grandet_Histoire.tex
 # $(ROOTDOC).pdf: $(HTXOBJS) $(TEXSRCS)
 $(ROOTDOC).pdf: $(HTXOBJS)
-	# @echo $(TEXSRCS)
 	$(LTXMK) $(ROOTDOC).tex
+	# @echo $(TEXSRCS)
 
 # Cleaning
 cleantmp:

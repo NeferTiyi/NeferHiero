@@ -93,6 +93,9 @@
 \newcommand{\dynlist}[2]{%
   \dynum{#1} \colordraft{DarkGreen}{et \dynum{#2}~dynasties}%
 }
+\newcommand{\dynrange}[2]{%
+  \dynum{#1} \colordraft{DarkGreen}{-\dynum{#2}~dynasties}%
+}
 
 \newcommand{\ar}[1]{an~\num{#1}}
 
@@ -120,7 +123,7 @@
 \newcommand{\HE}{\colordraft{violet}{Haute-\kmt}\xspace}
 \newcommand{\ME}{\colordraft{violet}{Moyen\-ne-\kmt}\xspace}
 \newcommand{\BE}{\colordraft{violet}{Basse-\kmt}\xspace}
-\newcommand{\HBE}{\colordraft{violet}{Haute et Basse-\kmt}\xspace}
+\newcommand{\HBE}{\colordraft{violet}{Haute et Basse-\kmt}}
 \newcommand{\PO}{\colordraft{violet}{Proche-Orient}\xspace}
 \newcommand{\MO}{\colordraft{violet}{Moyen-Orient}\xspace}
 
@@ -328,6 +331,8 @@
 % ... "Glue" sign ...
 \newcommand{\col}{\ensuremath{\sim}}
 
+% ... Transliteration in black ...
+\newcommand{\tlb}[1]{\tl[black]{#1}}
 % ... Transliteration in red ...
 \newcommand{\tlr}[1]{\tl[EmphColor]{#1}}
 % ... Small transliteration in green ...
