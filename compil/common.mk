@@ -50,8 +50,8 @@ TMPOBJS := $(ROOTDOC).bbl \
 # 		-use-make Kheops_Grandet_Histoire.tex
 # $(ROOTDOC).pdf: $(HTXOBJS) $(TEXSRCS)
 $(ROOTDOC).pdf: $(HTXOBJS)
-	# @echo $(TEXSRCS)
 	$(LTXMK) $(ROOTDOC).tex
+	# @echo $(TEXSRCS)
 
 # Cleaning
 cleantmp:

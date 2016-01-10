@@ -83,8 +83,8 @@ if __name__ == '__main__':
     print("build {}".format(filehtx_full))
   with open(filehtx_full, "w") as fout:
     for line in fileinput.input([hierodef, filehtx]):
-      # print(line.strip())
       fout.write(line)
+      # print(line.strip())
 
   # # command = ["sesh", "<", filehtx_full, ">", filetex]
   # command = ["sesh", "<" + filehtx_full]
