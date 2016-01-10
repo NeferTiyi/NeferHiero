@@ -82,6 +82,8 @@
 %
 % Biblio
 \usepackage{csquotes}
+% \usepackage[backend=biber,style=verbose-trad1,autocite=footnote]
+%            {biblatex}
 \usepackage[backend=biber,style=authoryear]{biblatex}
 % \usepackage[backend=biber,style=alphabetic]{biblatex}
 \DeclareLanguageMapping{french}{french-apa}
@@ -297,10 +299,10 @@
 % Environment
 % ===========
 % .. Exemple ..
-\newenvironment{exple}{%
-  \begin{list}{Ex}{%
+\newenvironment{exple}[1][Ex]{%
+  \begin{list}{#1}{%
     \renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
-    \settowidth\labelwidth{\makelabel{Ex}}%
+    \settowidth\labelwidth{\makelabel{#1}}%
     \setlength\leftmargin{\labelwidth + \labelsep}%
   }%
   \item\ignorespaces%
@@ -308,11 +310,11 @@
 {\unskip\end{list}}
 
 % .. Remarks ..
-\newenvironment{remarque}{%
+\newenvironment{remarque}[1][Rem]{%
   \bigskip
-  \begin{list}{Rem}{%
+  \begin{list}{#1}{%
     \renewcommand\makelabel[1]{\bfseries\uline{##1} :}%
-    \settowidth\labelwidth{\makelabel{Rem}}%
+    \settowidth\labelwidth{\makelabel{#1}}%
     \setlength\leftmargin{\labelwidth + \labelsep}%
   }%
   \item\ignorespaces%
