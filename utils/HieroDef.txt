@@ -30,12 +30,15 @@
 
 % Divers
 \begin{hieroglyph}
+  #def jw         i-w#
+  #def pw         p-w#
   #def mAdw       mA:d-w-niwt#
   #def mnTw       mn:n:T-w-C17#
   #def prxrw      pr:\!\!\!xrw\s1#
   #def nsty       (n:ns:\!\!\!t)-g:g#
   #def Ddmdw      D:\!\!\!\!\!md\s1*.#
   #def Dt         D:\!\!\!\!t\s1:\!N17#
+  #def Dt'        D:\!\!\!\!t\s1:\!tA#
   #def di'        D37#
   #def wnn        wn:n:n#
   #def nn'        M22-M22-n:n#
