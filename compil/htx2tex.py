@@ -43,7 +43,9 @@ if __name__ == '__main__':
 
   filehtx = args.filehtx
 
-  hierodef = "/media/sf_egypto/NeferHiero/utils/HieroDef.txt"
+  ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+  hierodef = os.path.join(ROOT_DIR, "utils", "HieroDef.txt")
 
   filehtx_base = os.path.splitext(os.path.basename(filehtx))[0]
   filehtx_ext  = os.path.splitext(os.path.basename(filehtx))[1]
@@ -83,8 +85,8 @@ if __name__ == '__main__':
     print("build {}".format(filehtx_full))
   with open(filehtx_full, "w") as fout:
     for line in fileinput.input([hierodef, filehtx]):
-      fout.write(line)
       # print(line.strip())
+      fout.write(line)
 
   # # command = ["sesh", "<", filehtx_full, ">", filetex]
   # command = ["sesh", "<" + filehtx_full]
