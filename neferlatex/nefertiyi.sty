@@ -12,6 +12,7 @@
 % =========================
 \DeclareOption{draft}{\booltrue{draft}}
 \DeclareOption{background}{\booltrue{background}}
+\DeclareOption{coptic}{\booltrue{coptic}}
 
 % .. Execution options ..
 % =======================
@@ -22,6 +23,10 @@
 
 \ifbool{background}{%
   \RequirePackage[firstpage=true,pages=some,angle=0]{background}%
+}
+
+\ifbool{coptic}{%
+  \RequirePackage{coptic}%
 }
 
 % Encoding
@@ -43,7 +48,7 @@
 % Fonts and symbols
 \usepackage{pifont}
 \usepackage{fourier}
-\usepackage{coptic} % before amsmath !
+% \usepackage{coptic} % before amsmath !
 \usepackage{amsmath, amssymb, mathtools, bm}
 %\usepackage{gfsartemisia-euler}
 \usepackage{fouriernc}

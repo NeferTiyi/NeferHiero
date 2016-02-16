@@ -13,7 +13,10 @@
 
 % .. Declaration options ..
 % =========================
-\DeclareOption{coptic}{\booltrue{coptic}}
+% \DeclareOption{coptic}{\booltrue{coptic}}
+\DeclareOption{coptic}{%
+  \PassOptionsToPackage{coptic}{nefertiyi}%
+}
 \DeclareOption{egypto}{\booltrue{egypto}}
 \DeclareOption{hiero}{%
   \booltrue{egypto}\booltrue{hiero}%
@@ -32,7 +35,7 @@
 % ===========================
 \LoadClass{memoir}
 
-\ifbool{coptic}{\RequirePackage{coptic}}{}
+% \ifbool{coptic}{\RequirePackage{coptic}}{}
 
 \RequirePackage{nefertiyi}%
 
