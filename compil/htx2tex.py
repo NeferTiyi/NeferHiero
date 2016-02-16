@@ -43,9 +43,14 @@ if __name__ == '__main__':
 
   filehtx = args.filehtx
 
-  ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+  ROOT_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 
   hierodef = os.path.join(ROOT_DIR, "utils", "HieroDef.txt")
+  if args.verbose:
+    print(hierodef)
+  if not os.path.isfile(hierodef):
+    print("{} not found, we stop".format(hierodef))
+    exit(1)
 
   filehtx_base = os.path.splitext(os.path.basename(filehtx))[0]
   filehtx_ext  = os.path.splitext(os.path.basename(filehtx))[1]
@@ -108,8 +113,14 @@ if __name__ == '__main__':
     for line in subproc.stdout :  # .read()
       ftex.write(line)
 
+  if args.verbose:
+    print("Delete {}".format(filehtx_full))
   try :
     os.remove(filehtx_full)
   except Exception as rc:
     print("Error in remove for {}:\n {}".format(filehtx_full, rc))
     exit(1)
+
+  if args.verbose:
+    print("Everything's fine!")
+  exit(0)
