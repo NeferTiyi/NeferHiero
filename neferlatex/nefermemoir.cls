@@ -10,10 +10,14 @@
 \providebool{hiero}
 \providebool{egypto}
 \providebool{coptic}
+\providebool{article}
 
 % .. Declaration options ..
 % =========================
 % \DeclareOption{coptic}{\booltrue{coptic}}
+% \DeclareOption{article}{%
+%   \PassOptionsToPackage{article}{neferkheops}%
+% }
 \DeclareOption{coptic}{%
   \PassOptionsToPackage{coptic}{nefertiyi}%
 }
@@ -59,7 +63,8 @@
 \renewcommand{\thesubsection}{\alph{subsection})}
 
 % Indentation et largeur des numéros dans la TOC
-\cftsetindents{book}{\cftbookindent}{3.0em}
+% \cftsetindents{book}{\cftbookindent}{3.0em}
+\cftsetindents{book}{-3em}{3.0em}
 \cftsetindents{part}{\cftpartindent}{2.6em}
 \cftsetindents{chapter}{\cftchapterindent}{1.8em}
 \cftsetindents{subsection}{\cftsubsectionindent}{1.4em}
@@ -139,7 +144,7 @@
   \renewcommand{\listfigurename}{Table des illustrations}
 }
 
-\setlength{\cftbookindent}{-3em}
+% \setlength{\cftbookindent}{-3em}
 
 \setpnumwidth{2.55em}
 \setrmarg{3.55em}

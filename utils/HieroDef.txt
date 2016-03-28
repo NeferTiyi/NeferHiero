@@ -54,6 +54,6 @@
   #def nDs        n:D-z:G37#
   #def M'         Aa16#
   #def tA'        N17#
-  #def rmT        A1*B1:3#
+  #def rmT        A1\s2*B1\s2:3#
   #def nty        n:t*y#
 \end{hieroglyph}

@@ -7,12 +7,14 @@
 \usepackage{etoolbox}
 \providebool{draft}
 \providebool{background}
+\providebool{kpfonts}
 
 % .. Declaration options ..
 % =========================
 \DeclareOption{draft}{\booltrue{draft}}
 \DeclareOption{background}{\booltrue{background}}
 \DeclareOption{coptic}{\booltrue{coptic}}
+\DeclareOption{kpfonts}{\booltrue{kpfonts}}
 
 % .. Execution options ..
 % =======================
@@ -26,7 +28,22 @@
 }
 
 \ifbool{coptic}{%
+  \ifbool{kpfonts}{%
+    % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
+    \RequirePackage{kpfonts}%
+  }{%
+    \RequirePackage{fourier}
+    \RequirePackage{fouriernc}
+  }
   \RequirePackage{coptic}%
+}{%
+  \ifbool{kpfonts}{%
+    % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
+    \RequirePackage{kpfonts}%
+  }{%
+    \RequirePackage{fourier}
+    \RequirePackage{fouriernc}
+  }
 }
 
 % Encoding
@@ -47,11 +64,11 @@
 %
 % Fonts and symbols
 \usepackage{pifont}
-\usepackage{fourier}
+% \usepackage{fourier}
+% \usepackage{fouriernc}
 % \usepackage{coptic} % before amsmath !
 \usepackage{amsmath, amssymb, mathtools, bm}
 %\usepackage{gfsartemisia-euler}
-\usepackage{fouriernc}
 \usepackage{xspace}
 %
 \usepackage{marginnote}
@@ -115,6 +132,11 @@
 % =============
 % \frenchbsetup{ItemLabelii=\pucea}
 \addto\captionsfrench{\def\contentsname{Sommaire}}
+\xspaceaddexceptions{\frquote}
+% \@ifpackageloaded{xspace}%
+%   {\xspaceaddexceptions{\frquote}}%
+%   {}
+
 %\mathchardef\times="2202
 
 % siunitx options
@@ -404,10 +426,12 @@
 % Image stuff
 % ===========
 % .. Licence ..
-\newcommand{\licence}[1]
-           %{\\[-0.4\baselineskip]\raggedleft\rem{\smaller 
-           {\vspace{-0.4\baselineskip}\RaggedLeft\rem{\smaller 
-            \textcopyright\,#1}\vspace{-0.3\baselineskip}}
+\newcommand{\licence}[1]{%
+  \vspace{-0.4\baselineskip}%
+  \RaggedLeft%
+  \rem{\smaller\textcopyright\,#1}%
+  \vspace{-0.3\baselineskip}%
+}
 
 % Tabular stuff
 % =============
