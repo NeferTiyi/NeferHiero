@@ -97,11 +97,25 @@
 \makeheadrule{ruled}{\textwidth}{\normalrulethickness}
 % \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
 
+\makepsmarks{ruled}{%
+  \nouppercaseheads
+  \createmark{chapter}{left}{shownumber}{}{.\ }
+  \createmark{section}{right}{shownumber}{}{.\ }
+  % \creatmark{part}{left}{shownumber}{\partname\ }{. \ }
+  % \createmark{chapter}{right}{shownumber}{\@chapapp\ }{. \ }
+  \createplainmark{toc}{both}{\contentsname}
+  \createplainmark{lof}{both}{\listfigurename}
+  \createplainmark{lot}{both}{\listtablename}
+  \createplainmark{bib}{both}{\bibname}
+  \createplainmark{index}{both}{\indexname}
+  \createplainmark{glossary}{both}{\glossaryname}
+}
+
 \makepagestyle{ruledarticle}
 \makeevenhead{ruledarticle}
   {\normalfont\itshape\@short}
   {}
-  {}
+  {\normalfont\itshape\rightmark}
 \makeoddhead{ruledarticle}
   {}
   {}
@@ -117,22 +131,14 @@
 \makeheadrule{ruledarticle}{\textwidth}{\normalrulethickness}
 % \makefootrule{ruled}{\textwidth}{\normalrulethickness}{1pt}
 
-\makepsmarks{ruled}{%
-  \nouppercaseheads
-  \createmark{chapter}{left}{shownumber}{}{.\ }
-  \createmark{section}{right}{shownumber}{}{.\ }
-  \createplainmark{toc}{both}{\contentsname}
-  \createplainmark{lof}{both}{\listfigurename}
-  \createplainmark{lot}{both}{\listtablename}
-  \createplainmark{bib}{both}{\bibname}
-  \createplainmark{index}{both}{\indexname}
-  \createplainmark{glossary}{both}{\glossaryname}
-}
-
 \makepsmarks{ruledarticle}{%
   \nouppercaseheads
-  \createmark{chapter}{left}{nonumber}{}{.\ }
-  \createmark{section}{right}{nonumber}{}{.\ }
+  \createmark{part}{left}{shownumber}{}{.\ }
+  \createmark{chapter}{right}{shownumber}{}{.\ }
+  % \createmark{chapter}{left}{nonumber}{}{.\ }
+  % \createmark{section}{right}{nonumber}{}{.\ }
+  % \createmark{part}{left}{shownumber}{}{.\ }
+  % \createmark{chapter}{right}{shownumber}{}{.\ }
   \createplainmark{toc}{both}{\contentsname}
   \createplainmark{lof}{both}{\listfigurename}
   \createplainmark{lot}{both}{\listtablename}

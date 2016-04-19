@@ -196,7 +196,7 @@
     \ifstrequal{#1}{}{}{~#1}%
   }\xspace%
 }
-\newcommand{\LM}{\colordraft{Sepia}{\source{Livre des Morts}}\xspace}
+\newcommand{\LdM}{\colordraft{Sepia}{\source{Livre des Morts}}\xspace}
 \newcommand{\LdP}{\colordraft{Sepia}{\source{Livre des Portes}}\xspace}
 \newcommand{\AD}{\colordraft{Sepia}{\source{Amdouat}\xspace}}
 \newcommand{\LVdC}{%
@@ -441,14 +441,16 @@
     right      = 1pt,
     top        = 2pt,
     bottom     = 2pt,
-    enlarge by = 1.5ex,
+    enlarge bottom by = 1ex,
+    % enlarge by = 1.5ex,
     colback    = FireBrick!10!white,
     colframe   = FireBrick,
     #1
   ]%
   {%
   \color{FireBrick}
-    \fontfamily{antt}\fontseries{bx}\selectfont%
+    % \fontfamily{antt}\fontseries{bx}\selectfont%
+    \normalfont%
     \tiny#2%
   }%
 }}

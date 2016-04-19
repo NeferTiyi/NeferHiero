@@ -27,24 +27,39 @@
   \RequirePackage[firstpage=true,pages=some,angle=0]{background}%
 }
 
+
 \ifbool{coptic}{%
-  \ifbool{kpfonts}{%
-    % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
-    \RequirePackage{kpfonts}%
-  }{%
-    \RequirePackage{fourier}
-    \RequirePackage{fouriernc}
-  }
+  \PassOptionsToPackage{full}{textcomp} 
   \RequirePackage{coptic}%
+}{}
+
+\ifbool{kpfonts}{%
+  % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
+  \RequirePackage{kpfonts}%
 }{%
-  \ifbool{kpfonts}{%
-    % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
-    \RequirePackage{kpfonts}%
-  }{%
-    \RequirePackage{fourier}
-    \RequirePackage{fouriernc}
-  }
+  \RequirePackage{fourier}
+  \RequirePackage{fouriernc}
 }
+
+% \ifbool{coptic}{%
+%   \PassOptionsToPackage{full}{textcomp} 
+%   \RequirePackage{coptic}%
+%   \ifbool{kpfonts}{%
+%     % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
+%     \RequirePackage{kpfonts}%
+%   }{%
+%     \RequirePackage{fourier}
+%     \RequirePackage{fouriernc}
+%   }
+% }{%
+%   \ifbool{kpfonts}{%
+%     % \RequirePackage[largesmallcaps, oldstylenums]{kpfonts}%
+%     \RequirePackage{kpfonts}%
+%   }{%
+%     \RequirePackage{fourier}
+%     \RequirePackage{fouriernc}
+%   }
+% }
 
 % Encoding
 \usepackage[T1]{fontenc}
