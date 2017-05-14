@@ -22,7 +22,7 @@
         "*_full.htx",
         "*.run.xml",
         "*.*~",
-        ".git*"
+        ".git*",
       ],
       "name": "Sources",
       "path": "../documents/Kheops/Grandet/Histoire"
@@ -47,16 +47,10 @@
   "build_systems":
   [
     {
-      "cmd": "seshlatex -b $file",
       "name": "SeshLatex",
+      "cmd": "seshlatex -b $file",
       "shell": true
     },
-    {
-      "file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
-      "name": "Anaconda Python Builder",
-      "selector": "source.python",
-      "shell_cmd": "python -u \"$file\""
-    }
   ],
 
 /*  "settings":

@@ -61,10 +61,10 @@
 
 % .. Noms communs ..
 % ------------------
-\newcommand{\hiero}{hiéroglyph}
-\newcommand{\Hiero}{Hiéroglyph}
-\newcommand{\ptol}{ptolémaïque}
-\newcommand{\Ptol}{Ptolémaïque}
+\newcommand{\hiero}{hiéro\-glyph}
+\newcommand{\Hiero}{Hiéro\-glyph}
+\newcommand{\ptol}{pto\-lé\-maïque}
+\newcommand{\Ptol}{Pto\-lé\-maïque}
 
 % .. Datation ..
 % --------------
@@ -132,11 +132,13 @@
 \newcommand{\kv}[1]{\colordraft{DarkRed}{KV\,#1}\xspace}
 \renewcommand{\tt}[1]{\colordraft{DarkRed}{TT\,#1}\xspace}
 
-\newcommand{\GeS}{\colordraft{darkgray}{Gébel el-Silsiléh}\xspace}
+\newcommand{\CeR}{\colordraft{darkgray}{Chatt el-Rigal}\xspace}
+\newcommand{\GeS}{\colordraft{darkgray}{Gébel el-Silsila}\xspace}
 \newcommand{\SeK}{\colordraft{darkgray}{Sérâbît el-Khâdim}\xspace}
 \newcommand{\OeQ}{%
   \colordraft{darkgray}{Oumm el-Qa\texorpdfstring{\ain}{'}ab}\xspace%
 }
+\newcommand{\TeA}{\colordraft{darkgray}{Tell el-Amarna}\xspace}
 \newcommand{\SeZ}{\colordraft{darkgray}{Shounet el-Zebib}\xspace}
 \newcommand{\KeS}{\colordraft{darkgray}{Kôm el-Sultan}\xspace}
 \newcommand{\KeH}{\colordraft{darkgray}{Kôm el-Hettan}\xspace}
@@ -145,9 +147,10 @@
     Tell el-Dab\texorpdfstring{\ain[#1]}{'}a%
   }\xspace%
 }
+\newcommand{\MG}{\colordraft{darkgray}{Mersa Gâwâsis}\xspace}
 \newcommand{\OH}{\colordraft{darkgray}{Ouadi Hammâmât}\xspace}
 \newcommand{\DeB}{\colordraft{darkgray}{Deîr el-Bahari}\xspace}
-\newcommand{\DeM}{\colordraft{darkgray}{Deîr el-Médînéh}\xspace}
+\newcommand{\DeM}{\colordraft{darkgray}{Deîr el-Médîna}\xspace}
 \newcommand{\DAN}{\colordraft{darkgray}{Dra Abou'l-Naga}\xspace}
 \newcommand{\MH}{\colordraft{darkgray}{Médînet Habou}\xspace}
 \newcommand{\KV}{\colordraft{darkgray}{Vallée des rois}\xspace}
@@ -196,6 +199,21 @@
     \ifstrequal{#1}{}{}{~#1}%
   }\xspace%
 }
+\newcommand{\urk}[1]{%
+  \colordraft{Sepia}{%
+    \source{Urk.}%
+    \ifstrequal{#1}{}{}{\,#1}%
+  }\xspace%
+}
+\newcommand{\CdN}{%
+  \colordraft{Sepia}{\source{Conte du Naufragé}}\xspace%
+}
+\newcommand{\CdS}{%
+  \colordraft{Sepia}{\source{Conte de Sinouhé}}\xspace%
+}
+\newcommand{\CdP}{%
+  \colordraft{Sepia}{\source{Conte du Paysan}}\xspace%
+}
 \newcommand{\LdM}{\colordraft{Sepia}{\source{Livre des Morts}}\xspace}
 \newcommand{\LdP}{\colordraft{Sepia}{\source{Livre des Portes}}\xspace}
 \newcommand{\AD}{\colordraft{Sepia}{\source{Amdouat}\xspace}}
@@ -204,15 +222,27 @@
 }
 \newcommand{\GaL}{\colordraft{Sepia}{\source{Gardiner List}}\xspace}
 
+\newcommand{\damnmem}{\emph{damnatio memori\ae}\xspace}
+\newcommand{\Damnmem}{\emph{Damnatio memori\ae}\xspace}
+
 % .. Titres ..
 % ------------
 \newcommand{\VRK}{%
-  % \iflowertonumname v\else V\fi ice-roi de Kouch\xspace%
-  \titre{Vice-roi de Kouch}\xspace%
+  \titre{%
+    % \iflowernumtoname v\else V\fi ice-roi de Kouch%
+    Vice-roi de Kouch%
+  }\xspace%
 }
-\newcommand{\PPA}[1][Premier ]{%
-  \titre{#1Prophète d'Amon}\xspace%
+% \newcommand{\PPA}[1][Premier ]{%
+%   \titre{#1Prophète d'Amon}\xspace%
+% }
+\newcommand{\PPA}[1][0]{%
+  \ifnumequal{#1}{1}{Premier }{}%
+  \ifnumequal{#1}{2}{Deuxième }{}%
+  \ifnumequal{#1}{3}{Troisième }{}%
+  Prophète d'Amon\xspace%
 }
+
 
 % .. Styles ..
 % ------------
@@ -238,8 +268,8 @@
 % \newcommand{\titre}[1]{\boxtitre[orange]{#1}}
 \newcommand{\titre}[1]{\colordraft{orange}{\emph{#1}}}
 \newcommand{\source}[1]{\colordraft{orange}{\emph{#1}}}
-\newcommand{\roi}[1]{\colordraft{RawSienna}{#1}}
-\newcommand{\dieu}[1]{\colordraft{Maroon}{#1}}
+% \newcommand{\roi}[1]{\colordraft{RawSienna}{#1}}
+% \newcommand{\dieu}[1]{\colordraft{Maroon}{#1}}
 \providecommand{\gens}[2][]{%
   \colordraft{orange}{\notblank{#1}{#1~}{}\bsc{#2}}%
 }
@@ -247,8 +277,8 @@
 
 % .. Instituts, musées, ouvrages ..
 % ---------------------------------
-\newcommand{\musee}[1]{\textit{\colordraft{MidnightBlue}{#1}}}
-\newcommand{\inv}[1]{\textit{\colordraft{MidnightBlue}{#1}}}
+\newcommand{\musee}[1]{\colordraft{MidnightBlue}{#1}}
+\newcommand{\inv}[1]{\colordraft{MidnightBlue}{#1}}
 \newcommand{\ENS}{École Normale Supérieure\xspace}
 \newcommand{\SFE}{Société Française d'Égyptologie\xspace}
 \newcommand{\IK}{Institut Khéops\xspace}
@@ -259,10 +289,11 @@
 \newcommand{\DF}{\gens[Dominique]{Farout}\xspace}
 \newcommand{\PG}{\gens[Pierre]{Grandet}\xspace}
 \newcommand{\CB}{\gens[Christophe]{Barbotin}\xspace}
+\newcommand{\SD}{\gens[Sylvie]{Donnat}\xspace}
 
 % .. GM ..
 % --------
-\newcommand{\MG}{\emph{Cours d'Égyptien Hiéroglyphique}\xspace}
+% \newcommand{\GM}{\emph{Cours d'Égyptien Hiéroglyphique}\xspace}
 \newcommand{\titreVersion}{Translittérer et traduire\xspace}
 \newcommand{\titreTheme}{%
   Traduire en égyptien, en joignant aux {\hiero}es leur 
@@ -302,6 +333,10 @@
 % .. Emphasize in green ..
 % ------------------------
 \newcommand{\green}[1]{\textcolor{Gramm}{#1}}
+% .. Emphasize in blue ..
+% ------------------------
+\colorlet{bleu}{RoyalBlue}
+\newcommand{\blue}[1]{\textcolor{bleu}{#1}}
 
 
 % Trado
@@ -351,7 +386,6 @@
 
 % ... Sujet zero ...
 \@ifpackageloaded{hiero}%
-  % Add \xspace to \zero from HieroTeX ..
   {\providecommand{\zero}{\ensuremath{\emptyset}\xspace}}
   {}
 % \@ifpackageloaded{hiero}%
@@ -361,8 +395,6 @@
 
 % ... Aïn ...
 \newcommand{\ain}[1][black]{{\tl[#1]{a}}}
-
-
 
 
 
@@ -394,6 +426,7 @@
 \newcommand{\va}    {[\emph{anom}]\xspace}
 \newcommand{\vcl}[1]{[\emph{caus.~#1-lit.}]\xspace}
 \newcommand{\vci}[1]{[\emph{caus.~#1-inf.}]\xspace}
+\newcommand{\vcg}[1]{[\emph{caus.~#1-gem.}]\xspace}
 % ... Formes nominales ...
 \newcommand{\fnimp}{forme nominale imperfective\xspace}
 \newcommand{\fnper}{forme nominale perfective\xspace}

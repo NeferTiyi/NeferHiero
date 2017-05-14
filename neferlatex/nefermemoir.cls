@@ -151,9 +151,10 @@
 
 
 % Page size
-\settypeblocksize{22cm}{15cm}{*}
+% \settypeblocksize{22cm}{15cm}{*}
+% \setlrmargins{*}{*}{1.3}
+\setlrmarginsandblock{2.6cm}{3.4cm}{*}
 \setulmargins{*}{*}{1}
-\setlrmargins{*}{*}{1.3}
 % \setmarginnotes{17pt}{51pt}{\onelineskip}
 \setheadfoot{2\onelineskip}{5\onelineskip}
 \setheaderspaces{*}{2\onelineskip}{*}

@@ -6,12 +6,15 @@
 % ==================
 \usepackage{etoolbox}
 \providebool{draft}
+\providebool{biblio}
 \providebool{background}
+\providebool{coptic}
 \providebool{kpfonts}
 
 % .. Declaration options ..
 % =========================
 \DeclareOption{draft}{\booltrue{draft}}
+\DeclareOption{biblio}{\booltrue{biblio}}
 \DeclareOption{background}{\booltrue{background}}
 \DeclareOption{coptic}{\booltrue{coptic}}
 \DeclareOption{kpfonts}{\booltrue{kpfonts}}
@@ -118,12 +121,37 @@
 \usepackage{siunitx}
 %
 % Biblio
-\usepackage{csquotes}
-% \usepackage[backend=biber,style=verbose-trad1,autocite=footnote]
-%            {biblatex}
-\usepackage[backend=biber,style=authoryear]{biblatex}
-% \usepackage[backend=biber,style=alphabetic]{biblatex}
-\DeclareLanguageMapping{french}{french-apa}
+\usepackage[thresholdtype=words, threshold=3]{csquotes}
+
+\ifbool{biblio}{%
+  \RequirePackage[%
+    backend=biber,
+    % style=verbose-trad1,autocite=footnote,
+    % style=authoryear,
+    % style=authortitle-dw,firstfull,
+    % style=alphabetic,
+    style=authortitle,
+    % autocite=inline,backref=true%
+  ]{biblatex}
+
+  % \usepackage[backend=biber,style=verbose-trad1,autocite=footnote]
+  %            {biblatex}
+  % \usepackage[backend=biber,style=authoryear]{biblatex}
+  % \usepackage[backend=biber,style=authortitle-dw,firstfull]{biblatex}
+
+  % \usepackage[backend=biber,style=authortitle,autocite=inline,backref=true]{biblatex}
+
+  % \usepackage[backend=biber,style=alphabetic]{biblatex}
+  \DeclareLanguageMapping{french}{french-apa}
+
+  % Bibliography
+  \setlength\bibitemsep{0.5\baselineskip}
+  \defbibheading{memoir}[\bibname]{%
+    \chapter*{#1}%
+    \addcontentsline{toc}{chapter}{#1}%
+    \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
+  }
+}
 %
 
 % \providecommand{\colordraft}[2]{{\ifbool{draft}{\color{#1}}{}#2}}
@@ -192,12 +220,12 @@
   \ifrmnum{#1}{%
     \colordraft{DarkRed}{%
       \bsc{\MakeLowercase{#1}}%
-      \ifstrequal{#1}{i}{\iere}{\ieme}%
+      \ifstrequal{#1}{i}{\ier}{\ieme}%
     }%
   }{%
     \colordraft{DarkGreen}{%
       \bsc{\MakeLowercase{\romannumeral#1}}%
-      \ifnumequal{#1}{1}{\iere}{\ieme}%
+      \ifnumequal{#1}{1}{\ier}{\ieme}%
     }%
   }%
 }
@@ -214,11 +242,14 @@
 
 % .. Dates ..
 % ===========
+\newcommand{\dBC}{\textsc{bc}}
+\newcommand{\dAD}{\textsc{ad}}
+
 \newcommand{\ano}[2][-1]{%
   \ifnumequal{#1}{0}{%
     \num{#2}%
   }{%
-    \SI{#2}{\ifnumless{#1}{0}{BC}{AD}}%
+    \SI{#2}{\ifnumless{#1}{0}{\dBC}{\dAD}}%
   }%
 }
 % \newcommand{\ano}[2][-1]{%
@@ -230,11 +261,11 @@
 %     }%
 % }
 \newcommand{\anorange}[3][-1]{{%
-  \sisetup{range-phrase=-}%
+  \sisetup{range-phrase=\textendash}%
   \ifnumequal{#1}{0}{%
     \numrange{#2}{#3}%
   }{%
-    \SIrange{#2}{#3}{\ifnumless{#1}{0}{BC}{AD}}%
+    \SIrange{#2}{#3}{\ifnumless{#1}{0}{\dBC}{\dAD}}%
   }%
   % \ifthenelse{#1 = 0}%
   %   {\numrange{#2}{#3}}%
@@ -250,7 +281,7 @@
     \ifstrequal{#1}{p}{(}{}%
     \anorange{#2}{#3}%
     \ifstrequal{#1}{p}{)}{}%
-  }
+  }%
 }
 
 
@@ -265,13 +296,13 @@
 }{}%
 
 
-% Bibliography
-\setlength\bibitemsep{0.5\baselineskip}
-\defbibheading{memoir}[\bibname]{%
-  \chapter*{#1}%
-  \addcontentsline{toc}{chapter}{#1}%
-  \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
-}
+% % Bibliography
+% \setlength\bibitemsep{0.5\baselineskip}
+% \defbibheading{memoir}[\bibname]{%
+%   \chapter*{#1}%
+%   \addcontentsline{toc}{chapter}{#1}%
+%   \markboth{\MakeUppercase{#1}}{\MakeUppercase{#1}}%
+% }
 
 
 \newcommand{\mybrace}[2]{%
@@ -394,7 +425,8 @@
 \newtcolorbox{warning}[1][]{%
   % show bounding box, %
   % breakable, %
-  title     = {\raisebox{0.3ex}{\danger}~Attention !}, %
+  % title     = {\raisebox{0.3ex}{\danger}~Attention !}, %
+  title     = {\raisebox{0.3ex}{!}~Attention !}, %
   colframe  = BrickRed!75!white, %
   colback   = BrickRed!5!white, %
   parbox    = false, %

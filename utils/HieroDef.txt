@@ -30,6 +30,8 @@
 
 % Divers
 \begin{hieroglyph}
+  #def wAt        N31#
+  #def idb'       N21#
   #def jw         i-w#
   #def pw         p-w#
   #def mAdw       mA:d-w-niwt#
@@ -50,10 +52,14 @@
   #def aHan       aHa-a:n#
   #def wy         w-\!\!y:.#
   #def jnmj       n-\!m-\!\!a\s1:.#
-  #def Dd'        D:\!\!\!d\s2#
+  #def Dd'        D:\!\!d\s2#
   #def nDs        n:D-z:G37#
   #def M'         Aa16#
   #def tA'        N17#
   #def rmT        A1\s2*B1\s2:3#
-  #def nty        n:t*y#
+  #def nty        n:t\s1*y#
+  #def ntyt       n:t\s1*t\s1#
+  #def jwty       n':t\s1*y#
+  #def jwtyt      n':t\s1*t\s1#
+  #def wnm'       M42#
 \end{hieroglyph}

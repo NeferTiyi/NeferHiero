@@ -148,6 +148,27 @@
 }
 
 
+
+\copypagestyle{kheopsarticle}{Ruled}
+
+\makeatletter
+  \makeevenhead{kheopsarticle}{\itshape\leftmark}{}{\itshape\@short}
+  \makeoddhead{kheopsarticle}{\itshape\@lecturer}{}{\itshape\rightmark}
+\makeatother
+
+\addtopsmarks{kheopsarticle}{}{%
+  % \clearmark{book}
+  \clearmark{chapter}
+  \clearmark{section}
+  % \createmark{book}{left}{nonumber}{}{}
+  \createmark{part}{left}{shownumber}{}{.\ }
+  \createmark{chapter}{right}{shownumber}{}{.\ }
+}
+
+
+
+
+
 % ... Chapter style ...
 % ---------------------
 \makechapterstyle{kheopschapter}{%
@@ -167,7 +188,25 @@
 
 \ifbool{article}{%
   \chapterstyle{article}%
-  \pagestyle{ruledarticle}
+  % \pagestyle{ruledarticle}
+  \pagestyle{kheopsarticle}
+
+  % ... Part style ...
+  % ------------------
+  \renewcommand{\partnamefont}{\RaggedLeft\normalfont\LARGE\scshape}
+  \renewcommand*{\partnumfont}{\RaggedLeft\normalfont\LARGE\scshape}
+  \renewcommand*{\parttitlefont}{\RaggedLeft\normalfont\huge\bfseries}
+
+  \renewcommand{\midpartskip}{\par\vspace{0.5\onelineskip}}
+  \renewcommand*{\beforepartskip}{%
+    \null\vspace{80pt}%
+  }%
+  \renewcommand*{\afterpartskip}{%
+    \noindent\rule{\textwidth}{3pt}%
+    % \par\nobreak\medskip%
+    % \hrule height 3pt%
+    \vskip 20pt plus 3pt minus 1pt%
+  }%
 }{%
   \chapterstyle{kheopschapter}%
   \pagestyle{ruled}

@@ -24,23 +24,23 @@
         "*.*~",
         ".git*",
       ],
-      "path": "../Naufrage",
+      "path": "../documents/Naufrage",
       "name": "Sources"
     },
     {
-      "path": "../../images/Naufrage",
+      "path": "../images/Naufrage",
       "name": "Images"
     },
     {
-      "path": "../../utils",
+      "path": "../utils",
       "name": "Fichiers communs"
     },
     {
-      "path": "../../neferlatex",
+      "path": "../neferlatex",
       "name": "Styles LaTeX"
     },
     {
-      "path": "../../compil",
+      "path": "../compil",
       "name": "Compil"
     }
   ],

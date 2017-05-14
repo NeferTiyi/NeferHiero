@@ -35,7 +35,8 @@
 % .. Symbols ..
 % =============
 \newcommand{\litt}{{\normalfont\color{black}\emph{litt.}}\xspace}
-\newcommand{\Att}{\red{\danger}\xspace}
+% \newcommand{\Att}{\red{\danger}\xspace}
+\newcommand{\Att}{\red{!}\xspace}
 \newcommand{\yes}{\ding{'63}}
 % ... Correction ...
 % ------------------
@@ -57,7 +58,8 @@
 \newcommand{\rem}[1]{{%
   \color{black}\normalfont\em\smaller#1%
 }}
-\newcommand{\remg}[1]{{\green{\em\smaller#1}}}
+% \newcommand{\remg}[1]{{\green{\em\smaller#1}}}
+\newcommand{\remg}[1]{{\rem{\green{#1}}}}
 \newcommand{\infos}[1]{{\smaller#1}}
 % \newcommand{\refdoc}[1]{{%
 %   \color{black}\normalfont\itshape\smaller#1%
@@ -75,6 +77,5 @@
   \noindent\makebox[\textwidth][c]{\LARGE\color{red}\vdots}
   \vspace*{3\baselineskip}
 }
-
 
 \endinput
